@@ -12,44 +12,28 @@
 /* INCLUDES */
 // general
 #include <math.h>
+#include <stdbool.h>
 
 // specific
 #include "main.h"
 #include "sensors.h"
+#include "mpu6050.h"
 #include "comb_filter.h"
 
 /* DEFINES */
 #define RAD_TO_DEG 180 / M_PI
 
-/* TYPE DEFINES */
-/**
- * @brief Vector with the information obtained from the accelerometer
- *
- */
-typedef struct acc_vector_t
-{
-    double x;
-    double y;
-    double z;
-} acc_vector_t;
-
-/**
- * @brief Vector with the information obtained from the gyroscope
- *
- */
-typedef struct gyros_vector_t
-{
-    double pitch;
-    double roll;
-    double yaw;
-} gyros_vector_t;
+/* TYPEDEFS */
 
 /* FUNCTIONS DECLARATIONS */
 double get_altitude_data();
-gyros_vector_t get_gyroscope_data();
-drone_angles_t gyros_speeds_to_delta_angles(gyros_vector_t gyros_speed, double delta_time_ms);
+gyro_vector_t get_gyroscope_data();
+drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speed, double delta_time_ms);
 acc_vector_t get_accelerometer_data();
 drone_angles_t acc_to_angles(acc_vector_t accelerations);
+
+/* VARIABLES */
+static bool is_init = false;
 
 /* PUBLIC FUNCTIONS */
 
@@ -59,7 +43,15 @@ drone_angles_t acc_to_angles(acc_vector_t accelerations);
  */
 void sensors_init()
 {
+    if (is_init)
+    {
+        return;
+    }
+
     // TODO: INIT ALL THE SENSORS
+    mpu6050_init();
+
+    is_init = true;
 }
 
 /**
@@ -74,7 +66,7 @@ drone_data_t sensors_get_drone_data()
     drone_data.altitude = get_altitude_data();
 
     // Update the pitch and roll data
-    gyros_vector_t gyros_speeds = get_gyroscope_data();
+    gyro_vector_t gyros_speeds = get_gyroscope_data();
     acc_vector_t accelerations = get_accelerometer_data();
 
     drone_angles_t gyros_delta_angles = gyros_speeds_to_delta_angles(gyros_speeds, DRONE_UPDATE_MS);
@@ -97,10 +89,10 @@ double get_altitude_data()
     return 0;
 }
 
-gyros_vector_t get_gyroscope_data()
+gyro_vector_t get_gyroscope_data()
 {
     // TODO: CALL THE MPU6050 DRIVER TO OBTAIN THE SPEEDS FROM THE GYROSCOPES
-    gyros_vector_t gyros_vector;
+    gyro_vector_t gyros_vector;
     gyros_vector.pitch = 0;
     gyros_vector.roll = 0;
     gyros_vector.yaw = 0;
@@ -114,7 +106,7 @@ gyros_vector_t get_gyroscope_data()
  * @param delta_time_ms Time between samples in miliseconds
  * @return double
  */
-drone_angles_t gyros_speeds_to_delta_angles(gyros_vector_t gyros_speeds, double delta_time_ms)
+drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speeds, double delta_time_ms)
 {
     drone_angles_t delta_angles;
     delta_angles.pitch = gyros_speeds.pitch * delta_time_ms / 1000;

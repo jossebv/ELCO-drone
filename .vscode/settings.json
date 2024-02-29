@@ -20,6 +20,7 @@
         "*.js": "javascript",
         "system.h": "c",
         "motors.h": "c",
-        "ledc.h": "c"
+        "ledc.h": "c",
+        "i2c_drv.h": "c"
     }
 }

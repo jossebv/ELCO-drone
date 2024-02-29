@@ -10,7 +10,7 @@
                 "${config:idf.espAdfPath}/components/**",
                 "${config:idf.espAdfPathWin}/components/**",
                 "${workspaceFolder}/**",
-                "/Users/josebravopacheco/esp/v5.1.2/esp-idf/components"
+                "/Users/josebravopacheco/esp/v5.1.2/esp-idf/components/"
             ],
             "browse": {
                 "path": [

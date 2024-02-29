@@ -12,8 +12,6 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "../general/motors/motors.h"
-
 void system_init();
 
 #endif
