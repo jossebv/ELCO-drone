@@ -18,6 +18,6 @@
 #define I2C_SCL_PIN 22
 
 /* PUBLIC FUNCTIONS */
-void i2c_init();
+void i2c_drv_init();
 
 #endif // I2C_DRV_H

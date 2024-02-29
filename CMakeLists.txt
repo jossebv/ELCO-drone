@@ -5,7 +5,9 @@ cmake_minimum_required(VERSION 3.16)
 set(EXTRA_COMPONENT_DIRS "${EXTRA_COMPONENT_DIRS}" 
         "./components/general/comb_filter"
         "./components/general/motors"
-        "./components/general/sensors" 
+        "./components/general/sensors"
+        "./components/drivers/i2c_drv" 
+        "./components/drivers/mpu6050" 
         "./components/system")
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

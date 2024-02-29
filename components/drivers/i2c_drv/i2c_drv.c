@@ -17,7 +17,12 @@
 static bool is_init = false;
 
 /* PUBLIC FUNCTIONS*/
-void i2c_init()
+
+/**
+ * @brief Initializes the I2C driver
+ *
+ */
+void i2c_drv_init()
 {
     if (is_init)
     {
