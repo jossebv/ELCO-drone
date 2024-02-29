@@ -19,6 +19,7 @@
         "*.ejs": "html",
         "*.js": "javascript",
         "system.h": "c",
-        "motors.h": "c"
+        "motors.h": "c",
+        "ledc.h": "c"
     }
 }
