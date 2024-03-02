@@ -19,9 +19,5 @@
 
 void app_main(void)
 {
-    system_init();
-    while (1)
-    {
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
+    xTaskCreatePinnedToCore(system_task, "system_task", 2048, NULL, 5, NULL, 0);
 }

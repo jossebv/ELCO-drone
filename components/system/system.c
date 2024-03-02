@@ -5,6 +5,10 @@
 #include "system.h"
 #include "esp_log.h"
 #include "i2c_drv.h"
+#include "sensors.h"
+
+/* FUNCTIONS DECLARATIONS */
+void system_init();
 
 /* Private variables */
 static const char *TAG = "system";
@@ -28,6 +32,8 @@ void system_init()
 
     // Initialize i2c
     i2c_drv_init();
+    // Initialize the sensors
+    sensors_init();
 
     is_init = true;
 }
