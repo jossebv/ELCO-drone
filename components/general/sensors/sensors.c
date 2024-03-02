@@ -34,6 +34,7 @@ drone_angles_t acc_to_angles(acc_vector_t accelerations);
 
 /* VARIABLES */
 static bool is_init = false;
+static drone_data_t drone_data;
 
 /* PUBLIC FUNCTIONS */
 
@@ -59,11 +60,8 @@ void sensors_init()
  *
  * @return drone_data_t
  */
-drone_data_t sensors_get_drone_data()
+void sensors_update_drone_data()
 {
-    // Update the altitude data
-    drone_data_t drone_data;
-    drone_data.altitude = get_altitude_data();
 
     // Update the pitch and roll data
     gyro_vector_t gyros_speeds = get_gyroscope_data();
@@ -79,7 +77,8 @@ drone_data_t sensors_get_drone_data()
     // Update the yaw speed
     drone_data.yaw_speed = gyros_speeds.yaw;
 
-    return drone_data;
+    // Update the altitude data
+    drone_data.altitude = get_altitude_data();
 }
 
 /* PRIVATE FUNTIONS */
@@ -91,12 +90,7 @@ double get_altitude_data()
 
 gyro_vector_t get_gyroscope_data()
 {
-    // TODO: CALL THE MPU6050 DRIVER TO OBTAIN THE SPEEDS FROM THE GYROSCOPES
-    gyro_vector_t gyros_vector;
-    gyros_vector.pitch = 0;
-    gyros_vector.roll = 0;
-    gyros_vector.yaw = 0;
-    return gyros_vector;
+    return mpu6050_read_gyro();
 }
 
 /**
@@ -116,12 +110,7 @@ drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speeds, double d
 
 acc_vector_t get_accelerometer_data()
 {
-    // TODO: Call the MPU6050 drivers to obtain the accelerations in the three axes
-    acc_vector_t acc_vector;
-    acc_vector.x = 0;
-    acc_vector.y = 0;
-    acc_vector.z = 0;
-    return acc_vector;
+    return mpu6050_read_accelerometer();
 }
 
 drone_angles_t acc_to_angles(acc_vector_t accelerations)
