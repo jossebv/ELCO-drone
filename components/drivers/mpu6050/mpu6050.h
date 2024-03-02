@@ -38,5 +38,7 @@ typedef struct acc_vector_t
 
 /* PUBLIC FUNCTIONS */
 void mpu6050_init();
+gyro_vector_t mpu6050_read_gyro();
+acc_vector_t mpu6050_read_accelerometer();
 
 #endif // MPU6050_H
