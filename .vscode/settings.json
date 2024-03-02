@@ -22,6 +22,7 @@
         "motors.h": "c",
         "ledc.h": "c",
         "i2c_drv.h": "c",
-        "mpu6050.h": "c"
+        "mpu6050.h": "c",
+        "sensors.h": "c"
     }
 }
