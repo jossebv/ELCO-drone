@@ -20,6 +20,7 @@
 /* DEFINES */
 #define MPU6050_ADDR 0x68
 #define MPU6050_GYRO_CONFIG_REG 0x1B
+#define MPU6050_GYRO_XOUT_H_REG 0x43
 #define MPU6050_ACCEL_CONFIG_REG 0x1C
 #define MPU6050_ACCEL_XOUT_H_REG 0x3B
 #define MPU6050_PWR_MGMT_1_REG 0x6B
@@ -45,6 +46,7 @@ void set_sample_rate();
 void configure_low_pass_filter();
 
 /* PUBLIC FUNCTIONS */
+
 /**
  * @brief Inits the MPU6050 sensor
  *
@@ -78,11 +80,14 @@ void mpu6050_init()
  */
 gyro_vector_t mpu6050_read_gyro()
 {
-    // TODO: Implement the read gyro function
     gyro_vector_t gyro;
-    gyro.pitch = 0;
-    gyro.roll = 0;
-    gyro.yaw = 0;
+    uint8_t read_buffer[6]; // 2 bytes for each axis
+    uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
+    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
+
+    gyro.pitch = (int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]; // gyroscope x axis
+    gyro.roll = (int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3];  // gyroscope y axis
+    gyro.yaw = (int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5];   // gyroscope z axis
     return gyro;
 }
 
@@ -93,11 +98,14 @@ gyro_vector_t mpu6050_read_gyro()
  */
 acc_vector_t mpu6050_read_accelerometer()
 {
-    // TODO: Implement the read accelerometer function
     acc_vector_t acc;
-    acc.x = 0;
-    acc.y = 0;
-    acc.z = 0;
+    uint8_t read_buffer[6]; // 2 bytes for each axis
+    uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
+    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
+
+    acc.x = (int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]; // accelerometer x axis
+    acc.y = (int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]; // accelerometer y axis
+    acc.z = (int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]; // accelerometer z axis
     return acc;
 }
 
