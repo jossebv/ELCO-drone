@@ -7,6 +7,7 @@ set(EXTRA_COMPONENT_DIRS "${EXTRA_COMPONENT_DIRS}"
         "./components/general/motors"
         "./components/general/sensors"
         "./components/drivers/i2c_drv" 
+        "./components/drivers/fsm" 
         "./components/drivers/mpu6050" 
         "./components/system")
 
