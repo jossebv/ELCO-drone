@@ -12,6 +12,9 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#include "fsm.h"
+
 void system_task();
+fsm_t *system_fsm_create();
 
 #endif

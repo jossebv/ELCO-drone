@@ -15,6 +15,7 @@ void system_init();
 static const char *TAG = "system";
 
 static bool is_init = false;
+static fsm_t *drone_fsm;
 
 void system_task(void *arg)
 {
@@ -23,6 +24,7 @@ void system_task(void *arg)
     while (1)
     {
         sensors_update_drone_data();
+        // TODO: Here we will call fsm_fire() to update the state of the drone and execute the corresponding action
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
@@ -41,6 +43,9 @@ void system_init()
     i2c_drv_init();
     // Initialize the sensors
     sensors_init();
+
+    // TODO: Initialize the FSM
+    drone_fsm = system_fsm_create();
 
     is_init = true;
 }
