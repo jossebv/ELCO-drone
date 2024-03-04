@@ -3,6 +3,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#include "main.h"
 #include "system.h"
 #include "esp_log.h"
 #include "i2c_drv.h"
@@ -20,11 +21,15 @@ static fsm_t *drone_fsm;
 void system_task(void *arg)
 {
     system_init();
+    TickType_t xLastWakeTime;
 
     while (1)
     {
-        sensors_update_drone_data();
         // TODO: Here we will call fsm_fire() to update the state of the drone and execute the corresponding action
+        // vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(DRONE_UPDATE_MS));
+        // fsm_fire(drone_fsm);
+
+        sensors_update_drone_data();
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
