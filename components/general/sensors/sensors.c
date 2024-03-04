@@ -13,6 +13,7 @@
 // general
 #include <math.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 // specific
 #include "main.h"
