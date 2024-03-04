@@ -34,8 +34,11 @@
 
 /* VARIABLES */
 static bool is_init = false;
+static double gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
+static double accel_offset_x, accel_offset_y, accel_offset_z;
 
 /* FUNCTIONS DECLARATIONS */
+void mpu6050_reset_offsets();
 void reset_device();
 void wait_for_reset();
 void mpu6050_wake_up();
@@ -57,6 +60,8 @@ void mpu6050_init()
     {
         return;
     }
+
+    mpu6050_reset_offsets();
 
     reset_device();
     wait_for_reset();
@@ -85,9 +90,9 @@ gyro_vector_t mpu6050_read_gyro()
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    gyro.pitch = (int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]; // gyroscope x axis
-    gyro.roll = (int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3];  // gyroscope y axis
-    gyro.yaw = (int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5];   // gyroscope z axis
+    gyro.pitch = ((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]) - gyro_offset_pitch; // gyroscope x axis
+    gyro.roll = ((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]) - gyro_offset_roll;   // gyroscope y axis
+    gyro.yaw = ((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]) - gyro_offset_yaw;     // gyroscope z axis
     return gyro;
 }
 
@@ -103,13 +108,37 @@ acc_vector_t mpu6050_read_accelerometer()
     uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    acc.x = (int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]; // accelerometer x axis
-    acc.y = (int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]; // accelerometer y axis
-    acc.z = (int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]; // accelerometer z axis
+    acc.x = ((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]) - accel_offset_x; // accelerometer x axis
+    acc.y = ((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]) - accel_offset_y; // accelerometer y axis
+    acc.z = ((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]) - accel_offset_z; // accelerometer z axis
     return acc;
 }
 
 /* PRIVATE FUNCTIONS */
+
+/**
+ * @brief Resets the offsets
+ *
+ */
+void mpu6050_reset_offsets()
+{
+    gyro_offset_pitch = 0;
+    gyro_offset_roll = 0;
+    gyro_offset_yaw = 0;
+    accel_offset_x = 0;
+    accel_offset_y = 0;
+    accel_offset_z = 0;
+}
+
+void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
+{
+    gyro_offset_pitch = gyro_offsets.pitch;
+    gyro_offset_roll = gyro_offsets.roll;
+    gyro_offset_yaw = gyro_offsets.yaw;
+    accel_offset_x = acc_offsets.x;
+    accel_offset_y = acc_offsets.y;
+    accel_offset_z = acc_offsets.z;
+}
 
 /**
  * @brief Resets the device
