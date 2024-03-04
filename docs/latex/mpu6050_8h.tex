@@ -1,0 +1,82 @@
+\doxysection{components/drivers/mpu6050/mpu6050.h File Reference}
+\hypertarget{mpu6050_8h}{}\label{mpu6050_8h}\index{components/drivers/mpu6050/mpu6050.h@{components/drivers/mpu6050/mpu6050.h}}
+
+
+Header file for the MPU6050 driver.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Vector with the information obtained from the gyroscope. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Vector with the information obtained from the accelerometer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mpu6050_8h_a8b7728d8da2f582a0ec6176a1f709d8f}\label{mpu6050_8h_a8b7728d8da2f582a0ec6176a1f709d8f} 
+typedef struct gyro\+\_\+vector\+\_\+t {\bfseries gyro\+\_\+vector\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Vector with the information obtained from the gyroscope. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8h_a0093ee052dc19812e96e7685388f72b0}\label{mpu6050_8h_a0093ee052dc19812e96e7685388f72b0} 
+typedef struct acc\+\_\+vector\+\_\+t {\bfseries acc\+\_\+vector\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Vector with the information obtained from the accelerometer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mpu6050_8h_a6f122b1d346421c8419f39a995d34494}\label{mpu6050_8h_a6f122b1d346421c8419f39a995d34494} 
+void {\bfseries mpu6050\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Inits the MPU6050 sensor. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea} 
+void {\bfseries mpu6050\+\_\+calibrate} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\item 
+\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8h_a2a87105cd2a54f0cf7287ece123aafe8}{mpu6050\+\_\+read\+\_\+gyro}} ()
+\begin{DoxyCompactList}\small\item\em Reads the gyro data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3}{mpu6050\+\_\+read\+\_\+accelerometer}} ()
+\begin{DoxyCompactList}\small\item\em Reads the accelerometer data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the MPU6050 driver. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo Pacheco 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/02-\/29
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3}\label{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3} 
+\index{mpu6050.h@{mpu6050.h}!mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}}
+\index{mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}!mpu6050.h@{mpu6050.h}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_read\_accelerometer()}{mpu6050\_read\_accelerometer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} mpu6050\+\_\+read\+\_\+accelerometer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the accelerometer data. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}
+\Hypertarget{mpu6050_8h_a2a87105cd2a54f0cf7287ece123aafe8}\label{mpu6050_8h_a2a87105cd2a54f0cf7287ece123aafe8} 
+\index{mpu6050.h@{mpu6050.h}!mpu6050\_read\_gyro@{mpu6050\_read\_gyro}}
+\index{mpu6050\_read\_gyro@{mpu6050\_read\_gyro}!mpu6050.h@{mpu6050.h}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_read\_gyro()}{mpu6050\_read\_gyro()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} mpu6050\+\_\+read\+\_\+gyro (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the gyro data. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}

@@ -1,0 +1,98 @@
+\doxysection{components/general/sensors/sensors.c File Reference}
+\hypertarget{sensors_8c}{}\label{sensors_8c}\index{components/general/sensors/sensors.c@{components/general/sensors/sensors.c}}
+
+
+Contains the functionality for reading and processing all drone sensors.  
+
+
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}sensors.\+h"{}}\newline
+{\ttfamily \#include "{}mpu6050.\+h"{}}\newline
+{\ttfamily \#include "{}comb\+\_\+filter.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{sensors_8c_ad72dbcf6d0153db1b8d8a58001feed83}\label{sensors_8c_ad72dbcf6d0153db1b8d8a58001feed83} 
+\#define {\bfseries DEBUG}~1
+\item 
+\Hypertarget{sensors_8c_a89e47af0449640d4f15191aba5ca24c6}\label{sensors_8c_a89e47af0449640d4f15191aba5ca24c6} 
+\#define {\bfseries RAD\+\_\+\+TO\+\_\+\+DEG}~180 / M\+\_\+\+PI
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{sensors_8c_aaa6a496538d1398a821802e17b2f13a4}\label{sensors_8c_aaa6a496538d1398a821802e17b2f13a4} 
+double {\bfseries get\+\_\+altitude\+\_\+data} ()
+\item 
+\Hypertarget{sensors_8c_ab3a2b802621c02e4b0885026a913beb6}\label{sensors_8c_ab3a2b802621c02e4b0885026a913beb6} 
+\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} {\bfseries get\+\_\+gyroscope\+\_\+data} ()
+\item 
+\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} \mbox{\hyperlink{sensors_8c_a72be0cb30e177b2e30ff75c87718a2aa}{gyros\+\_\+speeds\+\_\+to\+\_\+delta\+\_\+angles}} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyros\+\_\+speeds, double delta\+\_\+time\+\_\+ms)
+\begin{DoxyCompactList}\small\item\em Transforms the gyroscope speed into an angle. \end{DoxyCompactList}\item 
+\Hypertarget{sensors_8c_a3597d4da61f83153c11ea09392a5bd93}\label{sensors_8c_a3597d4da61f83153c11ea09392a5bd93} 
+\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} {\bfseries get\+\_\+accelerometer\+\_\+data} ()
+\item 
+\Hypertarget{sensors_8c_a927ef48ea944072634796a7e85a17a92}\label{sensors_8c_a927ef48ea944072634796a7e85a17a92} 
+\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} {\bfseries acc\+\_\+to\+\_\+angles} (\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} accelerations)
+\item 
+\Hypertarget{sensors_8c_a41e7d1dd0cac7bd20fc32a6ebc87a985}\label{sensors_8c_a41e7d1dd0cac7bd20fc32a6ebc87a985} 
+void {\bfseries sensors\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Inits all the sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sensors_8c_a680c739ca88410fd87aef3e6d342b214}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains the functionality for reading and processing all drone sensors. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/02-\/28
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{sensors_8c_a72be0cb30e177b2e30ff75c87718a2aa}\label{sensors_8c_a72be0cb30e177b2e30ff75c87718a2aa} 
+\index{sensors.c@{sensors.c}!gyros\_speeds\_to\_delta\_angles@{gyros\_speeds\_to\_delta\_angles}}
+\index{gyros\_speeds\_to\_delta\_angles@{gyros\_speeds\_to\_delta\_angles}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{gyros\_speeds\_to\_delta\_angles()}{gyros\_speeds\_to\_delta\_angles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} gyros\+\_\+speeds\+\_\+to\+\_\+delta\+\_\+angles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}}}]{gyros\+\_\+speeds,  }\item[{double}]{delta\+\_\+time\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Transforms the gyroscope speed into an angle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gyros\+\_\+speed} & Speed obtained from the gyroscope \\
+\hline
+{\em delta\+\_\+time\+\_\+ms} & Time between samples in miliseconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+\Hypertarget{sensors_8c_a680c739ca88410fd87aef3e6d342b214}\label{sensors_8c_a680c739ca88410fd87aef3e6d342b214} 
+\index{sensors.c@{sensors.c}!sensors\_update\_drone\_data@{sensors\_update\_drone\_data}}
+\index{sensors\_update\_drone\_data@{sensors\_update\_drone\_data}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{sensors\_update\_drone\_data()}{sensors\_update\_drone\_data()}}
+{\footnotesize\ttfamily void sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns all the data obtained from the sensors. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 
+\end{DoxyReturn}

@@ -1,0 +1,59 @@
+\doxysection{components/general/sensors/sensors.h File Reference}
+\hypertarget{sensors_8h}{}\label{sensors_8h}\index{components/general/sensors/sensors.h@{components/general/sensors/sensors.h}}
+
+
+Header of the \doxylink{sensors_8c}{sensors.\+c} file. Contains all types and methods for sensor readings.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Struct with the variables needed for controlling the drone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{sensors_8h_aa2fc880dd01ce0578a63f4237732e1c7}\label{sensors_8h_aa2fc880dd01ce0578a63f4237732e1c7} 
+typedef struct drone\+\_\+data\+\_\+t {\bfseries drone\+\_\+data\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Struct with the variables needed for controlling the drone. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{sensors_8h_a41e7d1dd0cac7bd20fc32a6ebc87a985}\label{sensors_8h_a41e7d1dd0cac7bd20fc32a6ebc87a985} 
+void {\bfseries sensors\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Inits all the sensors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sensors_8h_a680c739ca88410fd87aef3e6d342b214}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header of the \doxylink{sensors_8c}{sensors.\+c} file. Contains all types and methods for sensor readings. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/02-\/28
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{sensors_8h_a680c739ca88410fd87aef3e6d342b214}\label{sensors_8h_a680c739ca88410fd87aef3e6d342b214} 
+\index{sensors.h@{sensors.h}!sensors\_update\_drone\_data@{sensors\_update\_drone\_data}}
+\index{sensors\_update\_drone\_data@{sensors\_update\_drone\_data}!sensors.h@{sensors.h}}
+\doxysubsubsection{\texorpdfstring{sensors\_update\_drone\_data()}{sensors\_update\_drone\_data()}}
+{\footnotesize\ttfamily void sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns all the data obtained from the sensors. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 
+\end{DoxyReturn}

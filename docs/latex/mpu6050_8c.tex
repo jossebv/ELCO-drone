@@ -1,0 +1,137 @@
+\doxysection{components/drivers/mpu6050/mpu6050.c File Reference}
+\hypertarget{mpu6050_8c}{}\label{mpu6050_8c}\index{components/drivers/mpu6050/mpu6050.c@{components/drivers/mpu6050/mpu6050.c}}
+
+
+Driver for the MPU6050 sensor.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}mpu6050.\+h"{}}\newline
+{\ttfamily \#include "{}driver/i2c.\+h"{}}\newline
+{\ttfamily \#include "{}sdkconfig.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508}\label{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508} 
+\#define {\bfseries MPU6050\+\_\+\+ADDR}~0x68
+\item 
+\Hypertarget{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1}\label{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1} 
+\#define {\bfseries MPU6050\+\_\+\+GYRO\+\_\+\+CONFIG\+\_\+\+REG}~0x1B
+\item 
+\Hypertarget{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372}\label{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372} 
+\#define {\bfseries MPU6050\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}~0x43
+\item 
+\Hypertarget{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600}\label{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600} 
+\#define {\bfseries MPU6050\+\_\+\+ACCEL\+\_\+\+CONFIG\+\_\+\+REG}~0x1C
+\item 
+\Hypertarget{mpu6050_8c_aeab81c73034a21153b844f22a0014014}\label{mpu6050_8c_aeab81c73034a21153b844f22a0014014} 
+\#define {\bfseries MPU6050\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}~0x3B
+\item 
+\Hypertarget{mpu6050_8c_ac8e6174d5a02ed531329494959e57304}\label{mpu6050_8c_ac8e6174d5a02ed531329494959e57304} 
+\#define {\bfseries MPU6050\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+REG}~0x6B
+\item 
+\Hypertarget{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315}\label{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315} 
+\#define {\bfseries MPU6050\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+\+REG}~0x19
+\item 
+\Hypertarget{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65}\label{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65} 
+\#define {\bfseries MPU6050\+\_\+\+CONFIG\+\_\+\+REG}~0x1A
+\item 
+\Hypertarget{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3}\label{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3} 
+\#define {\bfseries PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+RESET\+\_\+\+MASK}~0\+X1 $<$$<$ 7
+\item 
+\Hypertarget{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac}\label{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac} 
+\#define {\bfseries PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+SLEEP\+\_\+\+MASK}~0\+X1 $<$$<$ 6
+\item 
+\Hypertarget{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f}\label{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f} 
+\#define {\bfseries GYRO\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2000}~0x18
+\item 
+\Hypertarget{mpu6050_8c_a073a33d8d1006874168c2c87b599e208}\label{mpu6050_8c_a073a33d8d1006874168c2c87b599e208} 
+\#define {\bfseries ACCEL\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2G}~0x00
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mpu6050_8c_a8914891f5802f17d95add9d0c972930a}\label{mpu6050_8c_a8914891f5802f17d95add9d0c972930a} 
+void {\bfseries mpu6050\+\_\+reset\+\_\+offsets} ()
+\begin{DoxyCompactList}\small\item\em Resets the offsets. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a99ecd64ace3a2da5deb6872c73c058ea}\label{mpu6050_8c_a99ecd64ace3a2da5deb6872c73c058ea} 
+void {\bfseries reset\+\_\+device} ()
+\begin{DoxyCompactList}\small\item\em Resets the device. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a643c04e74a3125e5fa6ce0bdae6846a4}\label{mpu6050_8c_a643c04e74a3125e5fa6ce0bdae6846a4} 
+void {\bfseries wait\+\_\+for\+\_\+reset} ()
+\begin{DoxyCompactList}\small\item\em Waits for the device to reset. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_abd645770724363f8533de4b304c0c894}\label{mpu6050_8c_abd645770724363f8533de4b304c0c894} 
+void {\bfseries mpu6050\+\_\+wake\+\_\+up} ()
+\begin{DoxyCompactList}\small\item\em Wakes up the device. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_ae79472a45f40afaef7e5ab8006c34360}\label{mpu6050_8c_ae79472a45f40afaef7e5ab8006c34360} 
+void {\bfseries select\+\_\+clk\+\_\+source} ()
+\begin{DoxyCompactList}\small\item\em Selects the clock source. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a95682bfb1731a2b6cf59607147382d63}\label{mpu6050_8c_a95682bfb1731a2b6cf59607147382d63} 
+void {\bfseries set\+\_\+gyro\+\_\+range} ()
+\begin{DoxyCompactList}\small\item\em Set the gyro range object. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_abb98cdfe931c15af95f10b7c90bdf285}\label{mpu6050_8c_abb98cdfe931c15af95f10b7c90bdf285} 
+void {\bfseries set\+\_\+accelerometer\+\_\+range} ()
+\begin{DoxyCompactList}\small\item\em Set the accelerometer range object. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a328c5386fd31c64d40f6111b975d5a6d}\label{mpu6050_8c_a328c5386fd31c64d40f6111b975d5a6d} 
+void {\bfseries set\+\_\+sample\+\_\+rate} ()
+\begin{DoxyCompactList}\small\item\em Set the sample rate object. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a815ea3ecaa187ce708e948643edbd562}\label{mpu6050_8c_a815ea3ecaa187ce708e948643edbd562} 
+void {\bfseries configure\+\_\+low\+\_\+pass\+\_\+filter} ()
+\begin{DoxyCompactList}\small\item\em Configures the low pass filter. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a6f122b1d346421c8419f39a995d34494}\label{mpu6050_8c_a6f122b1d346421c8419f39a995d34494} 
+void {\bfseries mpu6050\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Inits the MPU6050 sensor. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8c_a2a87105cd2a54f0cf7287ece123aafe8}{mpu6050\+\_\+read\+\_\+gyro}} ()
+\begin{DoxyCompactList}\small\item\em Reads the gyro data. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3}{mpu6050\+\_\+read\+\_\+accelerometer}} ()
+\begin{DoxyCompactList}\small\item\em Reads the accelerometer data. \end{DoxyCompactList}\item 
+\Hypertarget{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea} 
+void {\bfseries mpu6050\+\_\+calibrate} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Driver for the MPU6050 sensor. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/02-\/29
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3}\label{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3} 
+\index{mpu6050.c@{mpu6050.c}!mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}}
+\index{mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_read\_accelerometer()}{mpu6050\_read\_accelerometer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} mpu6050\+\_\+read\+\_\+accelerometer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the accelerometer data. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}
+\Hypertarget{mpu6050_8c_a2a87105cd2a54f0cf7287ece123aafe8}\label{mpu6050_8c_a2a87105cd2a54f0cf7287ece123aafe8} 
+\index{mpu6050.c@{mpu6050.c}!mpu6050\_read\_gyro@{mpu6050\_read\_gyro}}
+\index{mpu6050\_read\_gyro@{mpu6050\_read\_gyro}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_read\_gyro()}{mpu6050\_read\_gyro()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} mpu6050\+\_\+read\+\_\+gyro (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the gyro data. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}

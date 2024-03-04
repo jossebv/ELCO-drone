@@ -1,0 +1,33 @@
+\doxysection{mpu6050.\+h}
+\hypertarget{mpu6050_8h_source}{}\label{mpu6050_8h_source}\index{components/drivers/mpu6050/mpu6050.h@{components/drivers/mpu6050/mpu6050.h}}
+\mbox{\hyperlink{mpu6050_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ MPU6050\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MPU6050\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{/*\ TYPEDEFS\ */}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgyro__vector__t}{gyro\_vector\_t}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{double}\ pitch;\ \textcolor{comment}{//\ pitch\ is\ the\ rotation\ around\ the\ x-\/axis}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{double}\ roll;\ \ \textcolor{comment}{//\ roll\ is\ the\ rotation\ around\ the\ y-\/axis}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ yaw;\ \ \ \textcolor{comment}{//\ yaw\ is\ the\ rotation\ around\ the\ z-\/axis}}
+\DoxyCodeLine{00026\ \}\ \mbox{\hyperlink{mpu6050_8h_a8b7728d8da2f582a0ec6176a1f709d8f}{gyro\_vector\_t}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structacc__vector__t}{acc\_vector\_t}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{double}\ x;\ \textcolor{comment}{//\ x\ is\ the\ acceleration\ in\ the\ x-\/axis}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{double}\ y;\ \textcolor{comment}{//\ y\ is\ the\ acceleration\ in\ the\ y-\/axis}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ z;\ \textcolor{comment}{//\ z\ is\ the\ acceleration\ in\ the\ z-\/axis}}
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{mpu6050_8h_a0093ee052dc19812e96e7685388f72b0}{acc\_vector\_t}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ PUBLIC\ FUNCTIONS\ */}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{mpu6050_8h_a6f122b1d346421c8419f39a995d34494}{mpu6050\_init}}();}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ mpu6050\_calibrate(\mbox{\hyperlink{structgyro__vector__t}{gyro\_vector\_t}}\ gyro\_offsets,\ \mbox{\hyperlink{structacc__vector__t}{acc\_vector\_t}}\ acc\_offsets);}
+\DoxyCodeLine{00042\ \mbox{\hyperlink{structgyro__vector__t}{gyro\_vector\_t}}\ \mbox{\hyperlink{mpu6050_8h_a2a87105cd2a54f0cf7287ece123aafe8}{mpu6050\_read\_gyro}}();}
+\DoxyCodeLine{00043\ \mbox{\hyperlink{structacc__vector__t}{acc\_vector\_t}}\ \mbox{\hyperlink{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3}{mpu6050\_read\_accelerometer}}();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MPU6050\_H}}
+
+\end{DoxyCode}

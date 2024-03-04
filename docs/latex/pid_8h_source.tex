@@ -1,0 +1,24 @@
+\doxysection{pid.\+h}
+\hypertarget{pid_8h_source}{}\label{pid_8h_source}\index{components/general/pid/pid.h@{components/general/pid/pid.h}}
+\mbox{\hyperlink{pid_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ PID\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ PID\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpid__data__t}{pid\_data\_t}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{float}\ kp;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{float}\ ki;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{float}\ kd;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{float}\ integral;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{float}\ last\_error;}
+\DoxyCodeLine{00022\ \}\ \mbox{\hyperlink{structpid__data__t}{pid\_data\_t}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \mbox{\hyperlink{structpid__data__t}{pid\_data\_t}}\ *\mbox{\hyperlink{pid_8h_a88a6f011498a7732b1a8f42ca891bda2}{pid\_create}}(\textcolor{keywordtype}{float}\ kp,\ \textcolor{keywordtype}{float}\ ki,\ \textcolor{keywordtype}{float}\ kd);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{pid_8h_a723976eff0898d5539fd6d39f4417902}{pid\_destroy}}(\mbox{\hyperlink{structpid__data__t}{pid\_data\_t}}\ *pid);}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{pid_8h_a87ec06db5dfcaa2cdb168c6a783d9ba6}{pid\_update}}(\mbox{\hyperlink{structpid__data__t}{pid\_data\_t}}\ *pid,\ \textcolor{keywordtype}{float}\ error);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ PID\_H}}
+
+\end{DoxyCode}

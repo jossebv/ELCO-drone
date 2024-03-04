@@ -1,0 +1,50 @@
+\doxysection{fsm.\+h}
+\hypertarget{fsm_8h_source}{}\label{fsm_8h_source}\index{components/drivers/fsm/fsm.h@{components/drivers/fsm/fsm.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Mealy\ FSM\ public\ interface}}
+\DoxyCodeLine{00002\ \textcolor{comment}{}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ Copyright\ (C)\ 2017\ by\ Jose\ M.\ Moya}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ This\ file\ is\ part\ of\ GreenLSI\ Unlessons.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ This\ program\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ the\ Free\ Software\ Foundation;\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ along\ with\ this\ program.\ \ If\ not,\ see\ <http://www.gnu.org/licenses/>.\ \ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ FSM\_H}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ FSM\_H}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfsm__t}{fsm\_t}}\ \mbox{\hyperlink{structfsm__t}{fsm\_t}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ int\ (*fsm\_input\_func\_t)\ (\mbox{\hyperlink{structfsm__t}{fsm\_t}}*);}
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ void\ (*fsm\_output\_func\_t)\ (\mbox{\hyperlink{structfsm__t}{fsm\_t}}*);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfsm__trans__t}{fsm\_trans\_t}}\ \{}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{int}\ orig\_state;}
+\DoxyCodeLine{00030\ \ \ fsm\_input\_func\_t\ in;}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{int}\ dest\_state;}
+\DoxyCodeLine{00032\ \ \ fsm\_output\_func\_t\ out;}
+\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{structfsm__trans__t}{fsm\_trans\_t}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structfsm__t}{fsm\_t}}\ \{}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{int}\ current\_state;}
+\DoxyCodeLine{00037\ \ \ \mbox{\hyperlink{structfsm__trans__t}{fsm\_trans\_t}}*\ tt;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \mbox{\hyperlink{structfsm__t}{fsm\_t}}*\ fsm\_new\ (\mbox{\hyperlink{structfsm__trans__t}{fsm\_trans\_t}}*\ tt);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ fsm\_init\ (\mbox{\hyperlink{structfsm__t}{fsm\_t}}*\ \textcolor{keyword}{this},\ \mbox{\hyperlink{structfsm__trans__t}{fsm\_trans\_t}}*\ tt);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ fsm\_fire\ (\mbox{\hyperlink{structfsm__t}{fsm\_t}}*\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

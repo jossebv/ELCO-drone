@@ -1,0 +1,95 @@
+\doxysection{components/general/pid/pid.c File Reference}
+\hypertarget{pid_8c}{}\label{pid_8c}\index{components/general/pid/pid.c@{components/general/pid/pid.c}}
+
+
+Functionality of the PID controller.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}pid.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{pid_8c_a88a6f011498a7732b1a8f42ca891bda2}{pid\+\_\+create}} (float kp, float ki, float kd)
+\begin{DoxyCompactList}\small\item\em Create a PID object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8c_a723976eff0898d5539fd6d39f4417902}{pid\+\_\+destroy}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid)
+\begin{DoxyCompactList}\small\item\em Destroy a PID object. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6}{pid\+\_\+update}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float error)
+\begin{DoxyCompactList}\small\item\em Update the PID controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functionality of the PID controller. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/04
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{pid_8c_a88a6f011498a7732b1a8f42ca891bda2}\label{pid_8c_a88a6f011498a7732b1a8f42ca891bda2} 
+\index{pid.c@{pid.c}!pid\_create@{pid\_create}}
+\index{pid\_create@{pid\_create}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{pid\_create()}{pid\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*} pid\+\_\+create (\begin{DoxyParamCaption}\item[{float}]{kp,  }\item[{float}]{ki,  }\item[{float}]{kd }\end{DoxyParamCaption})}
+
+
+
+Create a PID object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kp} & Proportional constant \\
+\hline
+{\em ki} & Integral constant \\
+\hline
+{\em kd} & Derivative constant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pid\+\_\+data\+\_\+t\texorpdfstring{$\ast$}{*} Pointer to the PID object 
+\end{DoxyReturn}
+\Hypertarget{pid_8c_a723976eff0898d5539fd6d39f4417902}\label{pid_8c_a723976eff0898d5539fd6d39f4417902} 
+\index{pid.c@{pid.c}!pid\_destroy@{pid\_destroy}}
+\index{pid\_destroy@{pid\_destroy}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{pid\_destroy()}{pid\_destroy()}}
+{\footnotesize\ttfamily void pid\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid }\end{DoxyParamCaption})}
+
+
+
+Destroy a PID object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & PID object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6}\label{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6} 
+\index{pid.c@{pid.c}!pid\_update@{pid\_update}}
+\index{pid\_update@{pid\_update}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{pid\_update()}{pid\_update()}}
+{\footnotesize\ttfamily float pid\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{error }\end{DoxyParamCaption})}
+
+
+
+Update the PID controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & PID object \\
+\hline
+{\em error} & Error between the setpoint and the current value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float Value to be applied to the motors 
+\end{DoxyReturn}
