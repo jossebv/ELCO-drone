@@ -3,7 +3,8 @@
     "files.associations": {
         "*.ejs": "html",
         "*.js": "javascript",
-        "fsm.h": "c"
+        "fsm.h": "c",
+        "queue.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

@@ -15,6 +15,10 @@
 #include <string.h>
 #include <netdb.h>
 
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+
 #include "wifi.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -42,18 +46,30 @@
 static const char *TAG = "wifi";
 static bool is_init = false;
 static bool is_udp_init = false;
+static bool is_udp_controller_connected = false;
+static bool is_udp_console_connected = false;
 
 static struct sockaddr_in6 source_addr;
 
 static char rx_buffer[UDP_SERVER_BUFFSIZE];
-static char tx_buffer[UDP_SERVER_BUFFSIZE];
+// static char tx_buffer[UDP_SERVER_BUFFSIZE];
 static struct sockaddr_in dest_addr;
 static int sock;
 
 static UDPPacket in_packet;
-static UDPPacket out_packet;
+// static UDPPacket out_packet;
+
+static QueueHandle_t udp_data_rx;
+// static QueueHandle_t udp_data_tx;
 
 /* PRIVATE FUNCTIONS */
+/**
+ * @brief Get the checksum of a given data
+ *
+ * @param data pointer to the data
+ * @param len length of the data
+ * @return uint8_t checksum
+ */
 static uint8_t calculate_cksum(void *data, size_t len)
 {
     unsigned char *c = data;
@@ -70,6 +86,14 @@ static uint8_t calculate_cksum(void *data, size_t len)
     return cksum;
 }
 
+/**
+ * @brief Event handler for the wifi module
+ *
+ * @param arg
+ * @param event_base
+ * @param event_id
+ * @param event_data
+ */
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                                int32_t event_id, void *event_data)
 {
@@ -78,15 +102,59 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
         wifi_event_ap_staconnected_t *event = (wifi_event_ap_staconnected_t *)event_data;
         ESP_LOGI(TAG, "station " MACSTR " join, AID=%d",
                  MAC2STR(event->mac), event->aid);
+
+        // Inform that the controller is connected
+        if (event->aid == 1 && !is_udp_controller_connected)
+        {
+            is_udp_controller_connected = true;
+        }
+        else if (event->aid == 2 && !is_udp_console_connected)
+        {
+            is_udp_console_connected = true;
+        }
     }
     else if (event_id == WIFI_EVENT_AP_STADISCONNECTED)
     {
         wifi_event_ap_stadisconnected_t *event = (wifi_event_ap_stadisconnected_t *)event_data;
         ESP_LOGI(TAG, "station " MACSTR " leave, AID=%d",
                  MAC2STR(event->mac), event->aid);
+
+        // Inform that the controller is disconnected
+        if (event->aid == 1 && is_udp_controller_connected)
+        {
+            is_udp_controller_connected = false;
+        }
+        else if (event->aid == 2 && is_udp_console_connected)
+        {
+            is_udp_console_connected = false;
+        }
     }
 }
 
+/**
+ * @brief Gets the data from the UDP server blocking until it receives data
+ *
+ * @param in Pointer to UDP packet to store the data
+ * @return true
+ * @return false
+ */
+bool wifiGetDataBlocking(UDPPacket *in)
+{
+    /* command step - receive  02  from udp rx queue */
+    while (xQueueReceive(udp_data_rx, in, portMAX_DELAY) != pdTRUE)
+    {
+        vTaskDelay(1);
+    }; // Don't return until we get some data on the UDP
+
+    return true;
+};
+
+/**
+ * @brief Create the UDP server
+ *
+ * @param arg
+ * @return esp_err_t
+ */
 esp_err_t udp_server_create(void *arg)
 {
     if (is_udp_init)
@@ -119,7 +187,12 @@ esp_err_t udp_server_create(void *arg)
     return ESP_OK;
 }
 
-static void udp_server_task(void *pvParameters)
+/**
+ * @brief Task to receive data from the UDP server
+ *
+ * @param pvParameters
+ */
+static void udp_server_rx_task(void *pvParameters)
 {
     uint8_t cksum = 0;
     socklen_t socklen = sizeof(source_addr);
@@ -162,7 +235,10 @@ static void udp_server_task(void *pvParameters)
             if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
             {
                 ESP_LOGI(TAG, "Checksum OK");
-                printf("Data confirmed");
+                if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
+                {
+                    ESP_LOGE(TAG, "Error sending data to queue");
+                }
             }
             else
             {
@@ -185,6 +261,9 @@ void wifi_init()
     {
         return;
     }
+
+    ESP_LOGI(TAG, "Initializing wifi");
+    udp_data_rx = xQueueCreate(5, sizeof(UDPPacket));
 
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -241,7 +320,7 @@ void wifi_init()
         ESP_LOGE(TAG, "Error creating UDP server");
     }
 
-    xTaskCreate(udp_server_task, "udp_task", UDP_RX_TASK_STACKSIZE, NULL, UDP_RX_TASK_PRI, NULL);
+    xTaskCreate(udp_server_rx_task, "udp_rx_task", UDP_RX_TASK_STACKSIZE, NULL, UDP_RX_TASK_PRI, NULL);
 
     is_init = true;
 }
