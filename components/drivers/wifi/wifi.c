@@ -25,6 +25,8 @@
 #include "esp_wifi.h"
 
 /* DEFINES */
+#define DEBUG_UPD 1
+
 #ifndef MAC2STR
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
 #define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
@@ -220,12 +222,13 @@ static void udp_server_rx_task(void *pvParameters)
         else
         {
             rx_buffer[len] = 0; // Null-terminate whatever we received and treat like a string
+#if DEBUG_UPD
             ESP_LOGI(TAG, "Received %d bytes:", len);
             for (size_t i = 0; i < len; i++)
             {
                 printf(" data[%d]: %02x\n ", i, rx_buffer[i]);
             }
-
+#endif
             memcpy(in_packet.data, rx_buffer, len);
 
             cksum = in_packet.data[len - 1];
