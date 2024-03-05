@@ -18,7 +18,6 @@
 // specific
 #include "main.h"
 #include "sensors.h"
-#include "mpu6050.h"
 #include "comb_filter.h"
 
 /* DEFINES */
@@ -88,16 +87,41 @@ void sensors_update_drone_data()
 #endif
 }
 
+/**
+ * @brief Get the gyroscope data object
+ *
+ * @return gyro_vector_t
+ */
+gyro_vector_t get_gyroscope_data()
+{
+    return mpu6050_read_gyro();
+}
+
+/**
+ * @brief Get the accelerometer data object
+ *
+ * @return acc_vector_t
+ */
+acc_vector_t get_accelerometer_data()
+{
+    return mpu6050_read_accelerometer();
+}
+
+/**
+ * @brief Get the drone data object containing the pitch, roll, yaw speed and altitude
+ *
+ * @return drone_data_t
+ */
+drone_data_t sensors_get_drone_data()
+{
+    return drone_data;
+}
+
 /* PRIVATE FUNTIONS */
 double get_altitude_data()
 {
     // TODO: CALL THE ALTITUDE SENSORS TO GET THE ALTITUDE
     return 0;
-}
-
-gyro_vector_t get_gyroscope_data()
-{
-    return mpu6050_read_gyro();
 }
 
 /**
@@ -113,11 +137,6 @@ drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speeds, double d
     delta_angles.pitch = gyros_speeds.pitch * delta_time_ms / 1000;
     delta_angles.roll = gyros_speeds.roll * delta_time_ms / 1000;
     return delta_angles;
-}
-
-acc_vector_t get_accelerometer_data()
-{
-    return mpu6050_read_accelerometer();
 }
 
 drone_angles_t acc_to_angles(acc_vector_t accelerations)

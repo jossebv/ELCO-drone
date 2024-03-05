@@ -132,12 +132,12 @@ void mpu6050_reset_offsets()
 
 void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
 {
-    gyro_offset_pitch = gyro_offsets.pitch;
-    gyro_offset_roll = gyro_offsets.roll;
-    gyro_offset_yaw = gyro_offsets.yaw;
-    accel_offset_x = acc_offsets.x;
-    accel_offset_y = acc_offsets.y;
-    accel_offset_z = acc_offsets.z;
+    gyro_offset_pitch += gyro_offsets.pitch;
+    gyro_offset_roll += gyro_offsets.roll;
+    gyro_offset_yaw += gyro_offsets.yaw;
+    accel_offset_x += acc_offsets.x;
+    accel_offset_y += acc_offsets.y;
+    accel_offset_z += acc_offsets.z;
 }
 
 /**
