@@ -12,6 +12,15 @@
 #ifndef WIFI_H
 #define WIFI_H
 
+#define WIFI_RX_TX_PACKET_SIZE (64)
+
+/* Structure used for in/out data via USB */
+typedef struct
+{
+    uint8_t size;
+    uint8_t data[WIFI_RX_TX_PACKET_SIZE];
+} UDPPacket;
+
 void wifi_init();
 
 #endif // WIFI_H
