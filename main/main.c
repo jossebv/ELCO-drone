@@ -19,5 +19,5 @@
 
 void app_main(void)
 {
-    xTaskCreatePinnedToCore(system_task, "system_task", 4096, NULL, 5, NULL, 0);
+    xTaskCreate(system_task, "system_task", 4096, NULL, 5, NULL);
 }

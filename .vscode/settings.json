@@ -6,7 +6,13 @@
         "fsm.h": "c",
         "queue.h": "c",
         "stdio.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "wifi.h": "c",
+        "controller.h": "c",
+        "freertos.h": "c",
+        "task.h": "c",
+        "esp_event.h": "c",
+        "netdb.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

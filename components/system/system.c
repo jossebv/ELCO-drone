@@ -2,6 +2,7 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/timers.h"
 
 #include "main.h"
 #include "system.h"
@@ -10,6 +11,7 @@
 #include "sensors.h"
 #include "wifi.h"
 #include "nvs_flash.h"
+#include "controller.h"
 
 /* FUNCTIONS DECLARATIONS */
 void system_init();
@@ -23,7 +25,9 @@ static fsm_t *drone_fsm;
 void system_task(void *arg)
 {
     system_init();
-    TickType_t xLastWakeTime;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    const TickType_t xFrequency = pdMS_TO_TICKS(DRONE_UPDATE_MS);
+    command_t command;
 
     while (1)
     {
@@ -32,7 +36,9 @@ void system_task(void *arg)
         // fsm_fire(drone_fsm);
 
         // sensors_update_drone_data();
-        vTaskDelay(pdMS_TO_TICKS(1000));
+
+        xTaskDelayUntil(&xLastWakeTime, xFrequency);
+        get_command(&command);
     }
 }
 
@@ -58,12 +64,12 @@ void system_init()
     // Initialize wifi
     wifi_init();
     // Initialize i2c
-    i2c_drv_init();
+    // i2c_drv_init();
     // Initialize the sensors
-    sensors_init();
+    // sensors_init();
 
     // TODO: Initialize the FSM
-    drone_fsm = system_fsm_create();
+    // drone_fsm = system_fsm_create();
 
     is_init = true;
 }

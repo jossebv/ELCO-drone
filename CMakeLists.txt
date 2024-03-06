@@ -11,6 +11,7 @@ set(EXTRA_COMPONENT_DIRS "${EXTRA_COMPONENT_DIRS}"
         "./components/drivers/fsm" 
         "./components/drivers/mpu6050" 
         "./components/drivers/wifi" 
+        "./components/general/controller"
         "./components/system")
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
