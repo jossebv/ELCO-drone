@@ -4,7 +4,9 @@
         "*.ejs": "html",
         "*.js": "javascript",
         "fsm.h": "c",
-        "queue.h": "c"
+        "queue.h": "c",
+        "stdio.h": "c",
+        "main.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

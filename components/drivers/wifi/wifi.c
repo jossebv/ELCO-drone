@@ -43,6 +43,8 @@
 
 #define UDP_RX_TASK_STACKSIZE 2048
 #define UDP_RX_TASK_PRI 3
+#define UDP_TX_TASK_STACKSIZE 2048
+#define UDP_TX_TASK_PRI 3
 
 /* VARIABLES */
 static const char *TAG = "wifi";
@@ -51,18 +53,20 @@ static bool is_udp_init = false;
 static bool is_udp_controller_connected = false;
 static bool is_udp_console_connected = false;
 
-static struct sockaddr_in6 source_addr;
+esp_netif_t *ap_netif;
+
+static struct sockaddr_in console_addr;
 
 static char rx_buffer[UDP_SERVER_BUFFSIZE];
-// static char tx_buffer[UDP_SERVER_BUFFSIZE];
+static char tx_buffer[UDP_SERVER_BUFFSIZE];
 static struct sockaddr_in dest_addr;
 static int sock;
 
 static UDPPacket in_packet;
-// static UDPPacket out_packet;
+static UDPPacket out_packet;
 
 static QueueHandle_t udp_data_rx;
-// static QueueHandle_t udp_data_tx;
+static QueueHandle_t udp_data_tx;
 
 /* PRIVATE FUNCTIONS */
 /**
@@ -122,14 +126,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
                  MAC2STR(event->mac), event->aid);
 
         // Inform that the controller is disconnected
-        if (event->aid == 1 && is_udp_controller_connected)
-        {
-            is_udp_controller_connected = false;
-        }
-        else if (event->aid == 2 && is_udp_console_connected)
-        {
-            is_udp_console_connected = false;
-        }
+        is_udp_console_connected = false;
+        is_udp_controller_connected = false;
     }
 }
 
@@ -150,6 +148,23 @@ bool wifiGetDataBlocking(UDPPacket *in)
 
     return true;
 };
+
+/**
+ * @brief Send data to the UDP server
+ *
+ * @param out UDP packet to send
+ * @return true
+ * @return false
+ */
+bool wifiSendData(UDPPacket *out)
+{
+    if (xQueueSend(udp_data_tx, out, 2) != pdTRUE)
+    {
+        ESP_LOGE(TAG, "Error sending data to queue");
+        return false;
+    }
+    return true;
+}
 
 /**
  * @brief Create the UDP server
@@ -197,6 +212,7 @@ esp_err_t udp_server_create(void *arg)
 static void udp_server_rx_task(void *pvParameters)
 {
     uint8_t cksum = 0;
+    struct sockaddr_in source_addr;
     socklen_t socklen = sizeof(source_addr);
 
     while (1)
@@ -234,19 +250,74 @@ static void udp_server_rx_task(void *pvParameters)
             cksum = in_packet.data[len - 1];
             // remove cksum from packet
             in_packet.size = len - 1;
-            // check cksum
-            if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
+
+            // Check if is console device
+            if (in_packet.data[0] == 0xff && in_packet.data[1] == 0x01)
             {
-                ESP_LOGI(TAG, "Checksum OK");
-                if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
+                if (in_packet.data[2] == 0x02 && in_packet.data[3] == 0x02)
                 {
-                    ESP_LOGE(TAG, "Error sending data to queue");
+                    is_udp_console_connected = false;
+                    ESP_LOGI(TAG, "Remote console closed");
+                    continue;
                 }
+                ESP_LOGI(TAG, "Remote console detected");
+                console_addr = source_addr;
+                is_udp_console_connected = true;
+                char *msg = "Connection accomplished";
+                memcpy(out_packet.data, msg, strlen(msg));
+                out_packet.size = strlen(msg);
+                xQueueSend(udp_data_tx, &out_packet, 2);
+                continue;
+            }
+            // Check if is controller device
+            else if (in_packet.data[0] == 0x30)
+            {
+                ESP_LOGI(TAG, "Controller detected");
+                is_udp_controller_connected = true;
+                // check cksum
+                if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
+                {
+                    ESP_LOGI(TAG, "Checksum OK");
+                    if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
+                    {
+                        ESP_LOGE(TAG, "Error sending data to queue");
+                    }
+                }
+                else
+                {
+                    ESP_LOGE(TAG, "Checksum error");
+                    continue;
+                }
+            }
+        }
+    }
+}
+
+static void udp_server_tx_task(void *pvParameters)
+{
+    while (1)
+    {
+        if (!is_udp_init)
+        {
+            vTaskDelay(20);
+            continue;
+        }
+
+        if ((xQueueReceive(udp_data_tx, &out_packet, 5) == pdTRUE) && is_udp_console_connected)
+        {
+            memcpy(tx_buffer, out_packet.data, out_packet.size);
+            tx_buffer[out_packet.size] = calculate_cksum(tx_buffer, out_packet.size);
+            tx_buffer[out_packet.size + 1] = 0;
+
+            int err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&console_addr, sizeof(console_addr));
+            if (err < 0)
+            {
+                ESP_LOGE(TAG, "Error ocurred while sending.");
+                continue;
             }
             else
             {
-                ESP_LOGE(TAG, "Checksum error");
-                continue;
+                // ESP_LOGI(TAG, "Package sent");
             }
         }
     }
@@ -267,10 +338,11 @@ void wifi_init()
 
     ESP_LOGI(TAG, "Initializing wifi");
     udp_data_rx = xQueueCreate(5, sizeof(UDPPacket));
+    udp_data_tx = xQueueCreate(5, sizeof(UDPPacket));
 
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    esp_netif_t *ap_netif = esp_netif_create_default_wifi_ap();
+    ap_netif = esp_netif_create_default_wifi_ap();
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
@@ -324,6 +396,7 @@ void wifi_init()
     }
 
     xTaskCreate(udp_server_rx_task, "udp_rx_task", UDP_RX_TASK_STACKSIZE, NULL, UDP_RX_TASK_PRI, NULL);
+    xTaskCreate(udp_server_tx_task, "udp_tx_task", UDP_TX_TASK_STACKSIZE, NULL, UDP_TX_TASK_PRI, NULL);
 
     is_init = true;
 }

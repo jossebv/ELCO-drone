@@ -22,5 +22,7 @@ typedef struct
 } UDPPacket;
 
 void wifi_init();
+bool wifiGetDataBlocking(UDPPacket *in);
+bool wifiSendData(UDPPacket *out);
 
 #endif // WIFI_H
