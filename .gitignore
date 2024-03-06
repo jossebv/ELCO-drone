@@ -56,3 +56,7 @@ dkms.conf
 
 #build folder
 build/
+
+#python console
+remote_console/venv/
+remote_console/__pycache__
