@@ -25,7 +25,7 @@
 #include "esp_wifi.h"
 
 /* DEFINES */
-#define DEBUG_UPD 1
+#define DEBUG_UPD 0
 
 #ifndef MAC2STR
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
@@ -87,8 +87,6 @@ static uint8_t calculate_cksum(void *data, size_t len)
         cksum += *(c++);
     }
 
-    printf("Checksum: %d\n", cksum);
-
     return cksum;
 }
 
@@ -145,6 +143,7 @@ bool wifiGetDataBlocking(UDPPacket *in)
     {
         vTaskDelay(1);
     }; // Don't return until we get some data on the UDP
+    printf("Data obtained\n");
 
     return true;
 };
@@ -222,6 +221,7 @@ static void udp_server_rx_task(void *pvParameters)
             vTaskDelay(20);
             continue;
         }
+        vTaskDelay(10);
 
         int len = recvfrom(sock, rx_buffer, sizeof(rx_buffer) - 1, 0, (struct sockaddr *)&source_addr, &socklen);
 
@@ -272,15 +272,15 @@ static void udp_server_rx_task(void *pvParameters)
             // Check if is controller device
             else if (in_packet.data[0] == 0x30)
             {
-                ESP_LOGI(TAG, "Controller detected");
+                // ESP_LOGI(TAG, "Controller detected");
                 is_udp_controller_connected = true;
                 // check cksum
                 if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
                 {
-                    ESP_LOGI(TAG, "Checksum OK");
+                    // ESP_LOGI(TAG, "Checksum OK");
                     if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
                     {
-                        ESP_LOGE(TAG, "Error sending data to queue");
+                        // ESP_LOGE(TAG, "Error sending data to queue");
                     }
                 }
                 else

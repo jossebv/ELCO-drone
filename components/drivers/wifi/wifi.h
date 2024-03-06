@@ -12,6 +12,9 @@
 #ifndef WIFI_H
 #define WIFI_H
 
+#include <stdint.h>
+#include <stdbool.h>
+
 #define WIFI_RX_TX_PACKET_SIZE (64)
 
 /* Structure used for in/out data via USB */
