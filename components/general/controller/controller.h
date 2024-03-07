@@ -14,6 +14,10 @@
 
 #include <stdint.h>
 
+/**
+ * @brief Command structure. Contains the pitch, roll, yaw and thrust
+ *
+ */
 typedef struct command_t
 {
     float pitch;     // Angle in degrees
