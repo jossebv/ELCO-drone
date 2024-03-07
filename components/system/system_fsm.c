@@ -157,10 +157,11 @@ void do_finish_calibration(fsm_t *fsm)
  * @brief Update the drone status (sensors, motors, etc)
  *
  */
-void do_update_drone(fsm_t *fsm)
+void do_update_drone_motors(fsm_t *fsm)
 {
     // TODO: Implement the logic to update the drone
-    printf("Updating drone\n");
+
+        printf("Updating drone\n");
 }
 
 /**
