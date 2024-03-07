@@ -272,7 +272,6 @@ static void udp_server_rx_task(void *pvParameters)
             // Check if is controller device
             else if (in_packet.data[0] == 0x30)
             {
-                // ESP_LOGI(TAG, "Controller detected");
                 is_udp_controller_connected = true;
                 // check cksum
                 if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
@@ -280,7 +279,7 @@ static void udp_server_rx_task(void *pvParameters)
                     // ESP_LOGI(TAG, "Checksum OK");
                     if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
                     {
-                        // ESP_LOGE(TAG, "Error sending data to queue");
+                        ESP_LOGE(TAG, "Error sending data to queue");
                     }
                 }
                 else
