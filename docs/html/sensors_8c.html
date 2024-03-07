@@ -137,7 +137,6 @@ $(function(){initNavTree('sensors_8c.html',''); initResizable(); });
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="mpu6050_8h_source.html">mpu6050.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="comb__filter_8h_source.html">comb_filter.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
@@ -154,14 +153,14 @@ Functions</h2></td></tr>
 <tr class="memitem:aaa6a496538d1398a821802e17b2f13a4" id="r_aaa6a496538d1398a821802e17b2f13a4"><td class="memItemLeft" align="right" valign="top"><a id="aaa6a496538d1398a821802e17b2f13a4" name="aaa6a496538d1398a821802e17b2f13a4"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>get_altitude_data</b> ()</td></tr>
 <tr class="separator:aaa6a496538d1398a821802e17b2f13a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3a2b802621c02e4b0885026a913beb6" id="r_ab3a2b802621c02e4b0885026a913beb6"><td class="memItemLeft" align="right" valign="top"><a id="ab3a2b802621c02e4b0885026a913beb6" name="ab3a2b802621c02e4b0885026a913beb6"></a>
-<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_gyroscope_data</b> ()</td></tr>
+<tr class="memitem:ab3a2b802621c02e4b0885026a913beb6" id="r_ab3a2b802621c02e4b0885026a913beb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgyro__vector__t.html">gyro_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3a2b802621c02e4b0885026a913beb6">get_gyroscope_data</a> ()</td></tr>
+<tr class="memdesc:ab3a2b802621c02e4b0885026a913beb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the gyroscope data object.  <br /></td></tr>
 <tr class="separator:ab3a2b802621c02e4b0885026a913beb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72be0cb30e177b2e30ff75c87718a2aa" id="r_a72be0cb30e177b2e30ff75c87718a2aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdrone__angles__t.html">drone_angles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72be0cb30e177b2e30ff75c87718a2aa">gyros_speeds_to_delta_angles</a> (<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> gyros_speeds, double delta_time_ms)</td></tr>
 <tr class="memdesc:a72be0cb30e177b2e30ff75c87718a2aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms the gyroscope speed into an angle.  <br /></td></tr>
 <tr class="separator:a72be0cb30e177b2e30ff75c87718a2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3597d4da61f83153c11ea09392a5bd93" id="r_a3597d4da61f83153c11ea09392a5bd93"><td class="memItemLeft" align="right" valign="top"><a id="a3597d4da61f83153c11ea09392a5bd93" name="a3597d4da61f83153c11ea09392a5bd93"></a>
-<a class="el" href="structacc__vector__t.html">acc_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_accelerometer_data</b> ()</td></tr>
+<tr class="memitem:a3597d4da61f83153c11ea09392a5bd93" id="r_a3597d4da61f83153c11ea09392a5bd93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structacc__vector__t.html">acc_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3597d4da61f83153c11ea09392a5bd93">get_accelerometer_data</a> ()</td></tr>
+<tr class="memdesc:a3597d4da61f83153c11ea09392a5bd93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the accelerometer data object.  <br /></td></tr>
 <tr class="separator:a3597d4da61f83153c11ea09392a5bd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a927ef48ea944072634796a7e85a17a92" id="r_a927ef48ea944072634796a7e85a17a92"><td class="memItemLeft" align="right" valign="top"><a id="a927ef48ea944072634796a7e85a17a92" name="a927ef48ea944072634796a7e85a17a92"></a>
 <a class="el" href="structdrone__angles__t.html">drone_angles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>acc_to_angles</b> (<a class="el" href="structacc__vector__t.html">acc_vector_t</a> accelerations)</td></tr>
@@ -173,6 +172,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sensors_init</b> ()</
 <tr class="memitem:a680c739ca88410fd87aef3e6d342b214" id="r_a680c739ca88410fd87aef3e6d342b214"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a680c739ca88410fd87aef3e6d342b214">sensors_update_drone_data</a> ()</td></tr>
 <tr class="memdesc:a680c739ca88410fd87aef3e6d342b214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all the data obtained from the sensors.  <br /></td></tr>
 <tr class="separator:a680c739ca88410fd87aef3e6d342b214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff44196352fa8d83714fc5fbce93d631" id="r_aff44196352fa8d83714fc5fbce93d631"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdrone__data__t.html">drone_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff44196352fa8d83714fc5fbce93d631">sensors_get_drone_data</a> ()</td></tr>
+<tr class="memdesc:aff44196352fa8d83714fc5fbce93d631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the drone data object containing the pitch, roll, yaw speed and altitude.  <br /></td></tr>
+<tr class="separator:aff44196352fa8d83714fc5fbce93d631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains the functionality for reading and processing all drone sensors. </p>
@@ -181,6 +183,46 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sensors_init</b> ()</
 <dl class="section date"><dt>Date</dt><dd>2024-02-28</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3597d4da61f83153c11ea09392a5bd93" name="a3597d4da61f83153c11ea09392a5bd93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3597d4da61f83153c11ea09392a5bd93">&#9670;&#160;</a></span>get_accelerometer_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structacc__vector__t.html">acc_vector_t</a> get_accelerometer_data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the accelerometer data object. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structacc__vector__t.html" title="Vector with the information obtained from the accelerometer.">acc_vector_t</a> </dd></dl>
+
+</div>
+</div>
+<a id="ab3a2b802621c02e4b0885026a913beb6" name="ab3a2b802621c02e4b0885026a913beb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3a2b802621c02e4b0885026a913beb6">&#9670;&#160;</a></span>get_gyroscope_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> get_gyroscope_data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the gyroscope data object. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structgyro__vector__t.html" title="Vector with the information obtained from the gyroscope.">gyro_vector_t</a> </dd></dl>
+
+</div>
+</div>
 <a id="a72be0cb30e177b2e30ff75c87718a2aa" name="a72be0cb30e177b2e30ff75c87718a2aa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72be0cb30e177b2e30ff75c87718a2aa">&#9670;&#160;</a></span>gyros_speeds_to_delta_angles()</h2>
 
@@ -209,6 +251,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>sensors_init</b> ()</
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>double </dd></dl>
+
+</div>
+</div>
+<a id="aff44196352fa8d83714fc5fbce93d631" name="aff44196352fa8d83714fc5fbce93d631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff44196352fa8d83714fc5fbce93d631">&#9670;&#160;</a></span>sensors_get_drone_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdrone__data__t.html">drone_data_t</a> sensors_get_drone_data </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the drone data object containing the pitch, roll, yaw speed and altitude. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structdrone__data__t.html" title="Struct with the variables needed for controlling the drone.">drone_data_t</a> </dd></dl>
 
 </div>
 </div>

@@ -1,0 +1,90 @@
+\doxysection{components/drivers/wifi/wifi.h File Reference}
+\hypertarget{wifi_8h}{}\label{wifi_8h}\index{components/drivers/wifi/wifi.h@{components/drivers/wifi/wifi.h}}
+
+
+Header file for the wifi driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da}\label{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da} 
+\#define {\bfseries WIFI\+\_\+\+RX\+\_\+\+TX\+\_\+\+PACKET\+\_\+\+SIZE}~(64)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{wifi_8h_af67410a15ecc24ecef0e5abce0c5b30c}\label{wifi_8h_af67410a15ecc24ecef0e5abce0c5b30c} 
+void {\bfseries wifi\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Initialize the wifi module. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}{wifi\+Get\+Data\+Blocking}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}in)
+\begin{DoxyCompactList}\small\item\em Gets the data from the UDP server blocking until it receives data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6}{wifi\+Send\+Data}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}out)
+\begin{DoxyCompactList}\small\item\em Send data to the UDP server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the wifi driver. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/05
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}\label{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e} 
+\index{wifi.h@{wifi.h}!wifiGetDataBlocking@{wifiGetDataBlocking}}
+\index{wifiGetDataBlocking@{wifiGetDataBlocking}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{wifiGetDataBlocking()}{wifiGetDataBlocking()}}
+{\footnotesize\ttfamily bool wifi\+Get\+Data\+Blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{in }\end{DoxyParamCaption})}
+
+
+
+Gets the data from the UDP server blocking until it receives data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em in} & Pointer to UDP packet to store the data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\Hypertarget{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6}\label{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6} 
+\index{wifi.h@{wifi.h}!wifiSendData@{wifiSendData}}
+\index{wifiSendData@{wifiSendData}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{wifiSendData()}{wifiSendData()}}
+{\footnotesize\ttfamily bool wifi\+Send\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+
+
+
+Send data to the UDP server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em out} & UDP packet to send \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}

@@ -1,0 +1,59 @@
+\doxysection{components/general/controller/controller.h File Reference}
+\hypertarget{controller_8h}{}\label{controller_8h}\index{components/general/controller/controller.h@{components/general/controller/controller.h}}
+
+
+Header file for the remote controller file.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structcommand__t}{command\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Command structure. Contains the pitch, roll, yaw and thrust. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{controller_8h_a77405a1771a07a3f36d37641e4b62d1c}\label{controller_8h_a77405a1771a07a3f36d37641e4b62d1c} 
+typedef struct command\+\_\+t {\bfseries command\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Command structure. Contains the pitch, roll, yaw and thrust. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{controller_8h_a19edda3fbf662a10f446a2568bbf23fe}{get\+\_\+command}} (\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Get the command from the remote controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the remote controller file. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/06
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{controller_8h_a19edda3fbf662a10f446a2568bbf23fe}\label{controller_8h_a19edda3fbf662a10f446a2568bbf23fe} 
+\index{controller.h@{controller.h}!get\_command@{get\_command}}
+\index{get\_command@{get\_command}!controller.h@{controller.h}}
+\doxysubsubsection{\texorpdfstring{get\_command()}{get\_command()}}
+{\footnotesize\ttfamily void get\+\_\+command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{command }\end{DoxyParamCaption})}
+
+
+
+Get the command from the remote controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & \\
+\hline
+\end{DoxyParams}

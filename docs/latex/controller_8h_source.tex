@@ -1,0 +1,23 @@
+\doxysection{controller.\+h}
+\hypertarget{controller_8h_source}{}\label{controller_8h_source}\index{components/general/controller/controller.h@{components/general/controller/controller.h}}
+\mbox{\hyperlink{controller_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ CONTROLLER\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ CONTROLLER\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcommand__t}{command\_t}}}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{float}\ pitch;\ \ \ \ \ \textcolor{comment}{//\ Angle\ in\ degrees}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{float}\ roll;\ \ \ \ \ \ \textcolor{comment}{//\ Angle\ in\ degrees}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{float}\ yaw;\ \ \ \ \ \ \ \textcolor{comment}{//\ Rotation\ speed\ in\ degrees\ per\ second}}
+\DoxyCodeLine{00026\ \ \ \ \ uint16\_t\ thrust;\ \textcolor{comment}{//\ Thrust\ in\ percentage}}
+\DoxyCodeLine{00027\ \}\ \mbox{\hyperlink{controller_8h_a77405a1771a07a3f36d37641e4b62d1c}{command\_t}};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{controller_8h_a19edda3fbf662a10f446a2568bbf23fe}{get\_command}}(\mbox{\hyperlink{structcommand__t}{command\_t}}\ *command);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONTROLLER\_H}}
+
+\end{DoxyCode}

@@ -26,7 +26,11 @@ var NAVTREE =
 [
   [ "ELCO-Drone", "index.html", [
     [ "ELCO-Drone", "md__r_e_a_d_m_e.html", [
-      [ "Esto es una prueba", "md__r_e_a_d_m_e.html#autotoc_md1", null ]
+      [ "Getting Started", "md__r_e_a_d_m_e.html#autotoc_md1", null ],
+      [ "Contributing", "md__r_e_a_d_m_e.html#autotoc_md2", null ],
+      [ "Support", "md__r_e_a_d_m_e.html#autotoc_md3", null ],
+      [ "License", "md__r_e_a_d_m_e.html#autotoc_md4", null ],
+      [ "Acknowledgements", "md__r_e_a_d_m_e.html#autotoc_md5", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

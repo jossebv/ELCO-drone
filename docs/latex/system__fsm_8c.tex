@@ -7,9 +7,19 @@ Logic for the system finite state machine.
 
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
 {\ttfamily \#include "{}system.\+h"{}}\newline
+{\ttfamily \#include "{}sensors.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structfsm__drone__t}{fsm\+\_\+drone\+\_\+t}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
+\item 
+\Hypertarget{system__fsm_8c_a8e18ade0bf0a99f2a39a76ef8ff90b21}\label{system__fsm_8c_a8e18ade0bf0a99f2a39a76ef8ff90b21} 
+typedef struct fsm\+\_\+drone\+\_\+t {\bfseries fsm\+\_\+drone\+\_\+t}
 \item 
 \Hypertarget{system__fsm_8c_a6760aee1c3484ceb4d22432186bfb364}\label{system__fsm_8c_a6760aee1c3484ceb4d22432186bfb364} 
 typedef enum system\+\_\+fsm\+\_\+states {\bfseries system\+\_\+fsm\+\_\+states\+\_\+t}
@@ -27,29 +37,31 @@ enum {\bfseries system\+\_\+fsm\+\_\+states} \{ {\bfseries IDLE} = 0
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{system__fsm_8c_a21cab6d4df800ecd4111b9c4b8715f35}{is\+\_\+drone\+\_\+still}} ()
+int \mbox{\hyperlink{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506}{is\+\_\+drone\+\_\+still\+\_\+and\+\_\+under\+\_\+time}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Checks if the drone is still. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{system__fsm_8c_a5defd49eecba7ecba61ed974ef557e90}{is\+\_\+calibration\+\_\+finished}} ()
+int \mbox{\hyperlink{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512}{is\+\_\+calibration\+\_\+finished}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Checks if the calibration is finished. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{system__fsm_8c_a68f9ed4abd9a0e7f3318dfa110da6e8e}{is\+\_\+battery\+\_\+above\+\_\+threshold\+\_\+and\+\_\+controller\+\_\+connected}} ()
+int \mbox{\hyperlink{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101}{is\+\_\+battery\+\_\+above\+\_\+threshold\+\_\+and\+\_\+controller\+\_\+connected}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Checks if the battery is above threshold and the controller is connected. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_a01a3937aebf7861385c29d210804867a}\label{system__fsm_8c_a01a3937aebf7861385c29d210804867a} 
-int {\bfseries is\+\_\+battery\+\_\+below\+\_\+threshold\+\_\+or\+\_\+controller\+\_\+disconnected} ()
+\Hypertarget{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412}\label{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412} 
+int {\bfseries is\+\_\+battery\+\_\+below\+\_\+threshold\+\_\+or\+\_\+controller\+\_\+disconnected} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \item 
-\Hypertarget{system__fsm_8c_a419d816676b92b4b6f97550b163c409d}\label{system__fsm_8c_a419d816676b92b4b6f97550b163c409d} 
-void {\bfseries do\+\_\+update\+\_\+calibration\+\_\+progress} ()
+\Hypertarget{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010}\label{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010} 
+void {\bfseries do\+\_\+update\+\_\+calibration\+\_\+progress} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Update the calibration progress. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_ac512ab725873aceb211520c4818b1b2e}\label{system__fsm_8c_ac512ab725873aceb211520c4818b1b2e} 
-void {\bfseries do\+\_\+finish\+\_\+calibration} ()
+\Hypertarget{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68}\label{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68} 
+void {\bfseries do\+\_\+finish\+\_\+calibration} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Finish the calibration. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_ab897ff04fee09ef84af02cd4ae0b2e6a}\label{system__fsm_8c_ab897ff04fee09ef84af02cd4ae0b2e6a} 
-void {\bfseries do\+\_\+update\+\_\+drone} ()
+\Hypertarget{system__fsm_8c_a16c6064b395c8f4cdd70dd4c74631682}\label{system__fsm_8c_a16c6064b395c8f4cdd70dd4c74631682} 
+void {\bfseries do\+\_\+update\+\_\+drone} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Update the drone status (sensors, motors, etc) \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_a76c78a34763e5b45bcb31eeda51beb2f}\label{system__fsm_8c_a76c78a34763e5b45bcb31eeda51beb2f} 
-void {\bfseries do\+\_\+start\+\_\+landing} ()
+\Hypertarget{system__fsm_8c_a2b3cdc09616ee4ba870afc383703916a}\label{system__fsm_8c_a2b3cdc09616ee4ba870afc383703916a} 
+void {\bfseries do\+\_\+start\+\_\+landing} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Start the landing process. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8}\label{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8} 
-\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} {\bfseries system\+\_\+fsm\+\_\+create} ()
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8}{system\+\_\+fsm\+\_\+create}} ()
+\begin{DoxyCompactList}\small\item\em Create the system finite state machine. \end{DoxyCompactList}\item 
+\Hypertarget{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f}\label{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f} 
+int {\bfseries is\+\_\+drone\+\_\+moving\+\_\+and\+\_\+under\+\_\+time} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \end{DoxyCompactItemize}
 
 
@@ -71,11 +83,11 @@ Copyright (c) 2024
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{system__fsm_8c_a68f9ed4abd9a0e7f3318dfa110da6e8e}\label{system__fsm_8c_a68f9ed4abd9a0e7f3318dfa110da6e8e} 
+\Hypertarget{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101}\label{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101} 
 \index{system\_fsm.c@{system\_fsm.c}!is\_battery\_above\_threshold\_and\_controller\_connected@{is\_battery\_above\_threshold\_and\_controller\_connected}}
 \index{is\_battery\_above\_threshold\_and\_controller\_connected@{is\_battery\_above\_threshold\_and\_controller\_connected}!system\_fsm.c@{system\_fsm.c}}
 \doxysubsubsection{\texorpdfstring{is\_battery\_above\_threshold\_and\_controller\_connected()}{is\_battery\_above\_threshold\_and\_controller\_connected()}}
-{\footnotesize\ttfamily int is\+\_\+battery\+\_\+above\+\_\+threshold\+\_\+and\+\_\+controller\+\_\+connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int is\+\_\+battery\+\_\+above\+\_\+threshold\+\_\+and\+\_\+controller\+\_\+connected (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
 
 
 
@@ -86,11 +98,11 @@ true
 
 false 
 \end{DoxyReturn}
-\Hypertarget{system__fsm_8c_a5defd49eecba7ecba61ed974ef557e90}\label{system__fsm_8c_a5defd49eecba7ecba61ed974ef557e90} 
+\Hypertarget{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512}\label{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512} 
 \index{system\_fsm.c@{system\_fsm.c}!is\_calibration\_finished@{is\_calibration\_finished}}
 \index{is\_calibration\_finished@{is\_calibration\_finished}!system\_fsm.c@{system\_fsm.c}}
 \doxysubsubsection{\texorpdfstring{is\_calibration\_finished()}{is\_calibration\_finished()}}
-{\footnotesize\ttfamily int is\+\_\+calibration\+\_\+finished (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int is\+\_\+calibration\+\_\+finished (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
 
 
 
@@ -101,11 +113,11 @@ true
 
 false 
 \end{DoxyReturn}
-\Hypertarget{system__fsm_8c_a21cab6d4df800ecd4111b9c4b8715f35}\label{system__fsm_8c_a21cab6d4df800ecd4111b9c4b8715f35} 
-\index{system\_fsm.c@{system\_fsm.c}!is\_drone\_still@{is\_drone\_still}}
-\index{is\_drone\_still@{is\_drone\_still}!system\_fsm.c@{system\_fsm.c}}
-\doxysubsubsection{\texorpdfstring{is\_drone\_still()}{is\_drone\_still()}}
-{\footnotesize\ttfamily int is\+\_\+drone\+\_\+still (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506}\label{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506} 
+\index{system\_fsm.c@{system\_fsm.c}!is\_drone\_still\_and\_under\_time@{is\_drone\_still\_and\_under\_time}}
+\index{is\_drone\_still\_and\_under\_time@{is\_drone\_still\_and\_under\_time}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_drone\_still\_and\_under\_time()}{is\_drone\_still\_and\_under\_time()}}
+{\footnotesize\ttfamily int is\+\_\+drone\+\_\+still\+\_\+and\+\_\+under\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
 
 
 
@@ -115,4 +127,17 @@ Checks if the drone is still.
 true 
 
 false 
+\end{DoxyReturn}
+\Hypertarget{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8}\label{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8} 
+\index{system\_fsm.c@{system\_fsm.c}!system\_fsm\_create@{system\_fsm\_create}}
+\index{system\_fsm\_create@{system\_fsm\_create}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{system\_fsm\_create()}{system\_fsm\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} system\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Create the system finite state machine. 
+
+\begin{DoxyReturn}{Returns}
+fsm\+\_\+t\texorpdfstring{$\ast$}{*} The system finite state machine 
 \end{DoxyReturn}

@@ -5,6 +5,7 @@
 Header of the \doxylink{sensors_8c}{sensors.\+c} file. Contains all types and methods for sensor readings.  
 
 
+{\ttfamily \#include "{}mpu6050.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,7 +24,13 @@ typedef struct drone\+\_\+data\+\_\+t {\bfseries drone\+\_\+data\+\_\+t}
 void {\bfseries sensors\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Inits all the sensors. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{sensors_8h_a680c739ca88410fd87aef3e6d342b214}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} \mbox{\hyperlink{sensors_8h_aff44196352fa8d83714fc5fbce93d631}{sensors\+\_\+get\+\_\+drone\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Get the drone data object containing the pitch, roll, yaw speed and altitude. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8h_ab3a2b802621c02e4b0885026a913beb6}{get\+\_\+gyroscope\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Get the gyroscope data object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8h_a3597d4da61f83153c11ea09392a5bd93}{get\+\_\+accelerometer\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Get the accelerometer data object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -44,6 +51,45 @@ Copyright (c) 2024
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{sensors_8h_a3597d4da61f83153c11ea09392a5bd93}\label{sensors_8h_a3597d4da61f83153c11ea09392a5bd93} 
+\index{sensors.h@{sensors.h}!get\_accelerometer\_data@{get\_accelerometer\_data}}
+\index{get\_accelerometer\_data@{get\_accelerometer\_data}!sensors.h@{sensors.h}}
+\doxysubsubsection{\texorpdfstring{get\_accelerometer\_data()}{get\_accelerometer\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} get\+\_\+accelerometer\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the accelerometer data object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}
+\Hypertarget{sensors_8h_ab3a2b802621c02e4b0885026a913beb6}\label{sensors_8h_ab3a2b802621c02e4b0885026a913beb6} 
+\index{sensors.h@{sensors.h}!get\_gyroscope\_data@{get\_gyroscope\_data}}
+\index{get\_gyroscope\_data@{get\_gyroscope\_data}!sensors.h@{sensors.h}}
+\doxysubsubsection{\texorpdfstring{get\_gyroscope\_data()}{get\_gyroscope\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} get\+\_\+gyroscope\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the gyroscope data object. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}
+\Hypertarget{sensors_8h_aff44196352fa8d83714fc5fbce93d631}\label{sensors_8h_aff44196352fa8d83714fc5fbce93d631} 
+\index{sensors.h@{sensors.h}!sensors\_get\_drone\_data@{sensors\_get\_drone\_data}}
+\index{sensors\_get\_drone\_data@{sensors\_get\_drone\_data}!sensors.h@{sensors.h}}
+\doxysubsubsection{\texorpdfstring{sensors\_get\_drone\_data()}{sensors\_get\_drone\_data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} sensors\+\_\+get\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the drone data object containing the pitch, roll, yaw speed and altitude. 
+
+\begin{DoxyReturn}{Returns}
+\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 
+\end{DoxyReturn}
 \Hypertarget{sensors_8h_a680c739ca88410fd87aef3e6d342b214}\label{sensors_8h_a680c739ca88410fd87aef3e6d342b214} 
 \index{sensors.h@{sensors.h}!sensors\_update\_drone\_data@{sensors\_update\_drone\_data}}
 \index{sensors\_update\_drone\_data@{sensors\_update\_drone\_data}!sensors.h@{sensors.h}}

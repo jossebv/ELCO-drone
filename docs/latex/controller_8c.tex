@@ -1,0 +1,75 @@
+\doxysection{components/general/controller/controller.c File Reference}
+\hypertarget{controller_8c}{}\label{controller_8c}\index{components/general/controller/controller.c@{components/general/controller/controller.c}}
+
+
+Functionality of the remote controller.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}controller.\+h"{}}\newline
+{\ttfamily \#include "{}wifi.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{controller_8c_a62d5c8530dbb596275056970aead6e82}\label{controller_8c_a62d5c8530dbb596275056970aead6e82} 
+\#define {\bfseries DEBUG\+\_\+\+CONTROLLER}~1
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{controller_8c_a35b9ef3f002e0e4eda6ae76063c20f37}{decode\+\_\+command}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}packet, \mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Decode the command from the packet. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{controller_8c_a19edda3fbf662a10f446a2568bbf23fe}{get\+\_\+command}} (\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Get the command from the remote controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functionality of the remote controller. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/06
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{controller_8c_a35b9ef3f002e0e4eda6ae76063c20f37}\label{controller_8c_a35b9ef3f002e0e4eda6ae76063c20f37} 
+\index{controller.c@{controller.c}!decode\_command@{decode\_command}}
+\index{decode\_command@{decode\_command}!controller.c@{controller.c}}
+\doxysubsubsection{\texorpdfstring{decode\_command()}{decode\_command()}}
+{\footnotesize\ttfamily void decode\+\_\+command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{packet,  }\item[{\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{command }\end{DoxyParamCaption})}
+
+
+
+Decode the command from the packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em packet} & \\
+\hline
+{\em command} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{controller_8c_a19edda3fbf662a10f446a2568bbf23fe}\label{controller_8c_a19edda3fbf662a10f446a2568bbf23fe} 
+\index{controller.c@{controller.c}!get\_command@{get\_command}}
+\index{get\_command@{get\_command}!controller.c@{controller.c}}
+\doxysubsubsection{\texorpdfstring{get\_command()}{get\_command()}}
+{\footnotesize\ttfamily void get\+\_\+command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{command }\end{DoxyParamCaption})}
+
+
+
+Get the command from the remote controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & \\
+\hline
+\end{DoxyParams}

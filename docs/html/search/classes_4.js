@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pid_5fdata_5ft_0',['pid_data_t',['../structpid__data__t.html',1,'']]]
+  ['gyro_5fvector_5ft_0',['gyro_vector_t',['../structgyro__vector__t.html',1,'']]]
 ];
