@@ -30,5 +30,6 @@ drone_data_t sensors_update_drone_data();
 drone_data_t sensors_get_drone_data();
 gyro_vector_t get_gyroscope_data();
 acc_vector_t get_accelerometer_data();
+void sensors_calibrate_imu(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets);
 
 #endif // SENSORS_H

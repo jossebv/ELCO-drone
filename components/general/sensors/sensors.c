@@ -58,7 +58,7 @@ void sensors_init()
 }
 
 /**
- * @brief Returns all the data obtained from the sensors
+ * @brief Gets the data from the sensors and updates the drone data
  *
  * @return drone_data_t
  */
@@ -90,7 +90,7 @@ drone_data_t sensors_update_drone_data()
 }
 
 /**
- * @brief Get the gyroscope data object
+ * @brief Reads the gyroscope data from the IMU
  *
  * @return gyro_vector_t
  */
@@ -100,13 +100,22 @@ gyro_vector_t get_gyroscope_data()
 }
 
 /**
- * @brief Get the accelerometer data object
+ * @brief Reads the accelerometer data from the IMU
  *
  * @return acc_vector_t
  */
 acc_vector_t get_accelerometer_data()
 {
     return mpu6050_read_accelerometer();
+}
+
+/**
+ * @brief Calibrate the IMU
+ *
+ */
+void sensors_calibrate_imu(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
+{
+    mpu6050_calibrate(gyro_offsets, acc_offsets);
 }
 
 /**

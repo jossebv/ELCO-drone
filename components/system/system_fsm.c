@@ -10,6 +10,7 @@
  */
 
 /* INCLUDES */
+#include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -20,6 +21,9 @@
 #include "controller.h"
 
 /* DEFINES */
+
+#define CALIBRATION_TIME_US 5000000 // 5 seconds
+#define CALIBRATION_THRESHOLD 0.2
 
 /* TYPEDEFS */
 typedef struct fsm_drone_t
@@ -45,8 +49,8 @@ int is_battery_above_threshold_and_controller_connected(fsm_t *fsm);
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm);
 
 void do_update_calibration_progress(fsm_t *fsm);
-void do_finish_calibration(fsm_t *fsm);
-void do_update_drone(fsm_t *fsm);
+void do_reset_calibration_progress(fsm_t *fsm);
+void do_update_drone_motors(fsm_t *fsm);
 void do_start_landing(fsm_t *fsm);
 
 /* VARIABLES */
@@ -62,8 +66,9 @@ fsm_t *system_fsm_create()
 {
     fsm_trans_t system_fsm_tt[] = {
         {CALIBRATING, is_drone_still_and_under_time, CALIBRATING, do_update_calibration_progress},
-        {CALIBRATING, is_calibration_finished, FLYING, do_finish_calibration},
-        {FLYING, is_battery_above_threshold_and_controller_connected, FLYING, do_update_drone},
+        {CALIBRATING, is_drone_moving_and_under_time, CALIBRATING, do_reset_calibration_progress},
+        {CALIBRATING, is_calibration_finished, FLYING, NULL},
+        {FLYING, is_battery_above_threshold_and_controller_connected, FLYING, do_update_drone_motors},
         {FLYING, is_battery_below_threshold_or_controller_disconnected, LANDING, do_start_landing},
         {-1, NULL, -1, NULL}};
 
@@ -73,8 +78,22 @@ fsm_t *system_fsm_create()
 }
 
 /* PRIVATE FUNCTIONS */
+int is_drone_still(fsm_t *fsm)
+{
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    gyro_vector_t gyros = fsm_drone->last_gyros;
+    acc_vector_t acc = fsm_drone->last_acc;
+
+    return (abs(gyros.pitch) <= CALIBRATION_THRESHOLD &&
+            abs(gyros.roll) <= CALIBRATION_THRESHOLD &&
+            abs(gyros.yaw) <= CALIBRATION_THRESHOLD &&
+            abs(acc.x) <= CALIBRATION_THRESHOLD &&
+            abs(acc.y) <= CALIBRATION_THRESHOLD &&
+            abs((acc.z - 1)) <= CALIBRATION_THRESHOLD);
+}
+
 /**
- * @brief Checks if the drone is still
+ * @brief Checks if the drone is still during the calibration
  *
  * @return true
  * @return false
@@ -82,25 +101,23 @@ fsm_t *system_fsm_create()
 int is_drone_still_and_under_time(fsm_t *fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    uint32_t now = esp_timer_get_time();
 
-    double threshold = 0.2;
-    uint64_t now = esp_timer_get_time();
-    gyro_vector_t gyros = fsm_drone->last_gyros;
-    acc_vector_t acc = fsm_drone->last_acc;
-
-    return (gyros.pitch <= threshold && gyros.roll <= threshold && gyros.yaw <= threshold && acc.x <= threshold && acc.y <= threshold && acc.z <= threshold && now < fsm_drone->next);
+    return (is_drone_still(fsm) && now < fsm_drone->next);
 }
 
+/**
+ * @brief Checks if the drone is moving during the calibration
+ *
+ * @param fsm
+ * @return int
+ */
 int is_drone_moving_and_under_time(fsm_t *fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    uint32_t now = esp_timer_get_time();
 
-    double threshold = 0.2;
-    uint64_t now = esp_timer_get_time();
-    gyro_vector_t gyros = fsm_drone->last_gyros;
-    acc_vector_t acc = fsm_drone->last_acc;
-
-    return ((gyros.pitch > threshold || gyros.roll > threshold || gyros.yaw > threshold || acc.x > threshold || acc.y > threshold || acc.z > threshold) && now < fsm_drone->next);
+    return (!is_drone_still(fsm) && now < fsm_drone->next);
 }
 
 /**
@@ -126,7 +143,7 @@ int is_battery_above_threshold_and_controller_connected(fsm_t *fsm)
 {
     // TODO: Implement the logic to check if the battery is above threshold and the controller is connected
     printf("Checking if the battery is above threshold and the controller is connected\n");
-    return 1;
+    return 1; // At the moment we return true
 }
 
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm)
@@ -140,18 +157,26 @@ int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm)
  */
 void do_update_calibration_progress(fsm_t *fsm)
 {
-    // TODO: Implement the logic to update the calibration progress
-    printf("Updating calibration progress\n");
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    sensors_calibrate_imu(fsm_drone->last_gyros, fsm_drone->last_acc);
+
+    fsm_drone->last_acc = get_accelerometer_data();
+    fsm_drone->last_gyros = get_gyroscope_data();
 }
 
 /**
- * @brief Finish the calibration
+ * @brief Resets the calibration progress
  *
+ * @param fsm
  */
-void do_finish_calibration(fsm_t *fsm)
+void do_reset_calibration_progress(fsm_t *fsm)
 {
-    // TODO: Implement the logic to finish the calibration
-    printf("Finishing calibration\n");
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    sensors_calibrate_imu(fsm_drone->last_gyros, fsm_drone->last_acc);
+    fsm_drone->next = esp_timer_get_time() + CALIBRATION_TIME_US;
+
+    fsm_drone->last_acc = get_accelerometer_data();
+    fsm_drone->last_gyros = get_gyroscope_data();
 }
 
 /**

@@ -12,7 +12,8 @@
         "freertos.h": "c",
         "task.h": "c",
         "esp_event.h": "c",
-        "netdb.h": "c"
+        "netdb.h": "c",
+        "sensors.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"
