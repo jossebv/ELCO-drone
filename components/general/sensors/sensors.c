@@ -21,7 +21,7 @@
 #include "comb_filter.h"
 
 /* DEFINES */
-#define DEBUG 1
+#define DEBUG_SENSORS 1
 
 #define RAD_TO_DEG 180 / M_PI
 
@@ -62,7 +62,7 @@ void sensors_init()
  *
  * @return drone_data_t
  */
-void sensors_update_drone_data()
+drone_data_t sensors_update_drone_data()
 {
 
     // Update the pitch and roll data
@@ -82,7 +82,9 @@ void sensors_update_drone_data()
     // Update the altitude data
     drone_data.altitude = get_altitude_data();
 
-#if DEBUG
+    return drone_data;
+
+#if DEBUG_SENSORS
     printf("Drone data: pitch: %f, roll: %f, yaw: %f, altitude: %f\n", drone_data.pitch, drone_data.roll, drone_data.yaw_speed, drone_data.altitude);
 #endif
 }

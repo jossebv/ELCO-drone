@@ -51,6 +51,7 @@ void get_command(command_t *command)
     UDPPacket packet;
     wifiGetDataBlocking(&packet);
     decode_command(&packet, command);
+
 #if DEBUG_CONTROLLER
     printf("Command received: \n");
     printf("Thrust: %d\n", command->thrust);

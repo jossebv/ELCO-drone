@@ -60,7 +60,6 @@ static pid_data_t *pid_pitch, *pid_roll, *pid_yaw;
  */
 void motors_init()
 {
-    // TODO: Implement this function
     if (is_init)
     {
         return;

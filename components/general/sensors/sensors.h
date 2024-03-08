@@ -26,7 +26,7 @@ typedef struct drone_data_t
 } drone_data_t;
 
 void sensors_init();
-void sensors_update_drone_data();
+drone_data_t sensors_update_drone_data();
 drone_data_t sensors_get_drone_data();
 gyro_vector_t get_gyroscope_data();
 acc_vector_t get_accelerometer_data();

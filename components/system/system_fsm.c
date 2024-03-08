@@ -17,6 +17,7 @@
 
 #include "system.h"
 #include "sensors.h"
+#include "controller.h"
 
 /* DEFINES */
 
@@ -159,9 +160,12 @@ void do_finish_calibration(fsm_t *fsm)
  */
 void do_update_drone_motors(fsm_t *fsm)
 {
-    // TODO: Implement the logic to update the drone
+    command_t command;
 
-        printf("Updating drone\n");
+    drone_data_t sensors_data = sensors_update_drone_data();
+    controller_get_command(&command);
+
+    motors_update(command, sensors_data);
 }
 
 /**

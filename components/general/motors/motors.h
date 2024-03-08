@@ -17,5 +17,6 @@
 
 /* PUBLIC FUNCTIONS */
 void motors_init();
+void motors_update(command_t command, drone_data_t drone_data)
 
 #endif // MOTORS_H
