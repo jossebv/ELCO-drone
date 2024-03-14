@@ -26,6 +26,6 @@ typedef struct command_t
     uint16_t thrust; // Thrust in percentage
 } command_t;
 
-get_command(command_t *command);
+void controller_get_command(command_t *command);
 
 #endif // CONTROLLER_H

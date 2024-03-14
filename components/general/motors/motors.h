@@ -15,8 +15,11 @@
 /* INCLUDES */
 #include <stdbool.h>
 
+#include "controller.h"
+#include "sensors.h"
+
 /* PUBLIC FUNCTIONS */
 void motors_init();
-void motors_update(command_t command, drone_data_t drone_data)
+void motors_update(command_t command, drone_data_t drone_data);
 
 #endif // MOTORS_H

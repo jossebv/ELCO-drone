@@ -34,7 +34,7 @@
 
 /* VARIABLES */
 static bool is_init = false;
-static double gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
+static float gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
 static double accel_offset_x, accel_offset_y, accel_offset_z;
 
 /* FUNCTIONS DECLARATIONS */
@@ -85,14 +85,15 @@ void mpu6050_init()
  */
 gyro_vector_t mpu6050_read_gyro()
 {
+
     gyro_vector_t gyro;
     uint8_t read_buffer[6]; // 2 bytes for each axis
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    gyro.pitch = ((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]) - gyro_offset_pitch; // gyroscope x axis
-    gyro.roll = ((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]) - gyro_offset_roll;   // gyroscope y axis
-    gyro.yaw = ((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]) - gyro_offset_yaw;     // gyroscope z axis
+    gyro.pitch = ((float)((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1])) / 16.4 - gyro_offset_pitch; // gyroscope x axis
+    gyro.roll = ((float)((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3])) / 16.4 - gyro_offset_roll;   // gyroscope y axis
+    gyro.yaw = ((float)((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5])) / 16.4 - gyro_offset_yaw;     // gyroscope z axis
     return gyro;
 }
 
@@ -108,9 +109,9 @@ acc_vector_t mpu6050_read_accelerometer()
     uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    acc.x = ((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1]) - accel_offset_x; // accelerometer x axis
-    acc.y = ((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3]) - accel_offset_y; // accelerometer y axis
-    acc.z = ((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5]) - accel_offset_z; // accelerometer z axis
+    acc.x = ((float)((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1])) / 16384 - accel_offset_x; // accelerometer x axis
+    acc.y = ((float)((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3])) / 16384 - accel_offset_y; // accelerometer y axis
+    acc.z = ((float)((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5])) / 16384 - accel_offset_z; // accelerometer z axis
     return acc;
 }
 

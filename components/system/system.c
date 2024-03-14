@@ -26,19 +26,23 @@ void system_task(void *arg)
 {
     system_init();
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xFrequency = pdMS_TO_TICKS(DRONE_UPDATE_MS);
+    const TickType_t xFrequency = pdMS_TO_TICKS(100);
     command_t command;
+    drone_fsm = system_fsm_create();
 
     while (1)
     {
         // TODO: Here we will call fsm_fire() to update the state of the drone and execute the corresponding action
         // vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(DRONE_UPDATE_MS));
-        // fsm_fire(drone_fsm);
-
         // sensors_update_drone_data();
 
         xTaskDelayUntil(&xLastWakeTime, xFrequency);
-        get_command(&command);
+        fsm_fire(drone_fsm);
+        printf("FSM state: %d\n", drone_fsm->current_state);
+
+        // get_command(&command);
+        // get_gyroscope_data();
+        // get_accelerometer_data();
     }
 }
 
@@ -62,11 +66,11 @@ void system_init()
     ESP_ERROR_CHECK(ret);
 
     // Initialize wifi
-    wifi_init();
+    // wifi_init();
     // Initialize i2c
-    // i2c_drv_init();
+    i2c_drv_init();
     // Initialize the sensors
-    // sensors_init();
+    sensors_init();
 
     // TODO: Initialize the FSM
     // drone_fsm = system_fsm_create();

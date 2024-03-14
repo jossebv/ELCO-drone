@@ -46,7 +46,7 @@ void decode_command(UDPPacket *packet, command_t *command)
  *
  * @param command
  */
-void get_command(command_t *command)
+void controller_get_command(command_t *command)
 {
     UDPPacket packet;
     wifiGetDataBlocking(&packet);

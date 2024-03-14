@@ -20,8 +20,11 @@
 #include "sensors.h"
 #include "comb_filter.h"
 
+#include "esp_log.h"
+
 /* DEFINES */
-#define DEBUG_SENSORS 1
+#define DEBUG_SENSORS 0
+#define DEBUG_ACCEL_TO_ANGLES 1
 
 #define RAD_TO_DEG 180 / M_PI
 
@@ -35,6 +38,8 @@ acc_vector_t get_accelerometer_data();
 drone_angles_t acc_to_angles(acc_vector_t accelerations);
 
 /* VARIABLES */
+static char *TAG = "sensors";
+
 static bool is_init = false;
 static drone_data_t drone_data;
 
@@ -51,10 +56,13 @@ void sensors_init()
         return;
     }
 
+    ESP_LOGI(TAG, "Initializing sensors!!");
+
     // TODO: INIT ALL THE SENSORS
     mpu6050_init();
 
     is_init = true;
+    ESP_LOGI(TAG, "Sensors initialized!!");
 }
 
 /**
@@ -82,6 +90,10 @@ drone_data_t sensors_update_drone_data()
     // Update the altitude data
     drone_data.altitude = get_altitude_data();
 
+#if DEBUG_SENSORS
+    printf("Drone data: pitch: %f, roll: %f, yaw: %f, altitude: %f\n", drone_data.pitch, drone_data.roll, drone_data.yaw_speed, drone_data.altitude);
+#endif
+
     return drone_data;
 
 #if DEBUG_SENSORS
@@ -96,7 +108,11 @@ drone_data_t sensors_update_drone_data()
  */
 gyro_vector_t get_gyroscope_data()
 {
-    return mpu6050_read_gyro();
+    gyro_vector_t gyro_data = mpu6050_read_gyro();
+#if DEBUG_SENSORS
+    printf("Gyroscope data: pitch: %.10f, roll: %.10f, yaw: %.10f\n", gyro_data.pitch, gyro_data.roll, gyro_data.yaw);
+#endif
+    return gyro_data;
 }
 
 /**
@@ -106,7 +122,11 @@ gyro_vector_t get_gyroscope_data()
  */
 acc_vector_t get_accelerometer_data()
 {
-    return mpu6050_read_accelerometer();
+    acc_vector_t acc_data = mpu6050_read_accelerometer();
+#if DEBUG_SENSORS
+    printf("Accelerometer data: x: %.10f, y: %.10f, z: %.10f\n", acc_data.x, acc_data.y, acc_data.z);
+#endif
+    return acc_data;
 }
 
 /**
@@ -155,6 +175,11 @@ drone_angles_t acc_to_angles(acc_vector_t accelerations)
     drone_angles_t drone_angles;
     drone_angles.pitch = atan2(-accelerations.x, sqrt(pow(accelerations.y, 2) + pow(accelerations.z, 2))) * RAD_TO_DEG;
     drone_angles.roll = atan2(accelerations.y, accelerations.z) * RAD_TO_DEG;
+
+#if DEBUG_ACCEL_TO_ANGLES
+    printf("Accel data: x: %f, y: %f, z: %f\n", accelerations.x, accelerations.y, accelerations.z);
+    printf("Acc to angles: pitch: %f, roll: %f\n", drone_angles.pitch, drone_angles.roll);
+#endif
 
     return drone_angles;
 }

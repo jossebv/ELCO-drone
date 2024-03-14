@@ -11,6 +11,7 @@
 
 /* INCLUDES */
 #include <stdlib.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -19,16 +20,17 @@
 #include "system.h"
 #include "sensors.h"
 #include "controller.h"
+#include "motors.h"
 
 /* DEFINES */
 
 #define CALIBRATION_TIME_US 5000000 // 5 seconds
-#define CALIBRATION_THRESHOLD 0.2
+#define CALIBRATION_THRESHOLD 0.5
 
 /* TYPEDEFS */
 typedef struct fsm_drone_t
 {
-    fsm_t *fsm;
+    fsm_t fsm;
     uint64_t next;
     gyro_vector_t last_gyros;
     acc_vector_t last_acc;
@@ -36,14 +38,16 @@ typedef struct fsm_drone_t
 
 typedef enum system_fsm_states
 {
-    IDLE = 0,
-    CALIBRATING,
+    CALIBRATING = 0,
     FLYING,
     LANDING,
 } system_fsm_states_t;
 
 /* FUNCTIONS DECLARATIONS */
+void system_fsm_init(fsm_t *fsm);
+
 int is_drone_still_and_under_time(fsm_t *fsm);
+int is_drone_moving_and_under_time(fsm_t *fsm);
 int is_calibration_finished(fsm_t *fsm);
 int is_battery_above_threshold_and_controller_connected(fsm_t *fsm);
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm);
@@ -64,7 +68,30 @@ void do_start_landing(fsm_t *fsm);
  */
 fsm_t *system_fsm_create()
 {
-    fsm_trans_t system_fsm_tt[] = {
+
+    fsm_t *fsm = (fsm_t *)malloc(sizeof(fsm_drone_t));
+    system_fsm_init(fsm);
+    return fsm;
+}
+
+/**
+ * @brief Destroy the system finite state machine
+ *
+ * @param fsm The system finite state machine
+ */
+void system_fsm_destroy(fsm_t *fsm)
+{
+    free(fsm);
+}
+
+/**
+ * @brief Initializes the system fsm
+ *
+ */
+void system_fsm_init(fsm_t *fsm)
+{
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    static fsm_trans_t system_fsm_tt[] = {
         {CALIBRATING, is_drone_still_and_under_time, CALIBRATING, do_update_calibration_progress},
         {CALIBRATING, is_drone_moving_and_under_time, CALIBRATING, do_reset_calibration_progress},
         {CALIBRATING, is_calibration_finished, FLYING, NULL},
@@ -72,9 +99,10 @@ fsm_t *system_fsm_create()
         {FLYING, is_battery_below_threshold_or_controller_disconnected, LANDING, do_start_landing},
         {-1, NULL, -1, NULL}};
 
-    fsm_drone_t *fsm_drone = (fsm_drone_t *)malloc(sizeof(fsm_drone_t));
-    fsm_drone->fsm = fsm_new(system_fsm_tt);
-    return (fsm_t *)fsm_drone;
+    fsm_init(fsm, system_fsm_tt);
+    fsm_drone->next = esp_timer_get_time() + CALIBRATION_TIME_US;
+    //  fsm_drone->last_acc = get_accelerometer_data();
+    //  fsm_drone->last_gyros = get_gyroscope_data();
 }
 
 /* PRIVATE FUNCTIONS */
@@ -84,12 +112,12 @@ int is_drone_still(fsm_t *fsm)
     gyro_vector_t gyros = fsm_drone->last_gyros;
     acc_vector_t acc = fsm_drone->last_acc;
 
-    return (abs(gyros.pitch) <= CALIBRATION_THRESHOLD &&
-            abs(gyros.roll) <= CALIBRATION_THRESHOLD &&
-            abs(gyros.yaw) <= CALIBRATION_THRESHOLD &&
-            abs(acc.x) <= CALIBRATION_THRESHOLD &&
-            abs(acc.y) <= CALIBRATION_THRESHOLD &&
-            abs((acc.z - 1)) <= CALIBRATION_THRESHOLD);
+    return (fabs(gyros.pitch) <= CALIBRATION_THRESHOLD &&
+            fabs(gyros.roll) <= CALIBRATION_THRESHOLD &&
+            fabs(gyros.yaw) <= CALIBRATION_THRESHOLD &&
+            fabs(acc.x) <= CALIBRATION_THRESHOLD &&
+            fabs(acc.y) <= CALIBRATION_THRESHOLD &&
+            fabs((acc.z - 1)) <= CALIBRATION_THRESHOLD);
 }
 
 /**
@@ -142,7 +170,7 @@ int is_calibration_finished(fsm_t *fsm)
 int is_battery_above_threshold_and_controller_connected(fsm_t *fsm)
 {
     // TODO: Implement the logic to check if the battery is above threshold and the controller is connected
-    printf("Checking if the battery is above threshold and the controller is connected\n");
+    // printf("Checking if the battery is above threshold and the controller is connected\n");
     return 1; // At the moment we return true
 }
 
@@ -177,6 +205,8 @@ void do_reset_calibration_progress(fsm_t *fsm)
 
     fsm_drone->last_acc = get_accelerometer_data();
     fsm_drone->last_gyros = get_gyroscope_data();
+
+    printf("Resetting calibration progress\n");
 }
 
 /**
@@ -185,12 +215,12 @@ void do_reset_calibration_progress(fsm_t *fsm)
  */
 void do_update_drone_motors(fsm_t *fsm)
 {
-    command_t command;
+    // command_t command;
 
     drone_data_t sensors_data = sensors_update_drone_data();
-    controller_get_command(&command);
+    // controller_get_command(&command);
 
-    motors_update(command, sensors_data);
+    // motors_update(command, sensors_data);
 }
 
 /**

@@ -49,7 +49,9 @@
 
 /* VARIABLES */
 static bool is_init = false;
-static pid_data_t *pid_pitch, *pid_roll, *pid_yaw;
+static pid_data_t *pid_pitch;
+static pid_data_t *pid_roll;
+static pid_data_t *pid_yaw;
 
 /* FUNCTIONS DECLARATIONS */
 

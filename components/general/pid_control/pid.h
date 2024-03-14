@@ -14,11 +14,11 @@
 
 typedef struct pid_data_t
 {
-    float kp;
-    float ki;
-    float kd;
-    float integral;
-    float last_error;
+    double kp;
+    double ki;
+    double kd;
+    double integral;
+    double last_error;
 } pid_data_t;
 
 pid_data_t *pid_create(float kp, float ki, float kd);
