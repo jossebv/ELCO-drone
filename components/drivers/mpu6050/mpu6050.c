@@ -91,9 +91,14 @@ gyro_vector_t mpu6050_read_gyro()
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    gyro.pitch = ((float)((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1])) / 16.4 - gyro_offset_pitch; // gyroscope x axis
-    gyro.roll = ((float)((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3])) / 16.4 - gyro_offset_roll;   // gyroscope y axis
-    gyro.yaw = ((float)((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5])) / 16.4 - gyro_offset_yaw;     // gyroscope z axis
+    int16_t gyro_x = ((char)read_buffer[0] << 8 | (char)read_buffer[1]);
+    int16_t gyro_y = ((char)read_buffer[2] << 8 | (char)read_buffer[3]);
+    int16_t gyro_z = ((char)read_buffer[4] << 8 | (char)read_buffer[5]);
+
+    gyro.pitch = gyro_x / 16.4 - gyro_offset_pitch; // gyroscope x axis
+    gyro.roll = gyro_y / 16.4 - gyro_offset_roll;   // gyroscope y axis
+    gyro.yaw = gyro_z / 16.4 - gyro_offset_yaw;     // gyroscope z axis
+
     return gyro;
 }
 
@@ -109,9 +114,14 @@ acc_vector_t mpu6050_read_accelerometer()
     uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    acc.x = ((float)((int8_t)read_buffer[0] << 8 | (int8_t)read_buffer[1])) / 16384 - accel_offset_x; // accelerometer x axis
-    acc.y = ((float)((int8_t)read_buffer[2] << 8 | (int8_t)read_buffer[3])) / 16384 - accel_offset_y; // accelerometer y axis
-    acc.z = ((float)((int8_t)read_buffer[4] << 8 | (int8_t)read_buffer[5])) / 16384 - accel_offset_z; // accelerometer z axis
+    int16_t acc_x = ((char)read_buffer[0] << 8 | (char)read_buffer[1]);
+    int16_t acc_y = ((char)read_buffer[2] << 8 | (char)read_buffer[3]);
+    int16_t acc_z = ((char)read_buffer[4] << 8 | (char)read_buffer[5]);
+
+    acc.x = acc_x / 16384.0 - accel_offset_x; // accelerometer x axis
+    acc.y = acc_y / 16384.0 - accel_offset_y; // accelerometer y axis
+    acc.z = acc_z / 16384.0 - accel_offset_z; // accelerometer z axis
+
     return acc;
 }
 

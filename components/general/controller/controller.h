@@ -22,7 +22,7 @@ typedef struct command_t
 {
     float pitch;     // Angle in degrees
     float roll;      // Angle in degrees
-    float yaw;       // Rotation speed in degrees per second
+    float yaw_speed; // Rotation speed in degrees per second
     uint16_t thrust; // Thrust in percentage
 } command_t;
 

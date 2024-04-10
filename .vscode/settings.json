@@ -15,7 +15,10 @@
         "netdb.h": "c",
         "sensors.h": "c",
         "pid.h": "c",
-        "motors.h": "c"
+        "motors.h": "c",
+        "led.h": "c",
+        "esp_log.h": "c",
+        "ultrasonic.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

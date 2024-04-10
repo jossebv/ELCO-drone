@@ -32,7 +32,7 @@ void decode_command(UDPPacket *packet, command_t *command)
     command->thrust = (uint8_t)packet->data[14] * 1000 / 204;
     long yaw = (float)(((long)packet->data[12] << 24) | ((long)packet->data[11] << 16) | ((long)packet->data[10] << 8) | (uint8_t)packet->data[9]);
     data.y = yaw;
-    command->yaw = data.z;
+    command->yaw_speed = data.z;
     long pitch = (float)(((long)packet->data[8] << 24) | ((long)packet->data[7] << 16) | ((long)packet->data[6] << 8) | (uint8_t)packet->data[5]);
     data.y = pitch;
     command->pitch = data.z;
@@ -55,7 +55,7 @@ void controller_get_command(command_t *command)
 #if DEBUG_CONTROLLER
     printf("Command received: \n");
     printf("Thrust: %d\n", command->thrust);
-    printf("Yaw: %f\n", command->yaw);
+    printf("Yaw: %f\n", command->yaw_speed);
     printf("Pitch: %f\n", command->pitch);
     printf("Roll: %f\n", command->roll);
 #endif

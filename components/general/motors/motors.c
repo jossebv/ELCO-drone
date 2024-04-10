@@ -25,27 +25,27 @@
 #include "sensors.h"
 
 /* DEFINES */
-#define PITCH_KP 1
-#define PITCH_KI 0
-#define PITCH_KD 0
+#define PITCH_KP 1 // Proportional constant for the pith PID controller
+#define PITCH_KI 0 // Integral constant for the pith PID controller
+#define PITCH_KD 0 // Derivative constant for the pith PID controller
 
-#define ROLL_KP 1
-#define ROLL_KI 0
-#define ROLL_KD 0
+#define ROLL_KP PITCH_KP // Due to the symmetry of the drone
+#define ROLL_KI PITCH_KI // Due to the symmetry of the drone
+#define ROLL_KD PITCH_KD // Due to the symmetry of the drone
 
-#define YAW_KP 1
-#define YAW_KI 0
-#define YAW_KD 0
+#define YAW_KP 1 // Proportional constant for the yaw PID controller
+#define YAW_KI 0 // Integral constant for the yaw PID controller
+#define YAW_KD 0 // Derivative constant for the yaw PID controller
 
-#define MOTOR_MIN 1000
-#define MOTOR_MAX 2000
-#define THROTTLE_MIN 1000
-#define THROTTLE_MAX 1700
+#define MOTOR_MIN 1000    // Minimum value for the motors
+#define MOTOR_MAX 2000    // Maximum value for the motors
+#define THROTTLE_MIN 1000 // Minimum value for the throttle
+#define THROTTLE_MAX 1700 // Maximum value for the throttle. Should be lower than MOTOR_MAX
 
-#define MOTOR1_PIN GPIO_NUM_1
-#define MOTOR2_PIN GPIO_NUM_2
-#define MOTOR3_PIN GPIO_NUM_3
-#define MOTOR4_PIN GPIO_NUM_4
+#define MOTOR1_PIN GPIO_NUM_1 // Pin for motor 1
+#define MOTOR2_PIN GPIO_NUM_2 // Pin for motor 2
+#define MOTOR3_PIN GPIO_NUM_3 // Pin for motor 3
+#define MOTOR4_PIN GPIO_NUM_4 // Pin for motor 4
 
 /* VARIABLES */
 static bool is_init = false;
@@ -150,7 +150,7 @@ void normalize_motor_values(uint16_t *motor1_us, uint16_t *motor2_us, uint16_t *
 }
 
 /**
- * @brief Normalize the thrust value to fit the range
+ * @brief Normalize the thrust value to fit the range (THROTTLE_MIN, THROTTLE_MAX)
  *
  * @param thrust
  */
@@ -190,19 +190,19 @@ void motors_send_values_to_esc_blocking(uint16_t motor1_us, uint16_t motor2_us, 
     while (now < end1 || now < end2 || now < end3 || now < end4)
     {
         now = esp_timer_get_time();
-        if (now < end1)
+        if (now > end1)
         {
             gpio_set_level(MOTOR1_PIN, 0);
         }
-        if (now < end2)
+        if (now > end2)
         {
             gpio_set_level(MOTOR2_PIN, 0);
         }
-        if (now < end3)
+        if (now > end3)
         {
             gpio_set_level(MOTOR3_PIN, 0);
         }
-        if (now < end4)
+        if (now > end4)
         {
             gpio_set_level(MOTOR4_PIN, 0);
         }
@@ -229,7 +229,7 @@ void motors_update(command_t command, drone_data_t drone_data)
 {
     double pid_pitch_value = pid_update(pid_pitch, command.pitch - drone_data.pitch);
     double pid_roll_value = pid_update(pid_roll, command.roll - drone_data.roll);
-    double pid_yaw_value = pid_update(pid_yaw, command.yaw - drone_data.yaw_speed);
+    double pid_yaw_value = pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
 
     normalize_thrust_value(&command.thrust);
 

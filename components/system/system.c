@@ -6,6 +6,7 @@
 
 #include "main.h"
 #include "system.h"
+#include "led.h"
 #include "esp_log.h"
 #include "i2c_drv.h"
 #include "sensors.h"
@@ -24,10 +25,15 @@ static fsm_t *drone_fsm;
 
 void system_task(void *arg)
 {
+    /* Initialize the system */
     system_init();
+
+    /* Crate timer variables */
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    const TickType_t xFrequency = pdMS_TO_TICKS(100);
-    command_t command;
+    const TickType_t xFrequency = pdMS_TO_TICKS(DRONE_UPDATE_MS);
+
+    /* Create the fsms */
+    fsm_t *led_fsm = led_fsm_create();
     drone_fsm = system_fsm_create();
 
     while (1)
@@ -38,7 +44,8 @@ void system_task(void *arg)
 
         xTaskDelayUntil(&xLastWakeTime, xFrequency);
         fsm_fire(drone_fsm);
-        printf("FSM state: %d\n", drone_fsm->current_state);
+        fsm_fire(led_fsm);
+        // printf("FSM state: %d\n", drone_fsm->current_state);
 
         // get_command(&command);
         // get_gyroscope_data();
@@ -66,14 +73,13 @@ void system_init()
     ESP_ERROR_CHECK(ret);
 
     // Initialize wifi
-    // wifi_init();
+    wifi_init();
+    // Initialize the leds
+    led_init();
     // Initialize i2c
     i2c_drv_init();
     // Initialize the sensors
     sensors_init();
-
-    // TODO: Initialize the FSM
-    // drone_fsm = system_fsm_create();
 
     is_init = true;
 }

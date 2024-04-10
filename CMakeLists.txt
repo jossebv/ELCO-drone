@@ -10,8 +10,10 @@ set(EXTRA_COMPONENT_DIRS "${EXTRA_COMPONENT_DIRS}"
         "./components/drivers/i2c_drv" 
         "./components/drivers/fsm" 
         "./components/drivers/mpu6050" 
-        "./components/drivers/wifi" 
+        "./components/drivers/wifi"
+        "./components/drivers/ultrasonic" 
         "./components/general/controller"
+        "./components/general/leds"
         "./components/system")
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
