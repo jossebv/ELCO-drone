@@ -47,12 +47,12 @@ void pid_destroy(pid_data_t *pid)
  *
  * @param pid PID object
  * @param error Error between the setpoint and the current value
- * @return float Value to be applied to the motors
+ * @return uint16_t Output of the PID controller. The value should be between a duty cycle.
  */
-float pid_update(pid_data_t *pid, float error)
+uint16_t pid_update(pid_data_t *pid, float error)
 {
     pid->integral += error;
     float derivative = error - pid->last_error;
     pid->last_error = error;
-    return pid->kp * error + pid->ki * pid->integral + pid->kd * derivative;
+    return (uint16_t)(pid->kp * error + pid->ki * pid->integral + pid->kd * derivative);
 }

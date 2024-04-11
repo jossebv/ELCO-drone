@@ -23,6 +23,6 @@ typedef struct pid_data_t
 
 pid_data_t *pid_create(float kp, float ki, float kd);
 void pid_destroy(pid_data_t *pid);
-float pid_update(pid_data_t *pid, float error);
+uint16_t pid_update(pid_data_t *pid, float error);
 
 #endif // PID_H

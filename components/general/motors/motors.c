@@ -18,7 +18,10 @@
 
 #include "esp_timer.h"
 #include "driver/gpio.h"
+#include "driver/ledc.h"
+#include "esp_log.h"
 
+#include "main.h"
 #include "motors.h"
 #include "pid.h"
 #include "controller.h"
@@ -37,8 +40,8 @@
 #define YAW_KI 0 // Integral constant for the yaw PID controller
 #define YAW_KD 0 // Derivative constant for the yaw PID controller
 
-#define MOTOR_MIN 1000    // Minimum value for the motors
-#define MOTOR_MAX 2000    // Maximum value for the motors
+#define MOTOR_MIN_US 1000 // Minimum value for the motors
+#define MOTOR_MAX_US 2000 // Maximum value for the motors
 #define THROTTLE_MIN 1000 // Minimum value for the throttle
 #define THROTTLE_MAX 1700 // Maximum value for the throttle. Should be lower than MOTOR_MAX
 
@@ -48,6 +51,11 @@
 #define MOTOR4_PIN GPIO_NUM_4 // Pin for motor 4
 
 /* VARIABLES */
+static const char *TAG = "motors";
+static const uint8_t MOTOR_PINS[4] = {MOTOR1_PIN, MOTOR2_PIN, MOTOR3_PIN, MOTOR4_PIN};
+static const uint16_t MOTOR_MIN_DUTY = (MOTOR_MIN_US * 65535 / 5000);
+static const uint16_t MOTOR_MAX_DUTY = (MOTOR_MAX_US * 65535 / 5000);
+
 static bool is_init = false;
 static pid_data_t *pid_pitch;
 static pid_data_t *pid_roll;
@@ -55,7 +63,36 @@ static pid_data_t *pid_yaw;
 
 /* FUNCTIONS DECLARATIONS */
 
-/* PUBLIC FUNCTIONS */
+void _motors_ledc_init()
+{
+    ledc_timer_config_t ledc_timer = {
+        .duty_resolution = LEDC_TIMER_16_BIT, // resolution of PWM duty
+        .freq_hz = DRONE_UPDATE_FREQ,         // frequency of PWM signal
+        .speed_mode = LEDC_LOW_SPEED_MODE,    // timer mode
+        .timer_num = LEDC_TIMER_0,            // timer index
+        .clk_cfg = LEDC_AUTO_CLK,             // Auto select the source clock
+    };
+
+    ledc_timer_config(&ledc_timer);
+
+    ledc_channel_config_t ledc_channel = {
+        .channel = LEDC_CHANNEL_0,
+        .duty = MOTOR_MIN_DUTY,
+        .gpio_num = MOTOR1_PIN,
+        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .timer_sel = LEDC_TIMER_0,
+    };
+
+    for (int i = 0; i < 4; i++)
+    {
+        ledc_channel.gpio_num = MOTOR_PINS[i];
+        ledc_channel.channel = LEDC_CHANNEL_0 + i;
+        ledc_channel_config(&ledc_channel);
+    }
+
+    ESP_LOGI(TAG, "PWM initialized");
+}
+
 /**
  * @brief Inits all the motors
  *
@@ -75,6 +112,9 @@ void motors_init()
     io_conf.pull_down_en = 0;
     io_conf.pull_up_en = 0;
     gpio_config(&io_conf);
+
+    // Initialize the LEDC (PWM signals)
+    _motors_ledc_init();
 
     // Initialize the PID controllers
     pid_pitch = pid_create(PITCH_KP, PITCH_KI, PITCH_KD);
@@ -103,109 +143,46 @@ void motors_deinit()
 }
 
 /**
- * @brief Normalize the motor overall value to fit the range
- *
- * @param motor1_us
- * @param motor2_us
- * @param motor3_us
- * @param motor4_us
- */
-void normalize_motor_values(uint16_t *motor1_us, uint16_t *motor2_us, uint16_t *motor3_us, uint16_t *motor4_us)
-{
-    if (*motor1_us < MOTOR_MIN)
-    {
-        *motor1_us = MOTOR_MIN;
-    }
-    if (*motor1_us > MOTOR_MAX)
-    {
-        *motor1_us = MOTOR_MAX;
-    }
-
-    if (*motor2_us < MOTOR_MIN)
-    {
-        *motor2_us = MOTOR_MIN;
-    }
-    if (*motor2_us > MOTOR_MAX)
-    {
-        *motor2_us = MOTOR_MAX;
-    }
-
-    if (*motor3_us < MOTOR_MIN)
-    {
-        *motor3_us = MOTOR_MIN;
-    }
-    if (*motor3_us > MOTOR_MAX)
-    {
-        *motor3_us = MOTOR_MAX;
-    }
-
-    if (*motor4_us < MOTOR_MIN)
-    {
-        *motor4_us = MOTOR_MIN;
-    }
-    if (*motor4_us > MOTOR_MAX)
-    {
-        *motor4_us = MOTOR_MAX;
-    }
-}
-
-/**
  * @brief Normalize the thrust value to fit the range (THROTTLE_MIN, THROTTLE_MAX)
  *
- * @param thrust
+ * @param thrust Throttle value, expected to be between 0 and 1000
  */
 void normalize_thrust_value(uint16_t *thrust)
 {
-    if (*thrust < THROTTLE_MIN)
+    *thrust = ((*thrust) * ((THROTTLE_MAX - THROTTLE_MIN) / 1000)) + THROTTLE_MIN;
+}
+
+/**
+ * @brief Normalize the motor overall value to fit the range (MOTOR_MIN_DUTY, MOTOR_MAX_DUTY)
+ *
+ * @param motor_duties Duties for the motors
+ */
+void normalize_motor_duties(uint16_t *motor_duties)
+{
+    for (int i = 0; i < 4; i++)
     {
-        *thrust = THROTTLE_MIN;
-    }
-    if (*thrust > THROTTLE_MAX)
-    {
-        *thrust = THROTTLE_MAX;
+        if (motor_duties[i] < MOTOR_MIN_DUTY)
+        {
+            motor_duties[i] = MOTOR_MIN_DUTY;
+        }
+        if (motor_duties[i] > MOTOR_MAX_DUTY)
+        {
+            motor_duties[i] = MOTOR_MAX_DUTY;
+        }
     }
 }
 
 /**
- * @brief Send the values to the ESC
+ * @brief Change the duties of the motors
  *
- * @param motor1 Value for motor 1
- * @param motor2 Value for motor 2
- * @param motor3 Value for motor 3
- * @param motor4 Value for motor 4
+ * @param motor_duties Duties for the motors
  */
-void motors_send_values_to_esc_blocking(uint16_t motor1_us, uint16_t motor2_us, uint16_t motor3_us, uint16_t motor4_us)
+void motors_change_duties(uint16_t *motor_duties)
 {
-    gpio_set_level(MOTOR1_PIN, 1);
-    gpio_set_level(MOTOR2_PIN, 1);
-    gpio_set_level(MOTOR3_PIN, 1);
-    gpio_set_level(MOTOR4_PIN, 1);
-
-    uint32_t now = esp_timer_get_time();
-    uint32_t end1 = now + motor1_us;
-    uint32_t end2 = now + motor2_us;
-    uint32_t end3 = now + motor3_us;
-    uint32_t end4 = now + motor4_us;
-
-    while (now < end1 || now < end2 || now < end3 || now < end4)
+    for (int i = 0; i < 4; i++)
     {
-        now = esp_timer_get_time();
-        if (now > end1)
-        {
-            gpio_set_level(MOTOR1_PIN, 0);
-        }
-        if (now > end2)
-        {
-            gpio_set_level(MOTOR2_PIN, 0);
-        }
-        if (now > end3)
-        {
-            gpio_set_level(MOTOR3_PIN, 0);
-        }
-        if (now > end4)
-        {
-            gpio_set_level(MOTOR4_PIN, 0);
-        }
+        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0 + i, motor_duties[i]);
+        ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0 + i);
     }
 }
 
@@ -233,11 +210,14 @@ void motors_update(command_t command, drone_data_t drone_data)
 
     normalize_thrust_value(&command.thrust);
 
-    uint16_t motor1 = command.thrust + pid_pitch_value + pid_roll_value + pid_yaw_value;
-    uint16_t motor2 = command.thrust + pid_pitch_value - pid_roll_value - pid_yaw_value;
-    uint16_t motor3 = command.thrust - pid_pitch_value - pid_roll_value + pid_yaw_value;
-    uint16_t motor4 = command.thrust - pid_pitch_value + pid_roll_value - pid_yaw_value;
+    // TODO: Check if the pid_yaw_value are correct respect to the motors configuration (It depends on the direction they move).
+    uint16_t motor1_duty = command.thrust + pid_pitch_value + pid_roll_value + pid_yaw_value;
+    uint16_t motor2_duty = command.thrust + pid_pitch_value - pid_roll_value - pid_yaw_value;
+    uint16_t motor3_duty = command.thrust - pid_pitch_value - pid_roll_value + pid_yaw_value;
+    uint16_t motor4_duty = command.thrust - pid_pitch_value + pid_roll_value - pid_yaw_value;
 
-    normalize_motor_values(&motor1, &motor2, &motor3, &motor4);
-    motors_send_values_to_esc_blocking(motor1, motor2, motor3, motor4);
+    uint16_t motors_duties[4] = {motor1_duty, motor2_duty, motor3_duty, motor4_duty};
+
+    normalize_motor_duties(motors_duties);
+    motors_change_duties(motors_duties);
 }
