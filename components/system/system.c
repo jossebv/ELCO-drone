@@ -33,8 +33,9 @@ void system_task(void *arg)
     const TickType_t xFrequency = pdMS_TO_TICKS(DRONE_UPDATE_MS);
 
     /* Create the fsms */
-    fsm_t *led_fsm = led_fsm_create();
-    drone_fsm = system_fsm_create();
+    fsm_t *green_led_fsm = led_fsm_create(GREEN_LED_PIN);
+    fsm_t *blue_led_fsm = led_fsm_create(BLUE_LED_PIN);
+    drone_fsm = system_fsm_create(green_led_fsm, blue_led_fsm);
 
     while (1)
     {
@@ -44,7 +45,8 @@ void system_task(void *arg)
 
         xTaskDelayUntil(&xLastWakeTime, xFrequency);
         fsm_fire(drone_fsm);
-        fsm_fire(led_fsm);
+        fsm_fire(green_led_fsm);
+        fsm_fire(blue_led_fsm);
         // printf("FSM state: %d\n", drone_fsm->current_state);
 
         // get_command(&command);
@@ -74,8 +76,6 @@ void system_init()
 
     // Initialize wifi
     wifi_init();
-    // Initialize the leds
-    led_init();
     // Initialize i2c
     i2c_drv_init();
     // Initialize the sensors

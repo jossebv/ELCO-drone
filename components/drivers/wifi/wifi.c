@@ -91,6 +91,17 @@ static uint8_t calculate_cksum(void *data, size_t len)
 }
 
 /**
+ * @brief Returns if the controller is connected by udp channel
+ *
+ * @return true
+ * @return false
+ */
+int wifiIsControllerConnected()
+{
+    return (int)is_udp_controller_connected;
+}
+
+/**
  * @brief Event handler for the wifi module
  *
  * @param arg
@@ -106,16 +117,6 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
         wifi_event_ap_staconnected_t *event = (wifi_event_ap_staconnected_t *)event_data;
         ESP_LOGI(TAG, "station " MACSTR " join, AID=%d",
                  MAC2STR(event->mac), event->aid);
-
-        // Inform that the controller is connected
-        if (event->aid == 1 && !is_udp_controller_connected)
-        {
-            is_udp_controller_connected = true;
-        }
-        else if (event->aid == 2 && !is_udp_console_connected)
-        {
-            is_udp_console_connected = true;
-        }
     }
     else if (event_id == WIFI_EVENT_AP_STADISCONNECTED)
     {

@@ -64,7 +64,7 @@ void sensors_init()
 
     // TODO: INIT ALL THE SENSORS
     mpu6050_init();
-    // ultrasonic_init();
+    ultrasonic_init();
 
     is_init = true;
     ESP_LOGI(TAG, "Sensors initialized!!");
@@ -152,9 +152,7 @@ drone_data_t sensors_get_drone_data()
 /* PRIVATE FUNTIONS */
 double get_altitude_data()
 {
-    // TODO: CALL THE ALTITUDE SENSORS TO GET THE ALTITUDE
-    // return ultrasonic_get_distance();
-    return 0;
+    return ultrasonic_get_distance();
 }
 
 /**

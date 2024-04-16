@@ -14,13 +14,13 @@
 
 #include "fsm.h"
 
-fsm_t *led_fsm_create();
+fsm_t *led_fsm_create(uint8_t led_pin);
 void led_fsm_set_blinking(fsm_t *fsm);
 void led_fsm_set_on(fsm_t *fsm);
 
-void led_init(void);
-void led_on(void);
-void led_off(void);
-void led_toggle(void);
+void led_init(uint8_t led_pin);
+void led_on(uint8_t led_pin, uint8_t *led_status);
+void led_off(uint8_t led_pin, uint8_t *led_status);
+void led_toggle(uint8_t led_pin, uint8_t *led_status);
 
 #endif

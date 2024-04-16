@@ -14,7 +14,10 @@
 
 #include "fsm.h"
 
-void system_task();
-fsm_t *system_fsm_create();
+#define GREEN_LED_PIN 2
+#define BLUE_LED_PIN 34
+
+void system_task(void *arg);
+fsm_t *system_fsm_create(fsm_t *green_led_fsm, fsm_t *blue_led_fsm);
 
 #endif

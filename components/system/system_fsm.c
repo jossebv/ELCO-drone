@@ -32,7 +32,8 @@
 typedef struct fsm_drone_t
 {
     fsm_t fsm;
-    fsm_t *led_fsm;
+    fsm_t *green_led_fsm;
+    fsm_t *blue_led_fsm;
     uint64_t next;
     gyro_vector_t last_gyros;
     acc_vector_t last_acc;
@@ -41,22 +42,25 @@ typedef struct fsm_drone_t
 typedef enum system_fsm_states
 {
     CALIBRATING = 0,
+    WAITING_CONTROLLER,
     FLYING,
     LANDING,
 } system_fsm_states_t;
 
 /* FUNCTIONS DECLARATIONS */
-void system_fsm_init(fsm_t *fsm, fsm_t *led_fsm);
+void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm);
 
 int is_drone_still_and_under_time(fsm_t *fsm);
 int is_drone_moving_and_under_time(fsm_t *fsm);
 int is_calibration_finished(fsm_t *fsm);
+int is_controller_connected(fsm_t *fsm);
 int is_battery_above_threshold_and_controller_connected(fsm_t *fsm);
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm);
 
 void do_update_calibration_progress(fsm_t *fsm);
 void do_reset_calibration_progress(fsm_t *fsm);
 void do_finish_calibration(fsm_t *fsm);
+void do_controller_connected(fsm_t *fsm);
 void do_update_drone_motors(fsm_t *fsm);
 void do_start_landing(fsm_t *fsm);
 
@@ -69,11 +73,11 @@ void do_start_landing(fsm_t *fsm);
  *
  * @return fsm_t* The system finite state machine
  */
-fsm_t *system_fsm_create(fsm_t *led_fsm)
+fsm_t *system_fsm_create(fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
 {
 
     fsm_t *fsm = (fsm_t *)malloc(sizeof(fsm_drone_t));
-    system_fsm_init(fsm, led_fsm);
+    system_fsm_init(fsm, green_led_fsm, blue_led_fsm);
     return fsm;
 }
 
@@ -91,20 +95,22 @@ void system_fsm_destroy(fsm_t *fsm)
  * @brief Initializes the system fsm
  *
  */
-void system_fsm_init(fsm_t *fsm, fsm_t *led_fsm)
+void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
     static fsm_trans_t system_fsm_tt[] = {
         {CALIBRATING, is_drone_still_and_under_time, CALIBRATING, do_update_calibration_progress},
         {CALIBRATING, is_drone_moving_and_under_time, CALIBRATING, do_reset_calibration_progress},
-        {CALIBRATING, is_calibration_finished, FLYING, do_finish_calibration},
+        {CALIBRATING, is_calibration_finished, WAITING_CONTROLLER, do_finish_calibration},
+        {WAITING_CONTROLLER, is_controller_connected, FLYING, do_controller_connected},
         {FLYING, is_battery_above_threshold_and_controller_connected, FLYING, do_update_drone_motors},
         {FLYING, is_battery_below_threshold_or_controller_disconnected, LANDING, do_start_landing},
         {-1, NULL, -1, NULL}};
 
     fsm_init(fsm, system_fsm_tt);
     fsm_drone->next = esp_timer_get_time() + CALIBRATION_TIME_US;
-    fsm_drone->led_fsm = led_fsm;
+    fsm_drone->green_led_fsm = green_led_fsm;
+    fsm_drone->blue_led_fsm = blue_led_fsm;
     //  fsm_drone->last_acc = get_accelerometer_data();
     //  fsm_drone->last_gyros = get_gyroscope_data();
 }
@@ -166,6 +172,17 @@ int is_calibration_finished(fsm_t *fsm)
 }
 
 /**
+ * @brief Checks if the controller is connected
+ *
+ * @param fsm
+ * @return int
+ */
+int is_controller_connected(fsm_t *fsm)
+{
+    return controller_is_connected();
+}
+
+/**
  * @brief Checks if the battery is above threshold and the controller is connected
  *
  * @return true
@@ -213,11 +230,28 @@ void do_reset_calibration_progress(fsm_t *fsm)
     printf("Resetting calibration progress\n");
 }
 
+/**
+ * @brief Terminates the calibration process turning the green led on
+ *
+ * @param fsm
+ */
 void do_finish_calibration(fsm_t *fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
-    led_fsm_set_on(fsm_drone->led_fsm);
+    led_fsm_set_on(fsm_drone->green_led_fsm);
     printf("Calibration finished\n");
+}
+
+/**
+ * @brief Checks that the controller is connected turning the blue led on
+ *
+ * @param fsm
+ */
+void do_controller_connected(fsm_t *fsm)
+{
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    led_fsm_set_on(fsm_drone->blue_led_fsm);
+    printf("Controller connected\n");
 }
 
 /**
@@ -228,8 +262,8 @@ void do_update_drone_motors(fsm_t *fsm)
 {
     drone_data_t sensors_data = sensors_update_drone_data();
 
-    // command_t command;
-    // controller_get_command(&command);
+    command_t command;
+    controller_get_command(&command);
 
     // motors_update(command, sensors_data);
 }

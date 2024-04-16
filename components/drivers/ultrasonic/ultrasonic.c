@@ -29,7 +29,6 @@
 /* VARIABLES */
 bool is_init = false;
 static float distance = 0;
-QueueHandle_t ultrasonic_queue;
 static TaskHandle_t ultrasonic_task_handle;
 
 /* FUNCTIONS DECLARATIONS */
@@ -38,23 +37,13 @@ static TaskHandle_t ultrasonic_task_handle;
 
 void ultrasonic_measure_distance()
 {
+
     // Send a trigger signal
+    gpio_set_level(ULTRASONIC_TRIGGER_PIN, 0);
+    ets_delay_us(4);
     gpio_set_level(ULTRASONIC_TRIGGER_PIN, 1);
     ets_delay_us(10);
     gpio_set_level(ULTRASONIC_TRIGGER_PIN, 0);
-
-    // Wait for the echo signal
-    uint32_t start = esp_timer_get_time();
-    uint32_t end_measure_time;
-
-    if (xQueueReceive(ultrasonic_queue, &end_measure_time, pdMS_TO_TICKS(ULTRASONIC_TIMEOUT_US / 1000)) == pdTRUE)
-    {
-        distance = (end_measure_time - start) * 0.0331 / 2;
-    }
-    else
-    {
-        distance = -1;
-    }
 }
 
 /**
@@ -73,8 +62,19 @@ float ultrasonic_get_distance(void)
  */
 void ultrasonic_echo_isr(void *arg)
 {
-    uint32_t end_measure_time = esp_timer_get_time();
-    xQueueSendFromISR(ultrasonic_queue, &end_measure_time, NULL);
+
+    static uint64_t start;
+    static uint64_t end;
+
+    if (gpio_get_level(ULTRASONIC_ECHO_PIN) == 1) // Rising edge
+    {
+        start = esp_timer_get_time();
+    }
+    else // Falling edge
+    {
+        end = esp_timer_get_time();
+        distance = (end - start) * 0.0331 / 2;
+    }
 }
 
 /**
@@ -113,13 +113,12 @@ void ultrasonic_init(void)
 
     io_conf.mode = GPIO_MODE_INPUT;
     io_conf.pin_bit_mask = (1ULL << ULTRASONIC_ECHO_PIN);
-    io_conf.intr_type = GPIO_INTR_POSEDGE;
+    io_conf.intr_type = GPIO_INTR_ANYEDGE;
     gpio_config(&io_conf);
     gpio_install_isr_service(ESP_INTR_FLAG_LEVEL1);
     gpio_isr_handler_add(ULTRASONIC_ECHO_PIN, ultrasonic_echo_isr, NULL);
 
-    // Create the queue
-    ultrasonic_queue = xQueueCreate(1, sizeof(uint32_t));
+    is_init = true;
 
     xTaskCreate(ultrasonic_task, "ultrasonic_task", 2048, NULL, 10, &ultrasonic_task_handle);
 }

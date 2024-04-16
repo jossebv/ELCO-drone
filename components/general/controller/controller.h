@@ -27,5 +27,6 @@ typedef struct command_t
 } command_t;
 
 void controller_get_command(command_t *command);
+int controller_is_connected();
 
 #endif // CONTROLLER_H

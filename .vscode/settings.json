@@ -18,7 +18,10 @@
         "motors.h": "c",
         "led.h": "c",
         "esp_log.h": "c",
-        "ultrasonic.h": "c"
+        "ultrasonic.h": "c",
+        "esp_timer.h": "c",
+        "system.h": "c",
+        "i2c_drv.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

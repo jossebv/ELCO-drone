@@ -60,3 +60,12 @@ void controller_get_command(command_t *command)
     printf("Roll: %f\n", command->roll);
 #endif
 }
+
+/**
+ * @brief Checks if the controller is connected
+ *
+ */
+int controller_is_connected()
+{
+    return wifiIsControllerConnected();
+}

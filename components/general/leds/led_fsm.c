@@ -28,6 +28,8 @@ typedef struct fsm_led_t
 {
     fsm_t fsm;
     uint32_t next;
+    uint8_t led_pin;
+    uint8_t led_status;
 } fsm_led_t;
 
 /**
@@ -40,7 +42,7 @@ void led_fsm_set_blinking(fsm_t *fsm)
     fsm_led_t *led_fsm = (fsm_led_t *)fsm;
     fsm->current_state = BLINKING;
     led_fsm->next = esp_timer_get_time() + LED_BLINKING_PERIOD_US;
-    led_toggle();
+    led_toggle(led_fsm->led_pin, &led_fsm->led_status);
 }
 
 /**
@@ -52,7 +54,7 @@ void led_fsm_set_on(fsm_t *fsm)
 {
     fsm_led_t *led_fsm = (fsm_led_t *)fsm;
     fsm->current_state = ON;
-    led_on();
+    led_on(led_fsm->led_pin, &led_fsm->led_status);
 }
 
 /**
@@ -87,7 +89,7 @@ void do_toggle_led(fsm_t *fsm)
 {
     fsm_led_t *led_fsm = (fsm_led_t *)fsm;
     led_fsm->next = esp_timer_get_time() + LED_BLINKING_PERIOD_US;
-    led_toggle();
+    led_toggle(led_fsm->led_pin, &led_fsm->led_status);
 }
 
 /**
@@ -97,7 +99,8 @@ void do_toggle_led(fsm_t *fsm)
  */
 void do_turn_led_on(fsm_t *fsm)
 {
-    led_on();
+    fsm_led_t *led_fsm = (fsm_led_t *)fsm;
+    led_on(led_fsm->led_pin, &led_fsm->led_status);
 }
 
 /**
@@ -105,7 +108,7 @@ void do_turn_led_on(fsm_t *fsm)
  *
  * @param fsm
  */
-void led_fsm_init(fsm_t *fsm)
+void led_fsm_init(fsm_t *fsm, uint8_t led_pin)
 {
     fsm_led_t *led_fsm = (fsm_led_t *)fsm;
 
@@ -114,7 +117,10 @@ void led_fsm_init(fsm_t *fsm)
         {ON, is_on, ON, do_turn_led_on},
         {-1, NULL, -1, NULL}};
 
+    led_init(led_pin);
     fsm_init(fsm, system_fsm_tt);
+    led_fsm->led_pin = led_pin;
+    led_fsm->led_status = 0;
     led_fsm->next = esp_timer_get_time() + LED_BLINKING_PERIOD_US;
 }
 
@@ -123,10 +129,10 @@ void led_fsm_init(fsm_t *fsm)
  *
  * @return fsm_t*
  */
-fsm_t *led_fsm_create()
+fsm_t *led_fsm_create(uint8_t led_pin)
 {
     fsm_t *fsm = (fsm_t *)malloc(sizeof(fsm_led_t));
-    led_fsm_init(fsm);
+    led_fsm_init(fsm, led_pin);
 
     return fsm;
 }
