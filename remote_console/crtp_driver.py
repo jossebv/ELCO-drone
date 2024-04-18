@@ -56,16 +56,19 @@ class UdpDriver:
         # Add this to the server clients list
         self.socket.sendto(b"\xFF\x01\x01\x01", self.addr)
 
-    def receive_packet(self, time=0):
+    def receive_packet(self, raw=False, time=0):
         data, addr = self.socket.recvfrom(64)
 
         if data:
-            data = struct.unpack("b" * (len(data) - 1), data[0 : len(data) - 1])
+            data = struct.unpack("B" * (len(data) - 1), data[0 : len(data) - 1])
             # pk = CRTPPacket()
             # pk.port = data[0]
             # pk.data = data[1:]
             pk = None
-            return bytes(data).decode("utf-8")
+            if raw:
+                return data
+            else:
+                return bytes(data).decode("utf-8")
 
         try:
             if time == 0:

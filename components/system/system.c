@@ -47,7 +47,7 @@ void system_task(void *arg)
         fsm_fire(drone_fsm);
         fsm_fire(green_led_fsm);
         fsm_fire(blue_led_fsm);
-        // printf("FSM state: %d\n", drone_fsm->current_state);
+        //  printf("FSM state: %d\n", drone_fsm->current_state);
 
         // get_command(&command);
         // get_gyroscope_data();
@@ -77,8 +77,10 @@ void system_init()
     // Initialize wifi
     wifi_init();
     // Initialize i2c
+    vTaskDelay(pdMS_TO_TICKS(100));
     i2c_drv_init();
     // Initialize the sensors
+    vTaskDelay(pdMS_TO_TICKS(100));
     sensors_init();
 
     is_init = true;

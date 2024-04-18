@@ -1,6 +1,5 @@
 import cmd
 import time
-import keyboard
 from crtp_driver import UdpDriver
 
 
@@ -8,6 +7,8 @@ class DroneConsole(cmd.Cmd):
     intro = "\033[95mWelcome to the ESP_Drone shell.   Type help or ? to list commands.\033[0m"
     prompt = "\033[94mESP_Drone > \033[0m"
     driver = UdpDriver()
+    listening = False
+    stop_listening = False
     connected = False
 
     def do_connect(self, line):
@@ -31,20 +32,18 @@ class DroneConsole(cmd.Cmd):
 
     def do_listen(self, line):
         "Listen the drone port"
+        listening = True
         if not self.connected:
             print(
                 "Drone is not connected, please connect the drone before trying to listen the communication."
             )
             return False
 
-        t = 0
-        print("Lstening the drone port. Press [space] to stop.")
+        print("Listening the drone port. Press [space] to stop.")
         while True:
-            print(t)
-            t = t + 1
-            if keyboard.is_pressed("space"):
-                print("se presionó [p]arar!")
-                break
+            recv = bytes(self.driver.receive_packet(raw=True)[1:])
+            recv = int.from_bytes(recv, byteorder="little")
+            print(recv)
 
     def do_exit(self, line):
         "Exit the console"
@@ -54,4 +53,6 @@ class DroneConsole(cmd.Cmd):
 
 
 if __name__ == "__main__":
-    DroneConsole().cmdloop()
+
+    console = DroneConsole()
+    console.cmdloop()

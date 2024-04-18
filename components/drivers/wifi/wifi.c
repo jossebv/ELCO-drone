@@ -156,9 +156,11 @@ bool wifiGetDataBlocking(UDPPacket *in)
  * @return true
  * @return false
  */
-bool wifiSendData(UDPPacket *out)
+bool wifi_send_data(char *data)
 {
-    if (xQueueSend(udp_data_tx, out, 2) != pdTRUE)
+    memcpy(out_packet.data, data, strlen(data));
+    out_packet.size = strlen(data);
+    if (xQueueSend(udp_data_tx, &out_packet, 2) != pdTRUE)
     {
         ESP_LOGE(TAG, "Error sending data to queue");
         return false;
