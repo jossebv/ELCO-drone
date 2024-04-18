@@ -14,6 +14,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "esp_timer.h"
 
@@ -21,7 +22,9 @@
 #include "sensors.h"
 #include "controller.h"
 #include "motors.h"
+#include "wifi.h"
 #include "led.h"
+#include "adc.h"
 
 /* DEFINES */
 
@@ -264,8 +267,13 @@ void do_update_drone_motors(fsm_t *fsm)
 
     command_t command;
     controller_get_command(&command);
-
     // motors_update(command, sensors_data);
+
+    // Send battery data to the monitor
+    static char packet[] = {0x40, 0x00, 0x00, 0x00, 0x00};
+    uint32_t battery = adc_read_voltage();
+    memcpy(&packet[1], &battery, sizeof(battery));
+    wifi_send_data(packet);
 }
 
 /**
