@@ -18,9 +18,16 @@
 
 static const adc_atten_t atten = ADC_ATTEN_DB_11;
 static const adc_bits_width_t width = ADC_WIDTH_BIT_12;
+static bool is_intit = false;
 
 uint32_t adc_read_voltage()
 {
+    if (!is_intit)
+    {
+        printf("ADC not initialized\n");
+        return 0;
+    }
+
     // Read ADC and obtain voltage
     uint32_t adc_reading = 0;
     for (int i = 0; i < NO_OF_SAMPLES; i++)
@@ -35,6 +42,13 @@ uint32_t adc_read_voltage()
 void adc_init(void)
 {
     // Configure ADC
+    if (is_intit)
+    {
+        return;
+    }
+
     adc1_config_width(width);
     adc1_config_channel_atten(ADC1_CHANNEL_5, atten);
+
+    is_intit = true;
 }

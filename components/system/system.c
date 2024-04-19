@@ -11,6 +11,7 @@
 #include "i2c_drv.h"
 #include "sensors.h"
 #include "wifi.h"
+#include "adc.h"
 #include "nvs_flash.h"
 #include "controller.h"
 
@@ -82,6 +83,9 @@ void system_init()
     // Initialize the sensors
     vTaskDelay(pdMS_TO_TICKS(100));
     sensors_init();
+
+    // Initialize the adc
+    adc_init();
 
     is_init = true;
 }
