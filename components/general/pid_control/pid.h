@@ -19,10 +19,13 @@ typedef struct pid_data_t
     double kd;
     double integral;
     double last_error;
+    double last_time;
 } pid_data_t;
 
 pid_data_t *pid_create(float kp, float ki, float kd);
 void pid_destroy(pid_data_t *pid);
-uint16_t pid_update(pid_data_t *pid, float error);
+double pid_update(pid_data_t *pid, float error);
+void pid_reset(pid_data_t *pid);
+void pid_update_constants(pid_data_t *pid, float kp, float ki, float kd);
 
 #endif // PID_H

@@ -66,6 +66,7 @@ static UDPPacket in_packet;
 static UDPPacket out_packet;
 
 static QueueHandle_t udp_data_rx;
+static QueueHandle_t udp_instruction_rx;
 static QueueHandle_t udp_data_tx;
 
 /* PRIVATE FUNCTIONS */
@@ -144,7 +145,18 @@ bool wifiGetDataBlocking(UDPPacket *in)
     {
         vTaskDelay(1);
     }; // Don't return until we get some data on the UDP
-    printf("Data obtained\n");
+
+    return true;
+};
+
+bool wifi_get_instruction_blocking(UDPPacket *instruction)
+{
+    /* command step - receive  02  from udp rx queue */
+    while (xQueueReceive(udp_instruction_rx, instruction, portMAX_DELAY) != pdTRUE)
+    {
+        vTaskDelay(1);
+    }; // Don't return until we get some data on the UDP
+    printf("Intruction obtained\n");
 
     return true;
 };
@@ -156,10 +168,10 @@ bool wifiGetDataBlocking(UDPPacket *in)
  * @return true
  * @return false
  */
-bool wifi_send_data(char *data)
+bool wifi_send_data(char *data, uint8_t size)
 {
     memcpy(out_packet.data, data, strlen(data));
-    out_packet.size = strlen(data);
+    out_packet.size = size;
     if (xQueueSend(udp_data_tx, &out_packet, 2) != pdTRUE)
     {
         ESP_LOGE(TAG, "Error sending data to queue");
@@ -250,10 +262,6 @@ static void udp_server_rx_task(void *pvParameters)
 #endif
             memcpy(in_packet.data, rx_buffer, len);
 
-            cksum = in_packet.data[len - 1];
-            // remove cksum from packet
-            in_packet.size = len - 1;
-
             // Check if is console device
             if (in_packet.data[0] == 0xff && in_packet.data[1] == 0x01)
             {
@@ -267,14 +275,29 @@ static void udp_server_rx_task(void *pvParameters)
                 console_addr = source_addr;
                 is_udp_console_connected = true;
                 char *msg = "Connection accomplished";
-                memcpy(out_packet.data, msg, strlen(msg));
-                out_packet.size = strlen(msg);
+                char header = 0x01;
+                memcpy(out_packet.data + 1, msg, strlen(msg));
+                memcpy(out_packet.data, &header, sizeof(header));
+                out_packet.size = strlen(msg) + 1;
                 xQueueSend(udp_data_tx, &out_packet, 2);
                 continue;
+            }
+            // Check if is instruction
+            else if (in_packet.data[0] == 0x40)
+            {
+                // ESP_LOGI(TAG, "Instruction received");
+                if (xQueueSend(udp_instruction_rx, &in_packet, 2) != pdTRUE)
+                {
+                    ESP_LOGE(TAG, "Error sending data to queue");
+                }
             }
             // Check if is controller device
             else if (in_packet.data[0] == 0x30)
             {
+
+                cksum = in_packet.data[len - 1];
+                // remove cksum from packet
+                in_packet.size = len - 1;
                 is_udp_controller_connected = true;
                 // check cksum
                 if (cksum == calculate_cksum(in_packet.data, len - 1) && in_packet.size < 64)
@@ -340,6 +363,7 @@ void wifi_init()
 
     ESP_LOGI(TAG, "Initializing wifi");
     udp_data_rx = xQueueCreate(5, sizeof(UDPPacket));
+    udp_instruction_rx = xQueueCreate(5, sizeof(UDPPacket));
     udp_data_tx = xQueueCreate(5, sizeof(UDPPacket));
 
     ESP_ERROR_CHECK(esp_netif_init());

@@ -58,6 +58,18 @@ void led_fsm_set_on(fsm_t *fsm)
 }
 
 /**
+ * @brief Sets the fsm to off
+ *
+ * @param fsm
+ */
+void led_fsm_set_off(fsm_t *fsm)
+{
+    fsm_led_t *led_fsm = (fsm_led_t *)fsm;
+    fsm->current_state = OFF;
+    led_off(led_fsm->led_pin, &led_fsm->led_status);
+}
+
+/**
  * @brief Checks if the time has elapsed
  *
  * @param fsm
@@ -78,6 +90,17 @@ int is_time_elapsed(fsm_t *fsm)
 int is_on(fsm_t *fsm)
 {
     return fsm->current_state == ON;
+}
+
+/**
+ * @brief Checks if the led is off
+ *
+ * @param fsm
+ * @return int
+ */
+int is_off(fsm_t *fsm)
+{
+    return fsm->current_state == OFF;
 }
 
 /**
@@ -104,6 +127,17 @@ void do_turn_led_on(fsm_t *fsm)
 }
 
 /**
+ * @brief Turns the led off
+ *
+ * @param fsm
+ */
+void do_turn_led_off(fsm_t *fsm)
+{
+    fsm_led_t *led_fsm = (fsm_led_t *)fsm;
+    led_off(led_fsm->led_pin, &led_fsm->led_status);
+}
+
+/**
  * @brief Initializes the led fsm
  *
  * @param fsm
@@ -115,6 +149,7 @@ void led_fsm_init(fsm_t *fsm, uint8_t led_pin)
     static fsm_trans_t system_fsm_tt[] = {
         {BLINKING, is_time_elapsed, BLINKING, do_toggle_led},
         {ON, is_on, ON, do_turn_led_on},
+        {OFF, is_off, OFF, do_turn_led_off},
         {-1, NULL, -1, NULL}};
 
     led_init(led_pin);

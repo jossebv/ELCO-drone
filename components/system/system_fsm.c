@@ -37,9 +37,11 @@ typedef struct fsm_drone_t
     fsm_t fsm;
     fsm_t *green_led_fsm;
     fsm_t *blue_led_fsm;
+    fsm_t *red_led_fsm;
     uint64_t next;
     gyro_vector_t last_gyros;
     acc_vector_t last_acc;
+    uint32_t battery;
 } fsm_drone_t;
 
 typedef enum system_fsm_states
@@ -51,12 +53,13 @@ typedef enum system_fsm_states
 } system_fsm_states_t;
 
 /* FUNCTIONS DECLARATIONS */
-void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm);
+void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm, fsm_t *red_led_fsm);
 
 int is_drone_still_and_under_time(fsm_t *fsm);
 int is_drone_moving_and_under_time(fsm_t *fsm);
 int is_calibration_finished(fsm_t *fsm);
 int is_controller_connected(fsm_t *fsm);
+int is_battery_below_threshold(fsm_t *fsm);
 int is_battery_above_threshold_and_controller_connected(fsm_t *fsm);
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm);
 
@@ -65,6 +68,7 @@ void do_reset_calibration_progress(fsm_t *fsm);
 void do_finish_calibration(fsm_t *fsm);
 void do_controller_connected(fsm_t *fsm);
 void do_update_drone_motors(fsm_t *fsm);
+void do_inform_battery_below_threshold(fsm_t *fsm);
 void do_start_landing(fsm_t *fsm);
 
 /* VARIABLES */
@@ -76,11 +80,11 @@ void do_start_landing(fsm_t *fsm);
  *
  * @return fsm_t* The system finite state machine
  */
-fsm_t *system_fsm_create(fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
+fsm_t *system_fsm_create(fsm_t *green_led_fsm, fsm_t *blue_led_fsm, fsm_t *red_led_fsm)
 {
 
     fsm_t *fsm = (fsm_t *)malloc(sizeof(fsm_drone_t));
-    system_fsm_init(fsm, green_led_fsm, blue_led_fsm);
+    system_fsm_init(fsm, green_led_fsm, blue_led_fsm, red_led_fsm);
     return fsm;
 }
 
@@ -98,7 +102,7 @@ void system_fsm_destroy(fsm_t *fsm)
  * @brief Initializes the system fsm
  *
  */
-void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
+void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm, fsm_t *red_led_fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
     static fsm_trans_t system_fsm_tt[] = {
@@ -107,6 +111,7 @@ void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
         {CALIBRATING, is_calibration_finished, WAITING_CONTROLLER, do_finish_calibration},
         {WAITING_CONTROLLER, is_controller_connected, FLYING, do_controller_connected},
         {FLYING, is_battery_above_threshold_and_controller_connected, FLYING, do_update_drone_motors},
+        {FLYING, is_battery_below_threshold, FLYING, do_inform_battery_below_threshold},
         {FLYING, is_battery_below_threshold_or_controller_disconnected, LANDING, do_start_landing},
         {-1, NULL, -1, NULL}};
 
@@ -114,6 +119,8 @@ void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm)
     fsm_drone->next = esp_timer_get_time() + CALIBRATION_TIME_US;
     fsm_drone->green_led_fsm = green_led_fsm;
     fsm_drone->blue_led_fsm = blue_led_fsm;
+    fsm_drone->red_led_fsm = red_led_fsm;
+    led_fsm_set_off(fsm_drone->red_led_fsm);
     //  fsm_drone->last_acc = get_accelerometer_data();
     //  fsm_drone->last_gyros = get_gyroscope_data();
 }
@@ -186,6 +193,16 @@ int is_controller_connected(fsm_t *fsm)
 }
 
 /**
+ * @brief Is the battery below threshold
+ *
+ */
+int is_battery_below_threshold(fsm_t *fsm)
+{
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    return fsm_drone->battery < 2625;
+}
+
+/**
  * @brief Checks if the battery is above threshold and the controller is connected
  *
  * @return true
@@ -254,6 +271,7 @@ void do_controller_connected(fsm_t *fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
     led_fsm_set_on(fsm_drone->blue_led_fsm);
+    motors_reset();
     printf("Controller connected\n");
 }
 
@@ -267,13 +285,27 @@ void do_update_drone_motors(fsm_t *fsm)
 
     command_t command;
     controller_get_command(&command);
-    // motors_update(command, sensors_data);
+    motors_update(command, sensors_data);
 
     // Send battery data to the monitor
-    static char packet[] = {0x40, 0x00, 0x00, 0x00, 0x00};
-    uint32_t battery = adc_read_voltage();
-    memcpy(&packet[1], &battery, sizeof(battery));
-    wifi_send_data(packet);
+    // static char packet[] = {0x40, 0x00, 0x00, 0x00, 0x00};
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    fsm_drone->battery = adc_read_voltage();
+    // memcpy(&packet[1], &battery, sizeof(battery));
+    // wifi_send_data(packet);
+}
+
+/**
+ * @brief Inform that the battery is below threshold
+ *
+ */
+void do_inform_battery_below_threshold(fsm_t *fsm)
+{
+    fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
+    led_fsm_set_on(fsm_drone->red_led_fsm);
+    printf("Battery below threshold\n");
+
+    do_update_drone_motors(fsm);
 }
 
 /**

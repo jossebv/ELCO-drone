@@ -12,6 +12,7 @@
 #include <stdlib.h>
 
 #include "pid.h"
+#include "esp_timer.h"
 
 /**
  * @brief Create a PID object
@@ -29,6 +30,7 @@ pid_data_t *pid_create(float kp, float ki, float kd)
     pid->kd = kd;
     pid->integral = 0;
     pid->last_error = 0;
+    pid->last_time = esp_timer_get_time();
     return pid;
 }
 
@@ -49,10 +51,42 @@ void pid_destroy(pid_data_t *pid)
  * @param error Error between the setpoint and the current value
  * @return uint16_t Output of the PID controller. The value should be between a duty cycle.
  */
-uint16_t pid_update(pid_data_t *pid, float error)
+double pid_update(pid_data_t *pid, float error)
 {
-    pid->integral += error;
-    float derivative = error - pid->last_error;
+    uint64_t current_time = esp_timer_get_time();
+    double delta_time = (current_time - pid->last_time) / 1000000.0;
+    pid->last_time = current_time;
+
+    pid->integral += error * delta_time;
+    float derivative = (error - pid->last_error) / delta_time;
     pid->last_error = error;
-    return (uint16_t)(pid->kp * error + pid->ki * pid->integral + pid->kd * derivative);
+
+    return (double)(pid->kp * error + pid->ki * pid->integral + pid->kd * derivative);
+}
+
+/**
+ * @brief Reset the PID controller
+ *
+ * @param pid PID object
+ */
+void pid_reset(pid_data_t *pid)
+{
+    pid->last_time = esp_timer_get_time();
+    pid->integral = 0;
+    pid->last_error = 0;
+}
+
+/**
+ * @brief Updates a pid_t object with new constants
+ *
+ * @param pid
+ * @param kp
+ * @param ki
+ * @param kd
+ */
+void pid_update_constants(pid_data_t *pid, float kp, float ki, float kd)
+{
+    pid->kp = kp;
+    pid->ki = ki;
+    pid->kd = kd;
 }

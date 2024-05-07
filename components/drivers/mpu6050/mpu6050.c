@@ -91,13 +91,13 @@ gyro_vector_t mpu6050_read_gyro()
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    int16_t gyro_x = ((char)read_buffer[0] << 8 | (char)read_buffer[1]);
-    int16_t gyro_y = ((char)read_buffer[2] << 8 | (char)read_buffer[3]);
-    int16_t gyro_z = ((char)read_buffer[4] << 8 | (char)read_buffer[5]);
+    int16_t gyro_x = (int16_t)(read_buffer[0] << 8 | read_buffer[1]);
+    int16_t gyro_y = (int16_t)(read_buffer[2] << 8 | read_buffer[3]);
+    int16_t gyro_z = (int16_t)(read_buffer[4] << 8 | read_buffer[5]);
 
-    gyro.pitch = gyro_x / 16.4 - gyro_offset_pitch; // gyroscope x axis
-    gyro.roll = gyro_y / 16.4 - gyro_offset_roll;   // gyroscope y axis
-    gyro.yaw = gyro_z / 16.4 - gyro_offset_yaw;     // gyroscope z axis
+    gyro.pitch = (float)gyro_x / 16.4 - gyro_offset_pitch; // gyroscope x axis
+    gyro.roll = (float)gyro_y / 16.4 - gyro_offset_roll;   // gyroscope y axis
+    gyro.yaw = (float)gyro_z / 16.4 - gyro_offset_yaw;     // gyroscope z axis
 
     return gyro;
 }
@@ -154,9 +154,9 @@ void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
     gyro_offset_pitch += (gyro_offsets.pitch);
     gyro_offset_roll += (gyro_offsets.roll);
     gyro_offset_yaw += (gyro_offsets.yaw);
-    accel_offset_x += (acc_offsets.x / 2);
-    accel_offset_y += (acc_offsets.y / 2);
-    accel_offset_z += ((acc_offsets.z - 1) / 2); // Gravity is 1g
+    accel_offset_x += (acc_offsets.x);
+    accel_offset_y += (acc_offsets.y);
+    accel_offset_z += ((acc_offsets.z - 1)); // Gravity is 1g
 }
 
 /**
@@ -240,6 +240,6 @@ void set_sample_rate()
  */
 void configure_low_pass_filter()
 {
-    uint8_t write_buffer[2] = {MPU6050_CONFIG_REG, 0x06};
+    uint8_t write_buffer[2] = {MPU6050_CONFIG_REG, 0x05};
     i2c_master_write_to_device(I2C_NUM_0, MPU6050_ADDR, write_buffer, sizeof(write_buffer), pdMS_TO_TICKS(1000));
 }

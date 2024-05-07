@@ -19,5 +19,5 @@
 
 void app_main(void)
 {
-    xTaskCreate(system_task, "system_task", 4096, NULL, 5, NULL);
+    xTaskCreate(system_task, "system_task", 4096, NULL, 10, NULL);
 }

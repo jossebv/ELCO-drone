@@ -26,7 +26,8 @@ typedef struct
 
 void wifi_init();
 bool wifiGetDataBlocking(UDPPacket *in);
-bool wifi_send_data(char *data);
+bool wifi_get_instruction_blocking(UDPPacket *instruction);
+bool wifi_send_data(char *data, uint8_t size);
 int wifiIsControllerConnected();
 
 #endif // WIFI_H

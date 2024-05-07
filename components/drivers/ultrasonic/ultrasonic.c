@@ -120,5 +120,5 @@ void ultrasonic_init(void)
 
     is_init = true;
 
-    xTaskCreate(ultrasonic_task, "ultrasonic_task", 2048, NULL, 10, &ultrasonic_task_handle);
+    xTaskCreate(ultrasonic_task, "ultrasonic_task", 2048, NULL, 3, &ultrasonic_task_handle);
 }

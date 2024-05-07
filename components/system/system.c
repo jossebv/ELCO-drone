@@ -6,10 +6,12 @@
 
 #include "main.h"
 #include "system.h"
+#include "comms.h"
 #include "led.h"
 #include "esp_log.h"
 #include "i2c_drv.h"
 #include "sensors.h"
+#include "motors.h"
 #include "wifi.h"
 #include "adc.h"
 #include "nvs_flash.h"
@@ -32,27 +34,27 @@ void system_task(void *arg)
     /* Crate timer variables */
     TickType_t xLastWakeTime = xTaskGetTickCount();
     const TickType_t xFrequency = pdMS_TO_TICKS(DRONE_UPDATE_MS);
+    BaseType_t xWasDelayed;
 
     /* Create the fsms */
     fsm_t *green_led_fsm = led_fsm_create(GREEN_LED_PIN);
     fsm_t *blue_led_fsm = led_fsm_create(BLUE_LED_PIN);
-    drone_fsm = system_fsm_create(green_led_fsm, blue_led_fsm);
+    fsm_t *red_led_fsm = led_fsm_create(RED_LED_PIN);
+
+    drone_fsm = system_fsm_create(green_led_fsm, blue_led_fsm, red_led_fsm);
 
     while (1)
     {
-        // TODO: Here we will call fsm_fire() to update the state of the drone and execute the corresponding action
-        // vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(DRONE_UPDATE_MS));
-        // sensors_update_drone_data();
+        xWasDelayed = xTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-        xTaskDelayUntil(&xLastWakeTime, xFrequency);
+        if (xWasDelayed == pdFALSE) // Task was not delayed, hence the system is running late
+        {
+            ESP_LOGW(TAG, "System is running late!");
+        }
+
         fsm_fire(drone_fsm);
         fsm_fire(green_led_fsm);
         fsm_fire(blue_led_fsm);
-        //  printf("FSM state: %d\n", drone_fsm->current_state);
-
-        // get_command(&command);
-        // get_gyroscope_data();
-        // get_accelerometer_data();
     }
 }
 
@@ -77,15 +79,21 @@ void system_init()
 
     // Initialize wifi
     wifi_init();
+    comms_init();
     // Initialize i2c
     vTaskDelay(pdMS_TO_TICKS(100));
     i2c_drv_init();
+    // Initialize the motors
+    vTaskDelay(pdMS_TO_TICKS(100));
+    motors_init();
     // Initialize the sensors
     vTaskDelay(pdMS_TO_TICKS(100));
     sensors_init();
 
     // Initialize the adc
     adc_init();
+
+    vTaskDelay(pdMS_TO_TICKS(1000));
 
     is_init = true;
 }

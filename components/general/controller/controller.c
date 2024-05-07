@@ -14,7 +14,7 @@
 #include "controller.h"
 #include "wifi.h"
 
-#define DEBUG_CONTROLLER 1
+#define DEBUG_CONTROLLER 0
 
 /**
  * @brief Decode the command from the packet

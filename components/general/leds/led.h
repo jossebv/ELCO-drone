@@ -17,6 +17,7 @@
 fsm_t *led_fsm_create(uint8_t led_pin);
 void led_fsm_set_blinking(fsm_t *fsm);
 void led_fsm_set_on(fsm_t *fsm);
+void led_fsm_set_off(fsm_t *fsm);
 
 void led_init(uint8_t led_pin);
 void led_on(uint8_t led_pin, uint8_t *led_status);

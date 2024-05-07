@@ -38,8 +38,8 @@ drone_angles_t comb_filter_get_angles(drone_angles_t gyros_delta_angle, drone_an
 /* PRIVATE FUNCTIONS */
 static double update_angle(double gyros_delta_angle, double acc_angle, double *angle_to_update)
 {
-    double angle_gyro = (gyros_delta_angle + *angle_to_update) * 0.9;
-    double angle_acc = acc_angle * 0.1;
+    double angle_gyro = (gyros_delta_angle + *angle_to_update) * 0.97;
+    double angle_acc = acc_angle * 0.03;
     double angle = angle_gyro + angle_acc;
     *angle_to_update = angle;
     return angle;

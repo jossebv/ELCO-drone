@@ -12,6 +12,7 @@
 /* INCLUDES */
 #include <stdbool.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -26,35 +27,38 @@
 #include "pid.h"
 #include "controller.h"
 #include "sensors.h"
+#include "wifi.h"
 
 /* DEFINES */
-#define PITCH_KP 1 // Proportional constant for the pith PID controller
-#define PITCH_KI 0 // Integral constant for the pith PID controller
-#define PITCH_KD 0 // Derivative constant for the pith PID controller
+#define PITCH_KP 0 // 0.32  // Proportional constant for the pith PID controller
+#define PITCH_KI 0 // 0.005 // Integral constant for the pith PID controller
+#define PITCH_KD 0 // 0.5   // Derivative constant for the pith PID controller
 
-#define ROLL_KP PITCH_KP // Due to the symmetry of the drone
-#define ROLL_KI PITCH_KI // Due to the symmetry of the drone
-#define ROLL_KD PITCH_KD // Due to the symmetry of the drone
+#define ROLL_KP 0 // 0.3   // Due to the symmetry of the drone
+#define ROLL_KI 0 // 0.001 // Due to the symmetry of the drone
+#define ROLL_KD 0 // 0.5   // Due to the symmetry of the drone
 
 #define YAW_KP 1 // Proportional constant for the yaw PID controller
 #define YAW_KI 0 // Integral constant for the yaw PID controller
 #define YAW_KD 0 // Derivative constant for the yaw PID controller
 
+#define PWM_PERIOD_MS 3                  // Period of the PWM signal
+#define PWM_FREQ_HZ 1000 / PWM_PERIOD_MS // Frequency of the PWM signal
+
 #define MOTOR_MIN_US 1000 // Minimum value for the motors
 #define MOTOR_MAX_US 2000 // Maximum value for the motors
-#define THROTTLE_MIN 1000 // Minimum value for the throttle
-#define THROTTLE_MAX 1700 // Maximum value for the throttle. Should be lower than MOTOR_MAX
+#define THROTTLE_MAX 80   // Maximum value for the throttle. Should be lower than MOTOR_MAX
 
-#define MOTOR1_PIN GPIO_NUM_1 // Pin for motor 1
-#define MOTOR2_PIN GPIO_NUM_2 // Pin for motor 2
-#define MOTOR3_PIN GPIO_NUM_3 // Pin for motor 3
-#define MOTOR4_PIN GPIO_NUM_4 // Pin for motor 4
+#define MOTOR1_PIN GPIO_NUM_18 // Pin for motor 1
+#define MOTOR2_PIN GPIO_NUM_5  // Pin for motor 2
+#define MOTOR3_PIN GPIO_NUM_17 // Pin for motor 3
+#define MOTOR4_PIN GPIO_NUM_16 // Pin for motor 4
 
 /* VARIABLES */
 static const char *TAG = "motors";
-static const uint8_t MOTOR_PINS[4] = {MOTOR1_PIN, MOTOR2_PIN, MOTOR3_PIN, MOTOR4_PIN};
-static const uint16_t MOTOR_MIN_DUTY = (MOTOR_MIN_US * 65535 / 5000);
-static const uint16_t MOTOR_MAX_DUTY = (MOTOR_MAX_US * 65535 / 5000);
+static const int MOTOR_PINS[4] = {MOTOR1_PIN, MOTOR2_PIN, MOTOR3_PIN, MOTOR4_PIN};
+static const uint16_t MOTOR_MIN_DUTY = (MOTOR_MIN_US * 65535 / (PWM_PERIOD_MS * 1000));
+static const uint16_t MOTOR_MAX_DUTY = (MOTOR_MAX_US * 65535 / (PWM_PERIOD_MS * 1000));
 
 static bool is_init = false;
 static pid_data_t *pid_pitch;
@@ -67,8 +71,8 @@ void _motors_ledc_init()
 {
     ledc_timer_config_t ledc_timer = {
         .duty_resolution = LEDC_TIMER_16_BIT, // resolution of PWM duty
-        .freq_hz = DRONE_UPDATE_FREQ,         // frequency of PWM signal
-        .speed_mode = LEDC_LOW_SPEED_MODE,    // timer mode
+        .freq_hz = PWM_FREQ_HZ,               // frequency of PWM signal
+        .speed_mode = LEDC_HIGH_SPEED_MODE,   // timer mode
         .timer_num = LEDC_TIMER_0,            // timer index
         .clk_cfg = LEDC_AUTO_CLK,             // Auto select the source clock
     };
@@ -79,18 +83,24 @@ void _motors_ledc_init()
         .channel = LEDC_CHANNEL_0,
         .duty = MOTOR_MIN_DUTY,
         .gpio_num = MOTOR1_PIN,
-        .speed_mode = LEDC_LOW_SPEED_MODE,
+        .speed_mode = LEDC_HIGH_SPEED_MODE,
         .timer_sel = LEDC_TIMER_0,
     };
+
+    // ledc_channel_config(&ledc_channel);
 
     for (int i = 0; i < 4; i++)
     {
         ledc_channel.gpio_num = MOTOR_PINS[i];
-        ledc_channel.channel = LEDC_CHANNEL_0 + i;
+        ledc_channel.channel = i;
         ledc_channel_config(&ledc_channel);
     }
 
     ESP_LOGI(TAG, "PWM initialized");
+}
+
+void motor_update_pid_constants()
+{
 }
 
 /**
@@ -99,19 +109,12 @@ void _motors_ledc_init()
  */
 void motors_init()
 {
+    ESP_LOGI(TAG, "Initializing motors");
+
     if (is_init)
     {
         return;
     }
-
-    // Initialize the motors pins
-    gpio_config_t io_conf;
-    io_conf.intr_type = GPIO_INTR_DISABLE;
-    io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = (1ULL << MOTOR1_PIN) | (1ULL << MOTOR2_PIN) | (1ULL << MOTOR3_PIN) | (1ULL << MOTOR4_PIN);
-    io_conf.pull_down_en = 0;
-    io_conf.pull_up_en = 0;
-    gpio_config(&io_conf);
 
     // Initialize the LEDC (PWM signals)
     _motors_ledc_init();
@@ -143,13 +146,43 @@ void motors_deinit()
 }
 
 /**
- * @brief Normalize the thrust value to fit the range (THROTTLE_MIN, THROTTLE_MAX)
+ * @brief Update the PID constants for a specific PID controller
+ *
+ * @param pid_number PID controller number (1: pitch, 2: roll, 3: yaw)
+ * @param kp Proportional constant
+ * @param ki Integral constant
+ * @param kd Derivative constant
+ * @return true
+ * @return false
+ */
+bool motors_update_pid_constants(uint8_t pid_number, float kp, float ki, float kd)
+{
+    switch (pid_number)
+    {
+    case 1:
+        pid_update_constants(pid_pitch, kp, ki, kd);
+        break;
+    case 2:
+        pid_update_constants(pid_roll, kp, ki, kd);
+        break;
+    case 3:
+        pid_update_constants(pid_yaw, kp, ki, kd);
+        break;
+    default:
+        return false;
+        break;
+    }
+    return true;
+}
+
+/**
+ * @brief Normalize the thrust to make it a percentage between 0 and THROTTLE_MAX
  *
  * @param thrust Throttle value, expected to be between 0 and 1000
  */
 void normalize_thrust_value(uint16_t *thrust)
 {
-    *thrust = ((*thrust) * ((THROTTLE_MAX - THROTTLE_MIN) / 1000)) + THROTTLE_MIN;
+    *thrust = (*thrust * THROTTLE_MAX / 1000);
 }
 
 /**
@@ -157,17 +190,19 @@ void normalize_thrust_value(uint16_t *thrust)
  *
  * @param motor_duties Duties for the motors
  */
-void normalize_motor_duties(uint16_t *motor_duties)
+void normalize_motor_duties(double *motor_duties)
 {
     for (int i = 0; i < 4; i++)
     {
-        if (motor_duties[i] < MOTOR_MIN_DUTY)
+        if (motor_duties[i] < 0)
         {
-            motor_duties[i] = MOTOR_MIN_DUTY;
+            motor_duties[i] = 0;
+            printf("Motor speed negative!!\n");
         }
-        if (motor_duties[i] > MOTOR_MAX_DUTY)
+        if (motor_duties[i] > 100)
         {
-            motor_duties[i] = MOTOR_MAX_DUTY;
+            motor_duties[i] = 100;
+            printf("Motor speed over 100%%!!\n");
         }
     }
 }
@@ -175,14 +210,15 @@ void normalize_motor_duties(uint16_t *motor_duties)
 /**
  * @brief Change the duties of the motors
  *
- * @param motor_duties Duties for the motors
+ * @param motor_duties Motor speed as a percentage
  */
-void motors_change_duties(uint16_t *motor_duties)
+void motors_update_duties(double *motor_speeds)
 {
     for (int i = 0; i < 4; i++)
     {
-        ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0 + i, motor_duties[i]);
-        ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0 + i);
+        uint16_t motor_duty = (motor_speeds[i] * (MOTOR_MAX_DUTY - MOTOR_MIN_DUTY) / 100) + MOTOR_MIN_DUTY;
+        ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0 + i, motor_duty);
+        ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0 + i);
     }
 }
 
@@ -204,20 +240,55 @@ void motors_change_duties(uint16_t *motor_duties)
  */
 void motors_update(command_t command, drone_data_t drone_data)
 {
-    double pid_pitch_value = pid_update(pid_pitch, command.pitch - drone_data.pitch);
-    double pid_roll_value = pid_update(pid_roll, command.roll - drone_data.roll);
-    double pid_yaw_value = pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
+    command.pitch = 0;
+    command.roll = 0;
+
+    double pid_pitch_value = 0;
+    double pid_roll_value = 0;
+    double pid_yaw_value = 0;
+
+    if (command.thrust > 10)
+    {
+        pid_pitch_value = pid_update(pid_pitch, command.pitch - drone_data.pitch);
+        pid_roll_value = pid_update(pid_roll, command.roll - drone_data.roll);
+        pid_yaw_value = 0; // pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
+        printf("PID values: %.2f, %.2f, %.2f\n", pid_pitch_value, pid_roll_value, pid_yaw_value);
+        printf("PID constants: %.2f %.2f %.2f", pid_roll->kp, pid_roll->ki, pid_roll->kd);
+    }
+    else if (command.thrust < 5)
+    {
+        pid_reset(pid_pitch);
+        pid_reset(pid_roll);
+        pid_reset(pid_yaw);
+    }
 
     normalize_thrust_value(&command.thrust);
 
     // TODO: Check if the pid_yaw_value are correct respect to the motors configuration (It depends on the direction they move).
-    uint16_t motor1_duty = command.thrust + pid_pitch_value + pid_roll_value + pid_yaw_value;
-    uint16_t motor2_duty = command.thrust + pid_pitch_value - pid_roll_value - pid_yaw_value;
-    uint16_t motor3_duty = command.thrust - pid_pitch_value - pid_roll_value + pid_yaw_value;
-    uint16_t motor4_duty = command.thrust - pid_pitch_value + pid_roll_value - pid_yaw_value;
+    double motor1_speed = (double)(command.thrust) + pid_pitch_value + pid_roll_value + pid_yaw_value;
+    double motor2_speed = (double)(command.thrust) + pid_pitch_value - pid_roll_value - pid_yaw_value;
+    double motor3_speed = (double)(command.thrust) - pid_pitch_value - pid_roll_value + pid_yaw_value;
+    double motor4_speed = (double)(command.thrust) - pid_pitch_value + pid_roll_value - pid_yaw_value;
 
-    uint16_t motors_duties[4] = {motor1_duty, motor2_duty, motor3_duty, motor4_duty};
+    double motors_speeds[4] = {motor1_speed, motor2_speed, motor3_speed, motor4_speed};
 
-    normalize_motor_duties(motors_duties);
-    motors_change_duties(motors_duties);
+    // uint32_t motor_debug = (uint32_t)motor1_speed; // Just for debugging purposes
+
+    // static char packet[] = {0x40, 0x00, 0x00, 0x00, 0x00};
+    // memcpy(&packet[1], &motor_debug, sizeof(motor_debug));
+    // wifi_send_data(packet);
+
+    normalize_motor_duties(motors_speeds);
+    motors_update_duties(motors_speeds);
+}
+
+/**
+ * @brief Reset the motors
+ *
+ */
+void motors_reset()
+{
+    pid_reset(pid_pitch);
+    pid_reset(pid_roll);
+    pid_reset(pid_yaw);
 }

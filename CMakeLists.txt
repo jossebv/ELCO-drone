@@ -15,6 +15,7 @@ set(EXTRA_COMPONENT_DIRS "${EXTRA_COMPONENT_DIRS}"
         "./components/drivers/ultrasonic" 
         "./components/general/controller"
         "./components/general/leds"
+        "./components/general/comms"
         "./components/system")
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)

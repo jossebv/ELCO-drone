@@ -49,26 +49,25 @@ class UdpDriver:
 
         self.queue = queue.Queue()
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.socket.settimeout(3)
+        self.socket.settimeout(30)
         self.addr = ("192.168.43.42", 2390)
         # self.socket.connect(self.addr)
 
         # Add this to the server clients list
         self.socket.sendto(b"\xFF\x01\x01\x01", self.addr)
 
+    def pid_update(self, pid_num, kp, ki, kd):
+        data = struct.pack("<BBBfff", 0x40, 0x51, pid_num, kp, ki, kd)
+        self.send_packet(data)
+
     def receive_packet(self, raw=False, time=0):
         data, addr = self.socket.recvfrom(64)
+        if raw:
+            return data
 
         if data:
-            data = struct.unpack("B" * (len(data) - 1), data[0 : len(data) - 1])
-            # pk = CRTPPacket()
-            # pk.port = data[0]
-            # pk.data = data[1:]
-            pk = None
-            if raw:
-                return data
-            else:
-                return bytes(data).decode("utf-8")
+            msg = self.decode_pkg(data)
+            return msg
 
         try:
             if time == 0:
@@ -81,8 +80,25 @@ class UdpDriver:
         except queue.Empty:
             return None
 
+    def decode_pkg(self, data):
+        if data[0] == 0x3E:
+            recv = bytes(self.driver.receive_packet(raw=True)[1:])
+            recv = int.from_bytes(recv, byteorder="little")
+        elif data[0] == 0x60:
+            recv = struct.unpack("<Bdd", data[0:-1])
+        elif data[0] == 0x01:
+            recv = struct.unpack("B" * len(data), data)
+            recv = bytes(recv[1:-1]).decode("utf-8")
+        else:
+            recv = "not understood"
+
+        return recv
+
     def send_packet(self, pk):
-        raw = (pk.port,) + struct.unpack("B" * len(pk.data), pk.data)
+        self.socket.sendto(pk, self.addr)
+
+    def send_packet_cksum(self, pk):
+        raw = struct.unpack("B" * len(pk), pk)
 
         cksum = 0
         for i in raw:
@@ -93,7 +109,7 @@ class UdpDriver:
         data = "".join(chr(v) for v in (raw + (cksum,)))
 
         # print tuple(data)
-        self.socket.sendto(data, self.addr)
+        self.socket.sendto(data.encode(), self.addr)
 
     def close(self):
         # Remove this from the server clients list

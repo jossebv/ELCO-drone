@@ -14,17 +14,22 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 // specific
 #include "main.h"
 #include "sensors.h"
+#include "wifi.h"
 #include "comb_filter.h"
 #include "mpu6050.h"
 #include "ultrasonic.h"
 
 #include "esp_log.h"
+#include "esp_timer.h"
 
 /* DEFINES */
+#define DEBUG_WIFI 1
+
 #define DEBUG_SENSORS 1
 #define DEBUG_ACCEL 0
 #define DEBUG_GYRO 0
@@ -46,6 +51,7 @@ static char *TAG = "sensors";
 
 static bool is_init = false;
 static drone_data_t drone_data;
+static uint64_t last_update_time = 0;
 
 /* PUBLIC FUNCTIONS */
 
@@ -82,7 +88,11 @@ drone_data_t sensors_update_drone_data()
     gyro_vector_t gyros_speeds = get_gyroscope_data();
     acc_vector_t accelerations = get_accelerometer_data();
 
-    drone_angles_t gyros_delta_angles = gyros_speeds_to_delta_angles(gyros_speeds, DRONE_UPDATE_MS);
+    uint64_t now = esp_timer_get_time();
+    uint64_t delta_time = now - last_update_time;
+    last_update_time = now;
+
+    drone_angles_t gyros_delta_angles = gyros_speeds_to_delta_angles(gyros_speeds, delta_time / 1000.0);
     drone_angles_t acc_angles = acc_to_angles(accelerations);
 
     drone_angles_t drone_angles = comb_filter_get_angles(gyros_delta_angles, acc_angles);
@@ -96,7 +106,14 @@ drone_data_t sensors_update_drone_data()
     drone_data.altitude = get_altitude_data();
 
 #if DEBUG_SENSORS
-    printf("Drone data: pitch: %f, roll: %f, yaw: %f, altitude: %f\n", drone_data.pitch, drone_data.roll, drone_data.yaw_speed, drone_data.altitude);
+    printf("Drone data: time: %lld, pitch: %f, roll: %f, yaw: %f, altitude: %f\n", esp_timer_get_time(), drone_data.pitch, drone_data.roll, drone_data.yaw_speed, drone_data.altitude);
+#if DEBUG_WIFI
+    static char packet[sizeof(drone_data_t) + 1];
+    packet[0] = 0x60;
+    memcpy(packet + 1, &drone_data.pitch, sizeof(drone_data.pitch));
+    memcpy(packet + 1 + sizeof(drone_data.pitch), &drone_data.roll, sizeof(drone_data.roll));
+    // wifi_send_data(packet, 17);
+#endif
 #endif
 
     return drone_data;
@@ -167,16 +184,16 @@ double get_altitude_data()
 drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speeds, double delta_time_ms)
 {
     drone_angles_t delta_angles;
-    delta_angles.pitch = gyros_speeds.pitch * delta_time_ms / 1000;
-    delta_angles.roll = gyros_speeds.roll * delta_time_ms / 1000;
+    delta_angles.pitch = -gyros_speeds.pitch * delta_time_ms / 1000;
+    delta_angles.roll = -gyros_speeds.roll * delta_time_ms / 1000;
     return delta_angles;
 }
 
 drone_angles_t acc_to_angles(acc_vector_t accelerations)
 {
     drone_angles_t drone_angles;
-    drone_angles.pitch = atan2(accelerations.y, sqrt(pow(accelerations.x, 2) + pow(accelerations.z, 2))) * RAD_TO_DEG;
-    drone_angles.roll = atan2(-accelerations.x, sqrt(pow(accelerations.y, 2) + pow(accelerations.z, 2))) * RAD_TO_DEG;
+    drone_angles.pitch = -atan2(accelerations.y, sqrt(pow(accelerations.x, 2) + pow(accelerations.z, 2))) * RAD_TO_DEG;
+    drone_angles.roll = -atan2(-accelerations.x, sqrt(pow(accelerations.y, 2) + pow(accelerations.z, 2))) * RAD_TO_DEG;
 
 #if DEBUG_ACCEL_TO_ANGLES
     printf("Accel data: x: %f, y: %f, z: %f\n", accelerations.x, accelerations.y, accelerations.z);
