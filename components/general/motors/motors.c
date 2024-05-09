@@ -30,29 +30,29 @@
 #include "wifi.h"
 
 /* DEFINES */
-#define PITCH_KP 0 // 0.32  // Proportional constant for the pith PID controller
-#define PITCH_KI 0 // 0.005 // Integral constant for the pith PID controller
-#define PITCH_KD 0 // 0.5   // Derivative constant for the pith PID controller
+#define PITCH_KP 0.08 /**< Proportional constant for the pith PID controller */
+#define PITCH_KI 0.04 /**< Integral constant for the pith PID controller */
+#define PITCH_KD 0    /**< Derivative constant for the pith PID controller */
 
-#define ROLL_KP 0 // 0.3   // Due to the symmetry of the drone
-#define ROLL_KI 0 // 0.001 // Due to the symmetry of the drone
-#define ROLL_KD 0 // 0.5   // Due to the symmetry of the drone
+#define ROLL_KP 0.1   /**< Due to the symmetry of the drone */
+#define ROLL_KI 0.07  /**< Due to the symmetry of the drone */
+#define ROLL_KD 0.005 /**< Due to the symmetry of the drone */
 
-#define YAW_KP 1 // Proportional constant for the yaw PID controller
-#define YAW_KI 0 // Integral constant for the yaw PID controller
-#define YAW_KD 0 // Derivative constant for the yaw PID controller
+#define YAW_KP 0.01 /**< Proportional constant for the yaw PID controller  */
+#define YAW_KI 0    /**< Integral constant for the yaw PID controller */
+#define YAW_KD 0    /**< Derivative constant for the yaw PID controller */
 
-#define PWM_PERIOD_MS 3                  // Period of the PWM signal
-#define PWM_FREQ_HZ 1000 / PWM_PERIOD_MS // Frequency of the PWM signal
+#define PWM_PERIOD_MS 3                  /**< Period of the PWM signal */
+#define PWM_FREQ_HZ 1000 / PWM_PERIOD_MS /**< Frequency of the PWM signal */
 
-#define MOTOR_MIN_US 1000 // Minimum value for the motors
-#define MOTOR_MAX_US 2000 // Maximum value for the motors
-#define THROTTLE_MAX 80   // Maximum value for the throttle. Should be lower than MOTOR_MAX
+#define MOTOR_MIN_US 1000 /**< Minimum value for the motors */
+#define MOTOR_MAX_US 2000 /**< Maximum value for the motors */
+#define THROTTLE_MAX 80   /**< Maximum value for the throttle. Should be lower than MOTOR_MAX */
 
-#define MOTOR1_PIN GPIO_NUM_18 // Pin for motor 1
-#define MOTOR2_PIN GPIO_NUM_5  // Pin for motor 2
-#define MOTOR3_PIN GPIO_NUM_17 // Pin for motor 3
-#define MOTOR4_PIN GPIO_NUM_16 // Pin for motor 4
+#define MOTOR1_PIN GPIO_NUM_18 /**< Pin for motor 1 */
+#define MOTOR2_PIN GPIO_NUM_5  /**< Pin for motor 2 */
+#define MOTOR3_PIN GPIO_NUM_17 /**< Pin for motor 3 */
+#define MOTOR4_PIN GPIO_NUM_16 /**< Pin for motor 4 */
 
 /* VARIABLES */
 static const char *TAG = "motors";
@@ -67,6 +67,10 @@ static pid_data_t *pid_yaw;
 
 /* FUNCTIONS DECLARATIONS */
 
+/**
+ * @brief Inits the LEDC module (PWM signals)
+ *
+ */
 void _motors_ledc_init()
 {
     ledc_timer_config_t ledc_timer = {
@@ -97,10 +101,6 @@ void _motors_ledc_init()
     }
 
     ESP_LOGI(TAG, "PWM initialized");
-}
-
-void motor_update_pid_constants()
-{
 }
 
 /**
@@ -210,7 +210,7 @@ void normalize_motor_duties(double *motor_duties)
 /**
  * @brief Change the duties of the motors
  *
- * @param motor_duties Motor speed as a percentage
+ * @param motor_speeds Motor speeds as a percentage
  */
 void motors_update_duties(double *motor_speeds)
 {
@@ -242,6 +242,7 @@ void motors_update(command_t command, drone_data_t drone_data)
 {
     command.pitch = 0;
     command.roll = 0;
+    command.yaw_speed = 0;
 
     double pid_pitch_value = 0;
     double pid_roll_value = 0;
@@ -251,7 +252,7 @@ void motors_update(command_t command, drone_data_t drone_data)
     {
         pid_pitch_value = pid_update(pid_pitch, command.pitch - drone_data.pitch);
         pid_roll_value = pid_update(pid_roll, command.roll - drone_data.roll);
-        pid_yaw_value = 0; // pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
+        pid_yaw_value = pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
         printf("PID values: %.2f, %.2f, %.2f\n", pid_pitch_value, pid_roll_value, pid_yaw_value);
         printf("PID constants: %.2f %.2f %.2f", pid_roll->kp, pid_roll->ki, pid_roll->kd);
     }

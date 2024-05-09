@@ -17,8 +17,8 @@
  */
 typedef struct drone_angles_t
 {
-  double pitch;
-  double roll;
+  double pitch; /**< Pitch angle */
+  double roll;  /**< Roll angle */
 } drone_angles_t;
 
 void comb_filter_init();

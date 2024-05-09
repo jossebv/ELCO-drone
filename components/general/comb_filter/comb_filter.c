@@ -20,12 +20,23 @@ static double prev_roll;
 static double update_angle(double gyros_delta_angle, double acc_angle, double *angle_to_update);
 
 /* PUBLIC FUNCTIONS */
+/**
+ * @brief Initializes the combinatory filter
+ *
+ */
 void comb_filter_init()
 {
     prev_pitch = 0;
     prev_roll = 0;
 }
 
+/**
+ * @brief Performs the calculation for the combinatory filter
+ *
+ * @param gyros_delta_angle The delta angle from the gyroscope
+ * @param acc_angle The angle from the accelerometer
+ * @return drone_angles_t Structure with the angles of the drone
+ */
 drone_angles_t comb_filter_get_angles(drone_angles_t gyros_delta_angle, drone_angles_t acc_angle)
 {
     drone_angles_t drone_angles;

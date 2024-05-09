@@ -26,6 +26,11 @@ static const char *TAG = "system";
 static bool is_init = false;
 static fsm_t *drone_fsm;
 
+/**
+ * @brief Task for the system
+ *
+ * @param arg pointer to the arguments, not used
+ */
 void system_task(void *arg)
 {
     /* Initialize the system */
@@ -47,9 +52,9 @@ void system_task(void *arg)
     {
         xWasDelayed = xTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-        if (xWasDelayed == pdFALSE) // Task was not delayed, hence the system is running late
+        if (xWasDelayed == pdFALSE)
         {
-            ESP_LOGW(TAG, "System is running late!");
+            // ESP_LOGW(TAG, "Task was delayed");
         }
 
         fsm_fire(drone_fsm);

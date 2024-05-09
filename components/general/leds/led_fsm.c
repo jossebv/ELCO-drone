@@ -15,8 +15,12 @@
 
 #include "led.h"
 
-#define LED_BLINKING_PERIOD_US 500000
+#define LED_BLINKING_PERIOD_US 500000 /**< Period of the led blinking */
 
+/**
+ * @brief Enum with the states of the led finite state machine
+ *
+ */
 typedef enum led_fsm_states
 {
     BLINKING = 0,
@@ -24,18 +28,22 @@ typedef enum led_fsm_states
     OFF
 } led_fsm_states_t;
 
+/**
+ * @brief FSM for the led
+ *
+ */
 typedef struct fsm_led_t
 {
-    fsm_t fsm;
-    uint32_t next;
-    uint8_t led_pin;
-    uint8_t led_status;
+    fsm_t fsm;          /**< Finite State Machine */
+    uint32_t next;      /**< Next time to update the led blinking */
+    uint8_t led_pin;    /**< Pin of the led */
+    uint8_t led_status; /**< Status of the led */
 } fsm_led_t;
 
 /**
  * @brief Sets the fsm to blink
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void led_fsm_set_blinking(fsm_t *fsm)
 {
@@ -48,7 +56,7 @@ void led_fsm_set_blinking(fsm_t *fsm)
 /**
  * @brief Sets the fsm to on
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void led_fsm_set_on(fsm_t *fsm)
 {
@@ -60,7 +68,7 @@ void led_fsm_set_on(fsm_t *fsm)
 /**
  * @brief Sets the fsm to off
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void led_fsm_set_off(fsm_t *fsm)
 {
@@ -72,8 +80,8 @@ void led_fsm_set_off(fsm_t *fsm)
 /**
  * @brief Checks if the time has elapsed
  *
- * @param fsm
- * @return int
+ * @param fsm Pointer to the fsm
+ * @return int 1 if the time has elapsed, 0 otherwise
  */
 int is_time_elapsed(fsm_t *fsm)
 {
@@ -84,8 +92,8 @@ int is_time_elapsed(fsm_t *fsm)
 /**
  * @brief Checks if the led is on
  *
- * @param fsm
- * @return int
+ * @param fsm Pointer to the fsm
+ * @return int 1 if the led is on, 0 otherwise
  */
 int is_on(fsm_t *fsm)
 {
@@ -95,8 +103,8 @@ int is_on(fsm_t *fsm)
 /**
  * @brief Checks if the led is off
  *
- * @param fsm
- * @return int
+ * @param fsm Pointer to the fsm
+ * @return int 1 if the led is off, 0 otherwise
  */
 int is_off(fsm_t *fsm)
 {
@@ -106,7 +114,7 @@ int is_off(fsm_t *fsm)
 /**
  * @brief Toggles the led
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void do_toggle_led(fsm_t *fsm)
 {
@@ -118,7 +126,7 @@ void do_toggle_led(fsm_t *fsm)
 /**
  * @brief Turns the led on
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void do_turn_led_on(fsm_t *fsm)
 {
@@ -129,7 +137,7 @@ void do_turn_led_on(fsm_t *fsm)
 /**
  * @brief Turns the led off
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
  */
 void do_turn_led_off(fsm_t *fsm)
 {
@@ -140,7 +148,8 @@ void do_turn_led_off(fsm_t *fsm)
 /**
  * @brief Initializes the led fsm
  *
- * @param fsm
+ * @param fsm Pointer to the fsm
+ * @param led_pin Pin of the led
  */
 void led_fsm_init(fsm_t *fsm, uint8_t led_pin)
 {

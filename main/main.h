@@ -12,8 +12,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#define DEBUG 1
-#define DRONE_UPDATE_MS 4                          // Ms between each update
-#define DRONE_UPDATE_FREQ (1000 / DRONE_UPDATE_MS) // Frequency of the update
+#define DRONE_UPDATE_MS 4                          /**< Ms between each update */
+#define DRONE_UPDATE_FREQ (1000 / DRONE_UPDATE_MS) /**< Frequency of the update */
 
 #endif // MAIN_H

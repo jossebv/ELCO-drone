@@ -17,6 +17,10 @@
 #include "main.h"
 #include "system.h"
 
+/**
+ * @brief Entry point of the program
+ *
+ */
 void app_main(void)
 {
     xTaskCreate(system_task, "system_task", 4096, NULL, 10, NULL);

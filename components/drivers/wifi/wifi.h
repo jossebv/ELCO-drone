@@ -15,13 +15,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define WIFI_RX_TX_PACKET_SIZE (64)
+#define WIFI_RX_TX_PACKET_SIZE (64) /**< Size of the packet for the wifi communication */
 
 /* Structure used for in/out data via USB */
+/**
+ * @brief Packet structure for UDP communication
+ *
+ */
 typedef struct
 {
-    uint8_t size;
-    uint8_t data[WIFI_RX_TX_PACKET_SIZE];
+    uint8_t size;                         /**< Size of the packet */
+    uint8_t data[WIFI_RX_TX_PACKET_SIZE]; /**< Data of the UDP packet */
 } UDPPacket;
 
 void wifi_init();

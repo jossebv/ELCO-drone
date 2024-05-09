@@ -14,6 +14,8 @@
 #include "pid.h"
 #include "esp_timer.h"
 
+#define MAX_INTEGRAL_VALUE 20 /**< Max value allowed for the integral */
+
 /**
  * @brief Create a PID object
  *
@@ -57,11 +59,16 @@ double pid_update(pid_data_t *pid, float error)
     double delta_time = (current_time - pid->last_time) / 1000000.0;
     pid->last_time = current_time;
 
-    pid->integral += error * delta_time;
+    pid->integral += error;
+    if (pid->integral >= MAX_INTEGRAL_VALUE)
+    {
+        pid->integral = MAX_INTEGRAL_VALUE;
+    }
+
     float derivative = (error - pid->last_error) / delta_time;
     pid->last_error = error;
 
-    return (double)(pid->kp * error + pid->ki * pid->integral + pid->kd * derivative);
+    return (double)(pid->kp * error + pid->ki * pid->integral * delta_time + pid->kd * derivative);
 }
 
 /**

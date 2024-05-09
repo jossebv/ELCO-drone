@@ -28,14 +28,14 @@
 #include "esp_timer.h"
 
 /* DEFINES */
-#define DEBUG_WIFI 1
+#define DEBUG_WIFI 0 /**< Debug the data via wifi */
 
-#define DEBUG_SENSORS 1
-#define DEBUG_ACCEL 0
-#define DEBUG_GYRO 0
-#define DEBUG_ACCEL_TO_ANGLES 0
+#define DEBUG_SENSORS 0         /**< Debug the sensors data */
+#define DEBUG_ACCEL 0           /**< Debug the accelerometer data */
+#define DEBUG_GYRO 0            /**< Debug the gyroscope data */
+#define DEBUG_ACCEL_TO_ANGLES 0 /**< Debug the acc to angles function */
 
-#define RAD_TO_DEG 180 / M_PI
+#define RAD_TO_DEG 180 / M_PI /**< Conversion factor from radians to degrees */
 
 /* TYPEDEFS */
 
@@ -112,7 +112,7 @@ drone_data_t sensors_update_drone_data()
     packet[0] = 0x60;
     memcpy(packet + 1, &drone_data.pitch, sizeof(drone_data.pitch));
     memcpy(packet + 1 + sizeof(drone_data.pitch), &drone_data.roll, sizeof(drone_data.roll));
-    // wifi_send_data(packet, 17);
+    wifi_send_data(packet, 17);
 #endif
 #endif
 
@@ -159,7 +159,7 @@ void sensors_calibrate_imu(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
 /**
  * @brief Get the drone data object containing the pitch, roll, yaw speed and altitude
  *
- * @return drone_data_t
+ * @return drone_data_t Drone data object
  */
 drone_data_t sensors_get_drone_data()
 {
@@ -167,6 +167,11 @@ drone_data_t sensors_get_drone_data()
 }
 
 /* PRIVATE FUNTIONS */
+/**
+ * @brief Get the altitude data object
+ *
+ * @return double Altitude data
+ */
 double get_altitude_data()
 {
     // TODO: Connect the ultrasonic sensor
@@ -177,7 +182,7 @@ double get_altitude_data()
 /**
  * @brief Transforms the gyroscope speed into an angle
  *
- * @param gyros_speed Speed obtained from the gyroscope
+ * @param gyros_speeds Speeds obtained from the gyroscope
  * @param delta_time_ms Time between samples in miliseconds
  * @return double
  */
@@ -189,6 +194,12 @@ drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speeds, double d
     return delta_angles;
 }
 
+/**
+ * @brief Converts the accelerations into angles
+ *
+ * @param accelerations acc_vector_t with the accelerations
+ * @return drone_angles_t drone angles obtained from the accelerations
+ */
 drone_angles_t acc_to_angles(acc_vector_t accelerations)
 {
     drone_angles_t drone_angles;

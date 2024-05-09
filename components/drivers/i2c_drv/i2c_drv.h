@@ -13,9 +13,9 @@
 #define I2C_DRV_H
 
 /* DEFINES */
-#define I2C_MASTER_FREQ_HZ 400000
-#define I2C_SDA_PIN 21
-#define I2C_SCL_PIN 22
+#define I2C_MASTER_FREQ_HZ 400000 /**< I2C master clock frequency */
+#define I2C_SDA_PIN 21            /**< Pin for SDA communication */
+#define I2C_SCL_PIN 22            /**< Pin for SCL communication */
 
 /* PUBLIC FUNCTIONS */
 void i2c_drv_init();

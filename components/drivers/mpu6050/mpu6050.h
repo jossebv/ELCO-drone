@@ -20,9 +20,9 @@
  */
 typedef struct gyro_vector_t
 {
-    double pitch; // pitch is the rotation around the x-axis
-    double roll;  // roll is the rotation around the y-axis
-    double yaw;   // yaw is the rotation around the z-axis
+    double pitch; /**< pitch is the rotation around the x-axis */
+    double roll;  /**< roll is the rotation around the y-axis*/
+    double yaw;   /**< yaw is the rotation around the z-axis*/
 } gyro_vector_t;
 
 /**
@@ -31,9 +31,9 @@ typedef struct gyro_vector_t
  */
 typedef struct acc_vector_t
 {
-    double x; // x is the acceleration in the x-axis
-    double y; // y is the acceleration in the y-axis
-    double z; // z is the acceleration in the z-axis
+    double x; /**< x is the acceleration in the x-axis */
+    double y; /**< y is the acceleration in the y-axis */
+    double z; /**< z is the acceleration in the z-axis */
 } acc_vector_t;
 
 /* PUBLIC FUNCTIONS */

@@ -25,26 +25,26 @@
 #include "esp_wifi.h"
 
 /* DEFINES */
-#define DEBUG_UPD 0
+#define DEBUG_UPD 0 /**< Flag for debugging UDP reception */
 
 #ifndef MAC2STR
-#define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
-#define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
+#define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5] /**< Convert MAC address to string */
+#define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"                    /**< MAC address string */
 #endif
 
-#define CONFIG_WIFI_BASE_SSID "ESP32_DRONE"
-#define CONFIG_WIFI_PASSWORD "12345678"
-#define CONFIG_WIFI_CHANNEL 1
-#define CONFIG_WIFI_MAX_STA_CONN 4
-#define WIFI_MAX_STA_CONN CONFIG_WIFI_MAX_STA_CONN
+#define CONFIG_WIFI_BASE_SSID "ESP32_DRONE"        /**< Base SSID for the wifi */
+#define CONFIG_WIFI_PASSWORD "12345678"            /**< Password for the wifi */
+#define CONFIG_WIFI_CHANNEL 1                      /**< Channel for the wifi */
+#define CONFIG_WIFI_MAX_STA_CONN 4                 /**< Maximum number of stations allowed to connect to the ESP32 */
+#define WIFI_MAX_STA_CONN CONFIG_WIFI_MAX_STA_CONN /**< Maximum number of stations allowed to connect to the ESP32 */
 
-#define UDP_SERVER_PORT 2390
-#define UDP_SERVER_BUFFSIZE 128
+#define UDP_SERVER_PORT 2390    /**< Port for the UDP server */
+#define UDP_SERVER_BUFFSIZE 128 /**< Buffer size for the UDP server */
 
-#define UDP_RX_TASK_STACKSIZE 2048
-#define UDP_RX_TASK_PRI 3
-#define UDP_TX_TASK_STACKSIZE 2048
-#define UDP_TX_TASK_PRI 3
+#define UDP_RX_TASK_STACKSIZE 2048 /**< Task stack size for reception */
+#define UDP_RX_TASK_PRI 3          /**< Task priority for reception */
+#define UDP_TX_TASK_STACKSIZE 2048 /**< Task stack size for transmission */
+#define UDP_TX_TASK_PRI 3          /**< Task priority for transmission */
 
 /* VARIABLES */
 static const char *TAG = "wifi";
@@ -52,10 +52,12 @@ static bool is_init = false;
 static bool is_udp_init = false;
 static bool is_udp_controller_connected = false;
 static bool is_udp_console_connected = false;
+static bool is_udp_app_drone_connected = false;
 
-esp_netif_t *ap_netif;
+esp_netif_t *ap_netif; /**< Access point netif */
 
 static struct sockaddr_in console_addr;
+static struct sockaddr_in app_addr;
 
 static char rx_buffer[UDP_SERVER_BUFFSIZE];
 static char tx_buffer[UDP_SERVER_BUFFSIZE];
@@ -141,14 +143,20 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
 bool wifiGetDataBlocking(UDPPacket *in)
 {
     /* command step - receive  02  from udp rx queue */
-    while (xQueueReceive(udp_data_rx, in, portMAX_DELAY) != pdTRUE)
+    if (xQueueReceive(udp_data_rx, in, pdMS_TO_TICKS(2)) != pdTRUE)
     {
-        vTaskDelay(1);
+        return false;
     }; // Don't return until we get some data on the UDP
 
     return true;
 };
 
+/**
+ * @brief Get the instruction from the UDP server blocking until it receives data
+ *
+ * @param instruction Pointer to UDP packet to store the instruction
+ * @return true if the instruction was received
+ */
 bool wifi_get_instruction_blocking(UDPPacket *instruction)
 {
     /* command step - receive  02  from udp rx queue */
@@ -156,7 +164,7 @@ bool wifi_get_instruction_blocking(UDPPacket *instruction)
     {
         vTaskDelay(1);
     }; // Don't return until we get some data on the UDP
-    printf("Intruction obtained\n");
+    // printf("Instruction obtained\n");
 
     return true;
 };
@@ -164,13 +172,13 @@ bool wifi_get_instruction_blocking(UDPPacket *instruction)
 /**
  * @brief Send data to the UDP server
  *
- * @param out UDP packet to send
- * @return true
- * @return false
+ * @param data char pointer to the data
+ * @param size size of the data
+ * @return true if the data was sent
  */
 bool wifi_send_data(char *data, uint8_t size)
 {
-    memcpy(out_packet.data, data, strlen(data));
+    memcpy(out_packet.data, data, size);
     out_packet.size = size;
     if (xQueueSend(udp_data_tx, &out_packet, 2) != pdTRUE)
     {
@@ -286,6 +294,8 @@ static void udp_server_rx_task(void *pvParameters)
             else if (in_packet.data[0] == 0x40)
             {
                 // ESP_LOGI(TAG, "Instruction received");
+                is_udp_app_drone_connected = true;
+                app_addr = source_addr;
                 if (xQueueSend(udp_instruction_rx, &in_packet, 2) != pdTRUE)
                 {
                     ESP_LOGE(TAG, "Error sending data to queue");
@@ -328,13 +338,23 @@ static void udp_server_tx_task(void *pvParameters)
             continue;
         }
 
-        if ((xQueueReceive(udp_data_tx, &out_packet, 5) == pdTRUE) && is_udp_console_connected)
+        if ((xQueueReceive(udp_data_tx, &out_packet, 5) == pdTRUE) && (is_udp_app_drone_connected || is_udp_console_connected))
         {
             memcpy(tx_buffer, out_packet.data, out_packet.size);
             tx_buffer[out_packet.size] = calculate_cksum(tx_buffer, out_packet.size);
             tx_buffer[out_packet.size + 1] = 0;
 
-            int err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&console_addr, sizeof(console_addr));
+            int err = 0;
+
+            if (is_udp_app_drone_connected)
+            {
+                err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&app_addr, sizeof(app_addr));
+            }
+            else if (is_udp_console_connected)
+            {
+                err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&console_addr, sizeof(console_addr));
+            }
+
             if (err < 0)
             {
                 ESP_LOGE(TAG, "Error ocurred while sending.");

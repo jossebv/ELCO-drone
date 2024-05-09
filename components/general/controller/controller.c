@@ -14,7 +14,9 @@
 #include "controller.h"
 #include "wifi.h"
 
-#define DEBUG_CONTROLLER 0
+#define DEBUG_CONTROLLER 0 /**< Debug the controller data */
+
+command_t prev_command; /**< Prev command received. Store for keeping a constant streaming of commands */
 
 /**
  * @brief Decode the command from the packet
@@ -49,15 +51,18 @@ void decode_command(UDPPacket *packet, command_t *command)
 void controller_get_command(command_t *command)
 {
     UDPPacket packet;
-    wifiGetDataBlocking(&packet);
-    decode_command(&packet, command);
+    if (wifiGetDataBlocking(&packet))
+    {
+        decode_command(&packet, command);
+        prev_command = *command;
+    }
+    else
+    {
+        *command = prev_command;
+    }
 
 #if DEBUG_CONTROLLER
-    printf("Command received: \n");
-    printf("Thrust: %d\n", command->thrust);
-    printf("Yaw: %f\n", command->yaw_speed);
-    printf("Pitch: %f\n", command->pitch);
-    printf("Roll: %f\n", command->roll);
+    printf("Controller command: thrust: %d, yaw_speed: %f, pitch: %f, roll: %f\n", command->thrust, command->yaw_speed, command->pitch, command->roll);
 #endif
 }
 

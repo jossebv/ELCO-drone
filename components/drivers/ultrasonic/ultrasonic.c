@@ -21,13 +21,13 @@
 #include "driver/gpio.h"
 
 /* DEFINES */
-#define ULTRASONIC_TRIGGER_PIN GPIO_NUM_13                         // Pin for the trigger of the ultrasonic sensor
-#define ULTRASONIC_ECHO_PIN GPIO_NUM_12                            // Pin for the echo of the ultrasonic sensor
-#define ULTRASONIC_TIMEOUT_US 10000                                // Timeout for the ultrasonic sensor
-#define ULTRASONIC_UPDATE_PERIOD_US (ULTRASONIC_TIMEOUT_US + 1000) // Period for updating the ultrasonic sensor
+#define ULTRASONIC_TRIGGER_PIN GPIO_NUM_13                         /**< Pin for the trigger of the ultrasonic sensor */
+#define ULTRASONIC_ECHO_PIN GPIO_NUM_12                            /**< Pin for the echo of the ultrasonic sensor */
+#define ULTRASONIC_TIMEOUT_US 10000                                /**< Timeout for the ultrasonic sensor */
+#define ULTRASONIC_UPDATE_PERIOD_US (ULTRASONIC_TIMEOUT_US + 1000) /**< Period for updating the ultrasonic sensor */
 
 /* VARIABLES */
-bool is_init = false;
+static bool is_init = false;
 static float distance = 0;
 static TaskHandle_t ultrasonic_task_handle;
 
@@ -35,6 +35,10 @@ static TaskHandle_t ultrasonic_task_handle;
 
 /* PUBLIC FUNCTIONS */
 
+/**
+ * @brief Measures the distance with the ultrasonic sensor
+ *
+ */
 void ultrasonic_measure_distance()
 {
 

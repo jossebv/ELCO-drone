@@ -28,22 +28,30 @@
 
 /* DEFINES */
 
-#define CALIBRATION_TIME_US 10000000 // 5 seconds
-#define CALIBRATION_THRESHOLD 0.5
+#define CALIBRATION_TIME_US 10000000 /**< Time for the calibration in microseconds */
+#define CALIBRATION_THRESHOLD 0.5    /**< Threshold for the calibration. The IMU variations will not reset the calibration if within this interval */
 
 /* TYPEDEFS */
+/**
+ * @brief FSM structure for the system
+ *
+ */
 typedef struct fsm_drone_t
 {
-    fsm_t fsm;
-    fsm_t *green_led_fsm;
-    fsm_t *blue_led_fsm;
-    fsm_t *red_led_fsm;
-    uint64_t next;
-    gyro_vector_t last_gyros;
-    acc_vector_t last_acc;
-    uint32_t battery;
+    fsm_t fsm;                /**< Finite state machine */
+    fsm_t *green_led_fsm;     /**< Pointer to green led finite state machine */
+    fsm_t *blue_led_fsm;      /**< Pointer to blue led finite state machine */
+    fsm_t *red_led_fsm;       /**< Pointer to red led finite state machine */
+    uint64_t next;            /**< Next time to update the calibration */
+    gyro_vector_t last_gyros; /**< Last gyroscope data */
+    acc_vector_t last_acc;    /**< Last accelerometer data */
+    uint32_t battery;         /**< Battery level */
 } fsm_drone_t;
 
+/**
+ * @brief Enum with the states of the system finite state machine
+ *
+ */
 typedef enum system_fsm_states
 {
     CALIBRATING = 0,
@@ -126,6 +134,12 @@ void system_fsm_init(fsm_t *fsm, fsm_t *green_led_fsm, fsm_t *blue_led_fsm, fsm_
 }
 
 /* PRIVATE FUNCTIONS */
+/**
+ * @brief Checks if the drone has not been moved during the calibration
+ *
+ * @param fsm Pointer to the finite state machine
+ * @return int true if the drone has not been moved, false otherwise
+ */
 int is_drone_still(fsm_t *fsm)
 {
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
@@ -142,9 +156,8 @@ int is_drone_still(fsm_t *fsm)
 
 /**
  * @brief Checks if the drone is still during the calibration
- *
- * @return true
- * @return false
+ * @param fsm Pointer to the finite state machine
+ * @return true if the drone is still, false otherwise
  */
 int is_drone_still_and_under_time(fsm_t *fsm)
 {
@@ -205,8 +218,8 @@ int is_battery_below_threshold(fsm_t *fsm)
 /**
  * @brief Checks if the battery is above threshold and the controller is connected
  *
- * @return true
- * @return false
+ * @param fsm Pointer to the finite state machine
+ * @return true if the battery is above threshold and the controller is connected, false otherwise
  */
 int is_battery_above_threshold_and_controller_connected(fsm_t *fsm)
 {
@@ -215,6 +228,12 @@ int is_battery_above_threshold_and_controller_connected(fsm_t *fsm)
     return 1; // At the moment we return true
 }
 
+/**
+ * @brief Checks if the battery is below threshold or the controller is disconnected
+ *
+ * @param fsm Pointer to the finite state machine
+ * @return int true if the battery is below threshold or the controller is disconnected, false otherwise
+ */
 int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm)
 {
     return !is_battery_above_threshold_and_controller_connected(fsm);
@@ -223,6 +242,7 @@ int is_battery_below_threshold_or_controller_disconnected(fsm_t *fsm)
 /**
  * @brief Update the calibration progress
  *
+ * @param fsm Pointer to the finite state machine
  */
 void do_update_calibration_progress(fsm_t *fsm)
 {
@@ -284,7 +304,10 @@ void do_update_drone_motors(fsm_t *fsm)
     drone_data_t sensors_data = sensors_update_drone_data();
 
     command_t command;
+    // uint64_t t1 = esp_timer_get_time();
     controller_get_command(&command);
+    // uint64_t t2 = esp_timer_get_time();
+    // printf("Sensors update time: %.2f\n", (t2 - t1) / 1000.0);
     motors_update(command, sensors_data);
 
     // Send battery data to the monitor

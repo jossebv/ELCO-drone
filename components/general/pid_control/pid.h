@@ -12,14 +12,18 @@
 #ifndef PID_H
 #define PID_H
 
+/**
+ * @brief Structure for PID controller, contains the constants and saved values for the pid control.
+ *
+ */
 typedef struct pid_data_t
 {
-    double kp;
-    double ki;
-    double kd;
-    double integral;
-    double last_error;
-    double last_time;
+    double kp;         /**< PID proportional constants */
+    double ki;         /**< PID integral constants */
+    double kd;         /**< PID derivative constants */
+    double integral;   /**< Integral value */
+    double last_error; /**< Last error value */
+    double last_time;  /**< Last time PID was updated*/
 } pid_data_t;
 
 pid_data_t *pid_create(float kp, float ki, float kd);

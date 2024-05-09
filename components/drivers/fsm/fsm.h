@@ -22,23 +22,33 @@
 
 typedef struct fsm_t fsm_t;
 
-typedef int (*fsm_input_func_t) (fsm_t*);
-typedef void (*fsm_output_func_t) (fsm_t*);
+typedef int (*fsm_input_func_t)(fsm_t *);
+typedef void (*fsm_output_func_t)(fsm_t *);
 
-typedef struct fsm_trans_t {
-  int orig_state;
-  fsm_input_func_t in;
-  int dest_state;
-  fsm_output_func_t out;
+/**
+ * @brief Transition structure for the FSM
+ *
+ */
+typedef struct fsm_trans_t
+{
+  int orig_state;        /**< Original state of the transition */
+  fsm_input_func_t in;   /**< Input function, act as a checker */
+  int dest_state;        /**< Destination state of the transition */
+  fsm_output_func_t out; /**< Output function, act as a handler */
 } fsm_trans_t;
 
-struct fsm_t {
-  int current_state;
-  fsm_trans_t* tt;
+/**
+ * @brief Finite state machine structure
+ *
+ */
+struct fsm_t
+{
+  int current_state; /**< Current state of the FSM */
+  fsm_trans_t *tt;   /**< Transition table */
 };
 
-fsm_t* fsm_new (fsm_trans_t* tt);
-void fsm_init (fsm_t* this, fsm_trans_t* tt);
-void fsm_fire (fsm_t* this);
+fsm_t *fsm_new(fsm_trans_t *tt);
+void fsm_init(fsm_t *this, fsm_trans_t *tt);
+void fsm_fire(fsm_t *this);
 
 #endif

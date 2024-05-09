@@ -12,30 +12,31 @@
 /* INCLUDES */
 #include <stdint.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "mpu6050.h"
 #include "driver/i2c.h"
 #include "sdkconfig.h"
 
 /* DEFINES */
-#define MPU6050_ADDR 0x68
-#define MPU6050_GYRO_CONFIG_REG 0x1B
-#define MPU6050_GYRO_XOUT_H_REG 0x43
-#define MPU6050_ACCEL_CONFIG_REG 0x1C
-#define MPU6050_ACCEL_XOUT_H_REG 0x3B
-#define MPU6050_PWR_MGMT_1_REG 0x6B
-#define MPU6050_SMPLRT_DIV_REG 0x19
-#define MPU6050_CONFIG_REG 0x1A
+#define MPU6050_ADDR 0x68             /**< Address of the MPU6050 sensor */
+#define MPU6050_GYRO_CONFIG_REG 0x1B  /**< Address of GYRO_CONFIG register */
+#define MPU6050_GYRO_XOUT_H_REG 0x43  /**< Address of GYRO_XOUT_H register */
+#define MPU6050_ACCEL_CONFIG_REG 0x1C /**< Address of ACCEL_CONFIG register */
+#define MPU6050_ACCEL_XOUT_H_REG 0x3B /**< Address of ACCEL_XOUT_H register */
+#define MPU6050_PWR_MGMT_1_REG 0x6B   /**< Address of PWR_MGMT_1 register */
+#define MPU6050_SMPLRT_DIV_REG 0x19   /**< Address of SMPLRT_DIV register */
+#define MPU6050_CONFIG_REG 0x1A       /**< Address of CONFIG register */
 
-#define PWR_MGMT_1_DEVICE_RESET_MASK 0X1 << 7
-#define PWR_MGMT_1_DEVICE_SLEEP_MASK 0X1 << 6
-#define GYRO_CONFIG_NO_TEST_FS_2000 0x18
-#define ACCEL_CONFIG_NO_TEST_FS_2G 0x00
+#define PWR_MGMT_1_DEVICE_RESET_MASK 0X1 << 7 /**< Reset device */
+#define PWR_MGMT_1_DEVICE_SLEEP_MASK 0X1 << 6 /**< Sleep mode */
+#define GYRO_CONFIG_NO_TEST_FS_2000 0x18      /**< Mask for full scale of 2000 degrees per second on gyroscopes*/
+#define ACCEL_CONFIG_NO_TEST_FS_2G 0x00       /**< Mask for full scale of 2G on accelerometers*/
 
 /* VARIABLES */
 static bool is_init = false;
-static float gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
-static double accel_offset_x, accel_offset_y, accel_offset_z;
+static double gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
+static double accel_offset_x, accel_offset_y, accel_offset_z = 0;
 
 /* FUNCTIONS DECLARATIONS */
 void mpu6050_reset_offsets();
@@ -91,13 +92,17 @@ gyro_vector_t mpu6050_read_gyro()
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
     i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
 
-    int16_t gyro_x = (int16_t)(read_buffer[0] << 8 | read_buffer[1]);
-    int16_t gyro_y = (int16_t)(read_buffer[2] << 8 | read_buffer[3]);
-    int16_t gyro_z = (int16_t)(read_buffer[4] << 8 | read_buffer[5]);
+    int16_t gyro_x = (int16_t)((uint8_t)read_buffer[0] << 8 | (uint8_t)read_buffer[1]);
+    int16_t gyro_y = (int16_t)((uint8_t)read_buffer[2] << 8 | (uint8_t)read_buffer[3]);
+    int16_t gyro_z = (int16_t)((uint8_t)read_buffer[4] << 8 | (uint8_t)read_buffer[5]);
 
-    gyro.pitch = (float)gyro_x / 16.4 - gyro_offset_pitch; // gyroscope x axis
-    gyro.roll = (float)gyro_y / 16.4 - gyro_offset_roll;   // gyroscope y axis
-    gyro.yaw = (float)gyro_z / 16.4 - gyro_offset_yaw;     // gyroscope z axis
+    gyro.pitch = ((double)gyro_x / 16.4); // gyroscope x axis
+    gyro.roll = ((double)gyro_y / 16.4);  // gyroscope y axis
+    gyro.yaw = ((double)gyro_z / 16.4);   // gyroscope z axis
+
+    gyro.pitch -= gyro_offset_pitch;
+    gyro.roll -= gyro_offset_roll;
+    gyro.yaw -= gyro_offset_yaw;
 
     return gyro;
 }
@@ -112,15 +117,19 @@ acc_vector_t mpu6050_read_accelerometer()
     acc_vector_t acc;
     uint8_t read_buffer[6]; // 2 bytes for each axis
     uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
-    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
+    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(10));
 
-    int16_t acc_x = ((char)read_buffer[0] << 8 | (char)read_buffer[1]);
-    int16_t acc_y = ((char)read_buffer[2] << 8 | (char)read_buffer[3]);
-    int16_t acc_z = ((char)read_buffer[4] << 8 | (char)read_buffer[5]);
+    int16_t acc_x = (int16_t)((uint8_t)read_buffer[0] << 8 | (uint8_t)read_buffer[1]);
+    int16_t acc_y = (int16_t)((uint8_t)read_buffer[2] << 8 | (uint8_t)read_buffer[3]);
+    int16_t acc_z = (int16_t)((uint8_t)read_buffer[4] << 8 | (uint8_t)read_buffer[5]);
 
-    acc.x = acc_x / 16384.0 - accel_offset_x; // accelerometer x axis
-    acc.y = acc_y / 16384.0 - accel_offset_y; // accelerometer y axis
-    acc.z = acc_z / 16384.0 - accel_offset_z; // accelerometer z axis
+    acc.x = ((double)acc_x / 16384.0); // accelerometer x axis
+    acc.y = ((double)acc_y / 16384.0); // accelerometer y axis
+    acc.z = ((double)acc_z / 16384.0); // accelerometer z axis
+
+    acc.x -= accel_offset_x;
+    acc.y -= accel_offset_y;
+    acc.z -= accel_offset_z;
 
     return acc;
 }
@@ -133,12 +142,12 @@ acc_vector_t mpu6050_read_accelerometer()
  */
 void mpu6050_reset_offsets()
 {
-    gyro_offset_pitch = 0;
-    gyro_offset_roll = 0;
-    gyro_offset_yaw = 0;
-    accel_offset_x = 0;
-    accel_offset_y = 0;
-    accel_offset_z = 0;
+    gyro_offset_pitch = 0.0;
+    gyro_offset_roll = 0.0;
+    gyro_offset_yaw = 0.0;
+    accel_offset_x = 0.0;
+    accel_offset_y = 0.0;
+    accel_offset_z = 0.0;
 }
 
 /**
@@ -151,6 +160,13 @@ void mpu6050_reset_offsets()
  */
 void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
 {
+    // printf("Calibrating: %f %f %f %f %f %f\n", gyro_offsets.pitch, gyro_offsets.roll, gyro_offsets.yaw, acc_offsets.x, acc_offsets.y, acc_offsets.z);
+    if (isinf(gyro_offsets.pitch) || isinf(gyro_offsets.roll) || isinf(gyro_offsets.yaw) || isinf(acc_offsets.x) || isinf(acc_offsets.y) || isinf(acc_offsets.z))
+    {
+        // printf("Calibration failed\n");
+        return;
+    }
+
     gyro_offset_pitch += (gyro_offsets.pitch);
     gyro_offset_roll += (gyro_offsets.roll);
     gyro_offset_yaw += (gyro_offsets.yaw);
