@@ -155,32 +155,40 @@ $(function(){initNavTree('fsm_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a> <a class="code hl_struct" href="structfsm__t.html">fsm_t</a>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">typedef</span> int (*fsm_input_func_t) (<a class="code hl_struct" href="structfsm__t.html">fsm_t</a>*);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">typedef</span> void (*fsm_output_func_t) (<a class="code hl_struct" href="structfsm__t.html">fsm_t</a>*);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">typedef</span> int (*fsm_input_func_t)(<a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">typedef</span> void (*fsm_output_func_t)(<a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html">   28</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a> {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="keywordtype">int</span> orig_state;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  fsm_input_func_t in;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordtype">int</span> dest_state;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  fsm_output_func_t out;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a>;</div>
-</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structfsm__t.html">   35</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keywordtype">int</span> current_state;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a>* tt;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html">   32</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html#adc67dd348bb6fc59cb4d59d598747274">   34</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structfsm__trans__t.html#adc67dd348bb6fc59cb4d59d598747274">orig_state</a>;        </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html#a88eefe4fbfe9c61845f867752d692ef1">   35</a></span>  fsm_input_func_t <a class="code hl_variable" href="structfsm__trans__t.html#a88eefe4fbfe9c61845f867752d692ef1">in</a>;   </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html#af125a66cfa85df848aa173961218e809">   36</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structfsm__trans__t.html#af125a66cfa85df848aa173961218e809">dest_state</a>;        </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structfsm__trans__t.html#aa14b0ae2ea26e60da884d09f281f7302">   37</a></span>  fsm_output_func_t <a class="code hl_variable" href="structfsm__trans__t.html#aa14b0ae2ea26e60da884d09f281f7302">out</a>; </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a>;</div>
 </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a>* fsm_new (<a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a>* tt);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> fsm_init (<a class="code hl_struct" href="structfsm__t.html">fsm_t</a>* <span class="keyword">this</span>, <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a>* tt);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> fsm_fire (<a class="code hl_struct" href="structfsm__t.html">fsm_t</a>* <span class="keyword">this</span>);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="astructfsm__t_html"><div class="ttname"><a href="structfsm__t.html">fsm_t</a></div><div class="ttdef"><b>Definition</b> fsm.h:35</div></div>
-<div class="ttc" id="astructfsm__trans__t_html"><div class="ttname"><a href="structfsm__trans__t.html">fsm_trans_t</a></div><div class="ttdef"><b>Definition</b> fsm.h:28</div></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structfsm__t.html">   44</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structfsm__t.html#ab250e61dab922ea23423a06fd1e6ea34">   46</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structfsm__t.html#ab250e61dab922ea23423a06fd1e6ea34">current_state</a>; </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structfsm__t.html#abb4cc8f5ba502ec2caba1e6ea78103ea">   47</a></span>  <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a> *<a class="code hl_variable" href="structfsm__t.html#abb4cc8f5ba502ec2caba1e6ea78103ea">tt</a>;   </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *fsm_new(<a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a> *tt);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> fsm_init(<a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *<span class="keyword">this</span>, <a class="code hl_struct" href="structfsm__trans__t.html">fsm_trans_t</a> *tt);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> fsm_fire(<a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="astructfsm__t_html"><div class="ttname"><a href="structfsm__t.html">fsm_t</a></div><div class="ttdoc">Finite state machine structure.</div><div class="ttdef"><b>Definition</b> fsm.h:45</div></div>
+<div class="ttc" id="astructfsm__t_html_ab250e61dab922ea23423a06fd1e6ea34"><div class="ttname"><a href="structfsm__t.html#ab250e61dab922ea23423a06fd1e6ea34">fsm_t::current_state</a></div><div class="ttdeci">int current_state</div><div class="ttdef"><b>Definition</b> fsm.h:46</div></div>
+<div class="ttc" id="astructfsm__t_html_abb4cc8f5ba502ec2caba1e6ea78103ea"><div class="ttname"><a href="structfsm__t.html#abb4cc8f5ba502ec2caba1e6ea78103ea">fsm_t::tt</a></div><div class="ttdeci">fsm_trans_t * tt</div><div class="ttdef"><b>Definition</b> fsm.h:47</div></div>
+<div class="ttc" id="astructfsm__trans__t_html"><div class="ttname"><a href="structfsm__trans__t.html">fsm_trans_t</a></div><div class="ttdoc">Transition structure for the FSM.</div><div class="ttdef"><b>Definition</b> fsm.h:33</div></div>
+<div class="ttc" id="astructfsm__trans__t_html_a88eefe4fbfe9c61845f867752d692ef1"><div class="ttname"><a href="structfsm__trans__t.html#a88eefe4fbfe9c61845f867752d692ef1">fsm_trans_t::in</a></div><div class="ttdeci">fsm_input_func_t in</div><div class="ttdef"><b>Definition</b> fsm.h:35</div></div>
+<div class="ttc" id="astructfsm__trans__t_html_aa14b0ae2ea26e60da884d09f281f7302"><div class="ttname"><a href="structfsm__trans__t.html#aa14b0ae2ea26e60da884d09f281f7302">fsm_trans_t::out</a></div><div class="ttdeci">fsm_output_func_t out</div><div class="ttdef"><b>Definition</b> fsm.h:37</div></div>
+<div class="ttc" id="astructfsm__trans__t_html_adc67dd348bb6fc59cb4d59d598747274"><div class="ttname"><a href="structfsm__trans__t.html#adc67dd348bb6fc59cb4d59d598747274">fsm_trans_t::orig_state</a></div><div class="ttdeci">int orig_state</div><div class="ttdef"><b>Definition</b> fsm.h:34</div></div>
+<div class="ttc" id="astructfsm__trans__t_html_af125a66cfa85df848aa173961218e809"><div class="ttname"><a href="structfsm__trans__t.html#af125a66cfa85df848aa173961218e809">fsm_trans_t::dest_state</a></div><div class="ttdeci">int dest_state</div><div class="ttdef"><b>Definition</b> fsm.h:36</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

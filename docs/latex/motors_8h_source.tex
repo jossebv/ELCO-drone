@@ -9,9 +9,15 @@
 \DoxyCodeLine{00015\ \textcolor{comment}{/*\ INCLUDES\ */}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
 \DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{comment}{/*\ PUBLIC\ FUNCTIONS\ */}}
-\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motors_8h_ad522af7d5cf6fcbf8e873cb7a91df8f3}{motors\_init}}();}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{controller_8h}{controller.h}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{sensors_8h}{sensors.h}}"{}}}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOTORS\_H}}
+\DoxyCodeLine{00021\ \textcolor{comment}{/*\ PUBLIC\ FUNCTIONS\ */}}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motors_8h_ad522af7d5cf6fcbf8e873cb7a91df8f3}{motors\_init}}();}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motors_8h_a438c7c164e625e480f6131478a59956a}{motors\_update}}(\mbox{\hyperlink{structcommand__t}{command\_t}}\ command,\ \mbox{\hyperlink{structdrone__data__t}{drone\_data\_t}}\ drone\_data);}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motors_8h_aa710e3e7cc10641491e56644a6cf44a0}{motors\_reset}}();}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{motors_8h_aaf118ca4fcc6850b15b9e47c3c64d90d}{motors\_update\_pid\_constants}}(uint8\_t\ pid\_number,\ \textcolor{keywordtype}{float}\ kp,\ \textcolor{keywordtype}{float}\ ki,\ \textcolor{keywordtype}{float}\ kd);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MOTORS\_H}}
 
 \end{DoxyCode}

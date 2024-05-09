@@ -1,21 +1,56 @@
 \doxysection{fsm\+\_\+trans\+\_\+t Struct Reference}
 \hypertarget{structfsm__trans__t}{}\label{structfsm__trans__t}\index{fsm\_trans\_t@{fsm\_trans\_t}}
+
+
+Transition structure for the FSM.  
+
+
+
+
+{\ttfamily \#include $<$fsm.\+h$>$}
+
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structfsm__trans__t_adc67dd348bb6fc59cb4d59d598747274}\label{structfsm__trans__t_adc67dd348bb6fc59cb4d59d598747274} 
-int {\bfseries orig\+\_\+state}
+int \mbox{\hyperlink{structfsm__trans__t_adc67dd348bb6fc59cb4d59d598747274}{orig\+\_\+state}}
 \item 
-\Hypertarget{structfsm__trans__t_a88eefe4fbfe9c61845f867752d692ef1}\label{structfsm__trans__t_a88eefe4fbfe9c61845f867752d692ef1} 
-fsm\+\_\+input\+\_\+func\+\_\+t {\bfseries in}
+fsm\+\_\+input\+\_\+func\+\_\+t \mbox{\hyperlink{structfsm__trans__t_a88eefe4fbfe9c61845f867752d692ef1}{in}}
 \item 
-\Hypertarget{structfsm__trans__t_af125a66cfa85df848aa173961218e809}\label{structfsm__trans__t_af125a66cfa85df848aa173961218e809} 
-int {\bfseries dest\+\_\+state}
+int \mbox{\hyperlink{structfsm__trans__t_af125a66cfa85df848aa173961218e809}{dest\+\_\+state}}
 \item 
-\Hypertarget{structfsm__trans__t_aa14b0ae2ea26e60da884d09f281f7302}\label{structfsm__trans__t_aa14b0ae2ea26e60da884d09f281f7302} 
-fsm\+\_\+output\+\_\+func\+\_\+t {\bfseries out}
+fsm\+\_\+output\+\_\+func\+\_\+t \mbox{\hyperlink{structfsm__trans__t_aa14b0ae2ea26e60da884d09f281f7302}{out}}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Transition structure for the FSM. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structfsm__trans__t_af125a66cfa85df848aa173961218e809}\label{structfsm__trans__t_af125a66cfa85df848aa173961218e809} 
+\index{fsm\_trans\_t@{fsm\_trans\_t}!dest\_state@{dest\_state}}
+\index{dest\_state@{dest\_state}!fsm\_trans\_t@{fsm\_trans\_t}}
+\doxysubsubsection{\texorpdfstring{dest\_state}{dest\_state}}
+{\footnotesize\ttfamily int fsm\+\_\+trans\+\_\+t\+::dest\+\_\+state}
+
+Destination state of the transition \Hypertarget{structfsm__trans__t_a88eefe4fbfe9c61845f867752d692ef1}\label{structfsm__trans__t_a88eefe4fbfe9c61845f867752d692ef1} 
+\index{fsm\_trans\_t@{fsm\_trans\_t}!in@{in}}
+\index{in@{in}!fsm\_trans\_t@{fsm\_trans\_t}}
+\doxysubsubsection{\texorpdfstring{in}{in}}
+{\footnotesize\ttfamily fsm\+\_\+input\+\_\+func\+\_\+t fsm\+\_\+trans\+\_\+t\+::in}
+
+Input function, act as a checker \Hypertarget{structfsm__trans__t_adc67dd348bb6fc59cb4d59d598747274}\label{structfsm__trans__t_adc67dd348bb6fc59cb4d59d598747274} 
+\index{fsm\_trans\_t@{fsm\_trans\_t}!orig\_state@{orig\_state}}
+\index{orig\_state@{orig\_state}!fsm\_trans\_t@{fsm\_trans\_t}}
+\doxysubsubsection{\texorpdfstring{orig\_state}{orig\_state}}
+{\footnotesize\ttfamily int fsm\+\_\+trans\+\_\+t\+::orig\+\_\+state}
+
+Original state of the transition \Hypertarget{structfsm__trans__t_aa14b0ae2ea26e60da884d09f281f7302}\label{structfsm__trans__t_aa14b0ae2ea26e60da884d09f281f7302} 
+\index{fsm\_trans\_t@{fsm\_trans\_t}!out@{out}}
+\index{out@{out}!fsm\_trans\_t@{fsm\_trans\_t}}
+\doxysubsubsection{\texorpdfstring{out}{out}}
+{\footnotesize\ttfamily fsm\+\_\+output\+\_\+func\+\_\+t fsm\+\_\+trans\+\_\+t\+::out}
+
+Output function, act as a handler 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

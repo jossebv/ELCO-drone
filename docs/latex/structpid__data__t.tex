@@ -1,25 +1,73 @@
 \doxysection{pid\+\_\+data\+\_\+t Struct Reference}
 \hypertarget{structpid__data__t}{}\label{structpid__data__t}\index{pid\_data\_t@{pid\_data\_t}}
+
+
+Structure for PID controller, contains the constants and saved values for the pid control.  
+
+
+
+
+{\ttfamily \#include $<$pid.\+h$>$}
+
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structpid__data__t_ac45e1dae846552be63416ee3d6451647}\label{structpid__data__t_ac45e1dae846552be63416ee3d6451647} 
-float {\bfseries kp}
+double \mbox{\hyperlink{structpid__data__t_a031fad30a5496b7038eb5ce4ba289ba6}{kp}}
 \item 
-\Hypertarget{structpid__data__t_a7708ed72e1bcbdd7aed420e9257c8774}\label{structpid__data__t_a7708ed72e1bcbdd7aed420e9257c8774} 
-float {\bfseries ki}
+double \mbox{\hyperlink{structpid__data__t_af0e8635af86a01e8fbe4a18a1e994461}{ki}}
 \item 
-\Hypertarget{structpid__data__t_a700877b434a6934eb49af2d7ce79bd35}\label{structpid__data__t_a700877b434a6934eb49af2d7ce79bd35} 
-float {\bfseries kd}
+double \mbox{\hyperlink{structpid__data__t_a57cb596a9674a256315f4f32062b18fb}{kd}}
 \item 
-\Hypertarget{structpid__data__t_a887b20c9c06c80d9d942b0b51c534cda}\label{structpid__data__t_a887b20c9c06c80d9d942b0b51c534cda} 
-float {\bfseries integral}
+double \mbox{\hyperlink{structpid__data__t_ac04f59e944f59532b05a201d6508c8f2}{integral}}
 \item 
-\Hypertarget{structpid__data__t_a7ddfcead2e84b87beb0d794a9a3e1f46}\label{structpid__data__t_a7ddfcead2e84b87beb0d794a9a3e1f46} 
-float {\bfseries last\+\_\+error}
+double \mbox{\hyperlink{structpid__data__t_ad59ca80a8f18864eedad89e3898011e3}{last\+\_\+error}}
+\item 
+double \mbox{\hyperlink{structpid__data__t_acb5830ee3115e65a36790900e4111dcb}{last\+\_\+time}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Structure for PID controller, contains the constants and saved values for the pid control. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structpid__data__t_ac04f59e944f59532b05a201d6508c8f2}\label{structpid__data__t_ac04f59e944f59532b05a201d6508c8f2} 
+\index{pid\_data\_t@{pid\_data\_t}!integral@{integral}}
+\index{integral@{integral}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{integral}{integral}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::integral}
+
+Integral value \Hypertarget{structpid__data__t_a57cb596a9674a256315f4f32062b18fb}\label{structpid__data__t_a57cb596a9674a256315f4f32062b18fb} 
+\index{pid\_data\_t@{pid\_data\_t}!kd@{kd}}
+\index{kd@{kd}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{kd}{kd}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::kd}
+
+PID derivative constants \Hypertarget{structpid__data__t_af0e8635af86a01e8fbe4a18a1e994461}\label{structpid__data__t_af0e8635af86a01e8fbe4a18a1e994461} 
+\index{pid\_data\_t@{pid\_data\_t}!ki@{ki}}
+\index{ki@{ki}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{ki}{ki}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::ki}
+
+PID integral constants \Hypertarget{structpid__data__t_a031fad30a5496b7038eb5ce4ba289ba6}\label{structpid__data__t_a031fad30a5496b7038eb5ce4ba289ba6} 
+\index{pid\_data\_t@{pid\_data\_t}!kp@{kp}}
+\index{kp@{kp}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{kp}{kp}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::kp}
+
+PID proportional constants \Hypertarget{structpid__data__t_ad59ca80a8f18864eedad89e3898011e3}\label{structpid__data__t_ad59ca80a8f18864eedad89e3898011e3} 
+\index{pid\_data\_t@{pid\_data\_t}!last\_error@{last\_error}}
+\index{last\_error@{last\_error}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{last\_error}{last\_error}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::last\+\_\+error}
+
+Last error value \Hypertarget{structpid__data__t_acb5830ee3115e65a36790900e4111dcb}\label{structpid__data__t_acb5830ee3115e65a36790900e4111dcb} 
+\index{pid\_data\_t@{pid\_data\_t}!last\_time@{last\_time}}
+\index{last\_time@{last\_time}!pid\_data\_t@{pid\_data\_t}}
+\doxysubsubsection{\texorpdfstring{last\_time}{last\_time}}
+{\footnotesize\ttfamily double pid\+\_\+data\+\_\+t\+::last\+\_\+time}
+
+Last time PID was updated 
+
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-components/general/pid/\mbox{\hyperlink{pid_8h}{pid.\+h}}\end{DoxyCompactItemize}
+components/general/pid\+\_\+control/\mbox{\hyperlink{pid_8h}{pid.\+h}}\end{DoxyCompactItemize}

@@ -132,6 +132,8 @@ $(function(){initNavTree('motors_8h.html',''); initResizable(); });
 <p>Header file for the motors component.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="controller_8h_source.html">controller.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
 </div>
 <p><a href="motors_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -141,6 +143,16 @@ Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_init</b> ()</td></tr>
 <tr class="memdesc:ad522af7d5cf6fcbf8e873cb7a91df8f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inits all the motors. <br /></td></tr>
 <tr class="separator:ad522af7d5cf6fcbf8e873cb7a91df8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438c7c164e625e480f6131478a59956a" id="r_a438c7c164e625e480f6131478a59956a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a438c7c164e625e480f6131478a59956a">motors_update</a> (<a class="el" href="structcommand__t.html">command_t</a> command, <a class="el" href="structdrone__data__t.html">drone_data_t</a> drone_data)</td></tr>
+<tr class="memdesc:a438c7c164e625e480f6131478a59956a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the motors.  <br /></td></tr>
+<tr class="separator:a438c7c164e625e480f6131478a59956a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa710e3e7cc10641491e56644a6cf44a0" id="r_aa710e3e7cc10641491e56644a6cf44a0"><td class="memItemLeft" align="right" valign="top"><a id="aa710e3e7cc10641491e56644a6cf44a0" name="aa710e3e7cc10641491e56644a6cf44a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_reset</b> ()</td></tr>
+<tr class="memdesc:aa710e3e7cc10641491e56644a6cf44a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the motors. <br /></td></tr>
+<tr class="separator:aa710e3e7cc10641491e56644a6cf44a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf118ca4fcc6850b15b9e47c3c64d90d" id="r_aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf118ca4fcc6850b15b9e47c3c64d90d">motors_update_pid_constants</a> (uint8_t pid_number, float kp, float ki, float kd)</td></tr>
+<tr class="memdesc:aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the PID constants for a specific PID controller.  <br /></td></tr>
+<tr class="separator:aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file for the motors component. </p>
@@ -148,7 +160,88 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_init</b> ()</t
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-02-29</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a438c7c164e625e480f6131478a59956a" name="a438c7c164e625e480f6131478a59956a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438c7c164e625e480f6131478a59956a">&#9670;&#160;</a></span>motors_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motors_update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcommand__t.html">command_t</a></td>          <td class="paramname"><span class="paramname"><em>command</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdrone__data__t.html">drone_data_t</a></td>          <td class="paramname"><span class="paramname"><em>drone_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the motors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>Command to be executed </td></tr>
+    <tr><td class="paramname">drone_data</td><td>Data from the drone</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>MOTORS CONFIGURATION </p><pre class="fragment">   1   2
+    \ /
+     X
+    / \
+   4   3
+</pre> 
+</div>
+</div>
+<a id="aaf118ca4fcc6850b15b9e47c3c64d90d" name="aaf118ca4fcc6850b15b9e47c3c64d90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf118ca4fcc6850b15b9e47c3c64d90d">&#9670;&#160;</a></span>motors_update_pid_constants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool motors_update_pid_constants </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pid_number</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kp</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ki</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kd</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the PID constants for a specific PID controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid_number</td><td>PID controller number (1: pitch, 2: roll, 3: yaw) </td></tr>
+    <tr><td class="paramname">kp</td><td>Proportional constant </td></tr>
+    <tr><td class="paramname">ki</td><td>Integral constant </td></tr>
+    <tr><td class="paramname">kd</td><td>Derivative constant </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

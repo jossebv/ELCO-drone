@@ -5,64 +5,94 @@
 Logic for the system finite state machine.  
 
 
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
 {\ttfamily \#include "{}system.\+h"{}}\newline
 {\ttfamily \#include "{}sensors.\+h"{}}\newline
+{\ttfamily \#include "{}controller.\+h"{}}\newline
+{\ttfamily \#include "{}motors.\+h"{}}\newline
+{\ttfamily \#include "{}wifi.\+h"{}}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+{\ttfamily \#include "{}adc.\+h"{}}\newline
 \doxysubsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structfsm__drone__t}{fsm\+\_\+drone\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em FSM structure for the system. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{system__fsm_8c_af43a62b239a60c15b8855b0ebccedfa5}{CALIBRATION\+\_\+\+TIME\+\_\+\+US}}~10000000
+\item 
+\#define \mbox{\hyperlink{system__fsm_8c_aa54986884e6b472d57bceaae2776a3f7}{CALIBRATION\+\_\+\+THRESHOLD}}~0.\+5
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{system__fsm_8c_a8e18ade0bf0a99f2a39a76ef8ff90b21}\label{system__fsm_8c_a8e18ade0bf0a99f2a39a76ef8ff90b21} 
 typedef struct fsm\+\_\+drone\+\_\+t {\bfseries fsm\+\_\+drone\+\_\+t}
-\item 
+\begin{DoxyCompactList}\small\item\em FSM structure for the system. \end{DoxyCompactList}\item 
 \Hypertarget{system__fsm_8c_a6760aee1c3484ceb4d22432186bfb364}\label{system__fsm_8c_a6760aee1c3484ceb4d22432186bfb364} 
-typedef enum system\+\_\+fsm\+\_\+states {\bfseries system\+\_\+fsm\+\_\+states\+\_\+t}
-\end{DoxyCompactItemize}
+typedef enum \mbox{\hyperlink{system__fsm_8c_a666ff9dd3d4ea22b7a980927f046369e}{system\+\_\+fsm\+\_\+states}} {\bfseries system\+\_\+fsm\+\_\+states\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Enum with the states of the system finite state machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{system__fsm_8c_a666ff9dd3d4ea22b7a980927f046369e}\label{system__fsm_8c_a666ff9dd3d4ea22b7a980927f046369e} 
-enum {\bfseries system\+\_\+fsm\+\_\+states} \{ {\bfseries IDLE} = 0
-, {\bfseries CALIBRATING}
+enum \mbox{\hyperlink{system__fsm_8c_a666ff9dd3d4ea22b7a980927f046369e}{system\+\_\+fsm\+\_\+states}} \{ {\bfseries CALIBRATING} = 0
+, {\bfseries WAITING\+\_\+\+CONTROLLER}
 , {\bfseries FLYING}
 , {\bfseries LANDING}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Enum with the states of the system finite state machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{system__fsm_8c_aa941849af16ed920a8a241f81a80eba5}\label{system__fsm_8c_aa941849af16ed920a8a241f81a80eba5} 
+void {\bfseries system\+\_\+fsm\+\_\+init} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}green\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}blue\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}red\+\_\+led\+\_\+fsm)
+\begin{DoxyCompactList}\small\item\em Initializes the system fsm. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506}{is\+\_\+drone\+\_\+still\+\_\+and\+\_\+under\+\_\+time}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
-\begin{DoxyCompactList}\small\item\em Checks if the drone is still. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Checks if the drone is still during the calibration. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f}{is\+\_\+drone\+\_\+moving\+\_\+and\+\_\+under\+\_\+time}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the drone is moving during the calibration. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512}{is\+\_\+calibration\+\_\+finished}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Checks if the calibration is finished. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{system__fsm_8c_ae2b6c42f76edf6fed67cbfd3c479c336}{is\+\_\+controller\+\_\+connected}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the controller is connected. \end{DoxyCompactList}\item 
+\Hypertarget{system__fsm_8c_a3b8d5485cb30c5368cd1258b6d43818a}\label{system__fsm_8c_a3b8d5485cb30c5368cd1258b6d43818a} 
+int {\bfseries is\+\_\+battery\+\_\+below\+\_\+threshold} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Is the battery below threshold. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101}{is\+\_\+battery\+\_\+above\+\_\+threshold\+\_\+and\+\_\+controller\+\_\+connected}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Checks if the battery is above threshold and the controller is connected. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412}\label{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412} 
-int {\bfseries is\+\_\+battery\+\_\+below\+\_\+threshold\+\_\+or\+\_\+controller\+\_\+disconnected} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
-\item 
-\Hypertarget{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010}\label{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010} 
-void {\bfseries do\+\_\+update\+\_\+calibration\+\_\+progress} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+int \mbox{\hyperlink{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412}{is\+\_\+battery\+\_\+below\+\_\+threshold\+\_\+or\+\_\+controller\+\_\+disconnected}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the battery is below threshold or the controller is disconnected. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010}{do\+\_\+update\+\_\+calibration\+\_\+progress}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Update the calibration progress. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68}\label{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68} 
-void {\bfseries do\+\_\+finish\+\_\+calibration} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
-\begin{DoxyCompactList}\small\item\em Finish the calibration. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_a16c6064b395c8f4cdd70dd4c74631682}\label{system__fsm_8c_a16c6064b395c8f4cdd70dd4c74631682} 
-void {\bfseries do\+\_\+update\+\_\+drone} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+void \mbox{\hyperlink{system__fsm_8c_ac900263cc6406f2b0362601b8db1299f}{do\+\_\+reset\+\_\+calibration\+\_\+progress}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Resets the calibration progress. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68}{do\+\_\+finish\+\_\+calibration}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Terminates the calibration process turning the green led on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{system__fsm_8c_a8c7dd5057e148c7d7a6d3595272f644b}{do\+\_\+controller\+\_\+connected}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks that the controller is connected turning the blue led on. \end{DoxyCompactList}\item 
+\Hypertarget{system__fsm_8c_a9465617bd031b29709593bcddab811ae}\label{system__fsm_8c_a9465617bd031b29709593bcddab811ae} 
+void {\bfseries do\+\_\+update\+\_\+drone\+\_\+motors} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Update the drone status (sensors, motors, etc) \end{DoxyCompactList}\item 
+\Hypertarget{system__fsm_8c_a5c1d00141f2d48058e7b9f196832d097}\label{system__fsm_8c_a5c1d00141f2d48058e7b9f196832d097} 
+void {\bfseries do\+\_\+inform\+\_\+battery\+\_\+below\+\_\+threshold} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Inform that the battery is below threshold. \end{DoxyCompactList}\item 
 \Hypertarget{system__fsm_8c_a2b3cdc09616ee4ba870afc383703916a}\label{system__fsm_8c_a2b3cdc09616ee4ba870afc383703916a} 
 void {\bfseries do\+\_\+start\+\_\+landing} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
 \begin{DoxyCompactList}\small\item\em Start the landing process. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8}{system\+\_\+fsm\+\_\+create}} ()
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{system__fsm_8c_a83804034b02bb04ea9fa5b4adeccf91b}{system\+\_\+fsm\+\_\+create}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}green\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}blue\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}red\+\_\+led\+\_\+fsm)
 \begin{DoxyCompactList}\small\item\em Create the system finite state machine. \end{DoxyCompactList}\item 
-\Hypertarget{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f}\label{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f} 
-int {\bfseries is\+\_\+drone\+\_\+moving\+\_\+and\+\_\+under\+\_\+time} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{system__fsm_8c_abcb3268282a00299bed1c05698168cf9}{system\+\_\+fsm\+\_\+destroy}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Destroy the system finite state machine. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{system__fsm_8c_acbc15e3ae8598bfb9e4a15d1e91bbcbe}{is\+\_\+drone\+\_\+still}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the drone has not been moved during the calibration. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -82,7 +112,82 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{system__fsm_8c_aa54986884e6b472d57bceaae2776a3f7}\label{system__fsm_8c_aa54986884e6b472d57bceaae2776a3f7} 
+\index{system\_fsm.c@{system\_fsm.c}!CALIBRATION\_THRESHOLD@{CALIBRATION\_THRESHOLD}}
+\index{CALIBRATION\_THRESHOLD@{CALIBRATION\_THRESHOLD}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{CALIBRATION\_THRESHOLD}{CALIBRATION\_THRESHOLD}}
+{\footnotesize\ttfamily \#define CALIBRATION\+\_\+\+THRESHOLD~0.\+5}
+
+Threshold for the calibration. The IMU variations will not reset the calibration if within this interval \Hypertarget{system__fsm_8c_af43a62b239a60c15b8855b0ebccedfa5}\label{system__fsm_8c_af43a62b239a60c15b8855b0ebccedfa5} 
+\index{system\_fsm.c@{system\_fsm.c}!CALIBRATION\_TIME\_US@{CALIBRATION\_TIME\_US}}
+\index{CALIBRATION\_TIME\_US@{CALIBRATION\_TIME\_US}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{CALIBRATION\_TIME\_US}{CALIBRATION\_TIME\_US}}
+{\footnotesize\ttfamily \#define CALIBRATION\+\_\+\+TIME\+\_\+\+US~10000000}
+
+Time for the calibration in microseconds 
+
 \doxysubsection{Function Documentation}
+\Hypertarget{system__fsm_8c_a8c7dd5057e148c7d7a6d3595272f644b}\label{system__fsm_8c_a8c7dd5057e148c7d7a6d3595272f644b} 
+\index{system\_fsm.c@{system\_fsm.c}!do\_controller\_connected@{do\_controller\_connected}}
+\index{do\_controller\_connected@{do\_controller\_connected}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_controller\_connected()}{do\_controller\_connected()}}
+{\footnotesize\ttfamily void do\+\_\+controller\+\_\+connected (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks that the controller is connected turning the blue led on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68}\label{system__fsm_8c_a88b0f66b743e3460aa9de525f8fa6a68} 
+\index{system\_fsm.c@{system\_fsm.c}!do\_finish\_calibration@{do\_finish\_calibration}}
+\index{do\_finish\_calibration@{do\_finish\_calibration}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_finish\_calibration()}{do\_finish\_calibration()}}
+{\footnotesize\ttfamily void do\+\_\+finish\+\_\+calibration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Terminates the calibration process turning the green led on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{system__fsm_8c_ac900263cc6406f2b0362601b8db1299f}\label{system__fsm_8c_ac900263cc6406f2b0362601b8db1299f} 
+\index{system\_fsm.c@{system\_fsm.c}!do\_reset\_calibration\_progress@{do\_reset\_calibration\_progress}}
+\index{do\_reset\_calibration\_progress@{do\_reset\_calibration\_progress}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_reset\_calibration\_progress()}{do\_reset\_calibration\_progress()}}
+{\footnotesize\ttfamily void do\+\_\+reset\+\_\+calibration\+\_\+progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Resets the calibration progress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010}\label{system__fsm_8c_af2b0291e2cae71b6c62850c2ed9e3010} 
+\index{system\_fsm.c@{system\_fsm.c}!do\_update\_calibration\_progress@{do\_update\_calibration\_progress}}
+\index{do\_update\_calibration\_progress@{do\_update\_calibration\_progress}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_update\_calibration\_progress()}{do\_update\_calibration\_progress()}}
+{\footnotesize\ttfamily void do\+\_\+update\+\_\+calibration\+\_\+progress (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Update the calibration progress. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the finite state machine \\
+\hline
+\end{DoxyParams}
 \Hypertarget{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101}\label{system__fsm_8c_a46fd781a573a8e13dbae01940ccec101} 
 \index{system\_fsm.c@{system\_fsm.c}!is\_battery\_above\_threshold\_and\_controller\_connected@{is\_battery\_above\_threshold\_and\_controller\_connected}}
 \index{is\_battery\_above\_threshold\_and\_controller\_connected@{is\_battery\_above\_threshold\_and\_controller\_connected}!system\_fsm.c@{system\_fsm.c}}
@@ -93,10 +198,31 @@ Copyright (c) 2024
 
 Checks if the battery is above threshold and the controller is connected. 
 
-\begin{DoxyReturn}{Returns}
-true 
 
-false 
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the finite state machine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the battery is above threshold and the controller is connected, false otherwise 
+\end{DoxyReturn}
+\Hypertarget{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412}\label{system__fsm_8c_abb2b5a6959559d1fb596b7ca0ff55412} 
+\index{system\_fsm.c@{system\_fsm.c}!is\_battery\_below\_threshold\_or\_controller\_disconnected@{is\_battery\_below\_threshold\_or\_controller\_disconnected}}
+\index{is\_battery\_below\_threshold\_or\_controller\_disconnected@{is\_battery\_below\_threshold\_or\_controller\_disconnected}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_battery\_below\_threshold\_or\_controller\_disconnected()}{is\_battery\_below\_threshold\_or\_controller\_disconnected()}}
+{\footnotesize\ttfamily int is\+\_\+battery\+\_\+below\+\_\+threshold\+\_\+or\+\_\+controller\+\_\+disconnected (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the battery is below threshold or the controller is disconnected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the finite state machine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int true if the battery is below threshold or the controller is disconnected, false otherwise 
 \end{DoxyReturn}
 \Hypertarget{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512}\label{system__fsm_8c_ad8d0bc522ea1657716055de7912ce512} 
 \index{system\_fsm.c@{system\_fsm.c}!is\_calibration\_finished@{is\_calibration\_finished}}
@@ -113,6 +239,60 @@ true
 
 false 
 \end{DoxyReturn}
+\Hypertarget{system__fsm_8c_ae2b6c42f76edf6fed67cbfd3c479c336}\label{system__fsm_8c_ae2b6c42f76edf6fed67cbfd3c479c336} 
+\index{system\_fsm.c@{system\_fsm.c}!is\_controller\_connected@{is\_controller\_connected}}
+\index{is\_controller\_connected@{is\_controller\_connected}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_controller\_connected()}{is\_controller\_connected()}}
+{\footnotesize\ttfamily int is\+\_\+controller\+\_\+connected (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the controller is connected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f}\label{system__fsm_8c_a4e3eeb93156cd98673e7a0e20e52a41f} 
+\index{system\_fsm.c@{system\_fsm.c}!is\_drone\_moving\_and\_under\_time@{is\_drone\_moving\_and\_under\_time}}
+\index{is\_drone\_moving\_and\_under\_time@{is\_drone\_moving\_and\_under\_time}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_drone\_moving\_and\_under\_time()}{is\_drone\_moving\_and\_under\_time()}}
+{\footnotesize\ttfamily int is\+\_\+drone\+\_\+moving\+\_\+and\+\_\+under\+\_\+time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the drone is moving during the calibration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\Hypertarget{system__fsm_8c_acbc15e3ae8598bfb9e4a15d1e91bbcbe}\label{system__fsm_8c_acbc15e3ae8598bfb9e4a15d1e91bbcbe} 
+\index{system\_fsm.c@{system\_fsm.c}!is\_drone\_still@{is\_drone\_still}}
+\index{is\_drone\_still@{is\_drone\_still}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_drone\_still()}{is\_drone\_still()}}
+{\footnotesize\ttfamily int is\+\_\+drone\+\_\+still (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the drone has not been moved during the calibration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the finite state machine \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int true if the drone has not been moved, false otherwise 
+\end{DoxyReturn}
 \Hypertarget{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506}\label{system__fsm_8c_af92ee4ef21f979193abe1fabc54db506} 
 \index{system\_fsm.c@{system\_fsm.c}!is\_drone\_still\_and\_under\_time@{is\_drone\_still\_and\_under\_time}}
 \index{is\_drone\_still\_and\_under\_time@{is\_drone\_still\_and\_under\_time}!system\_fsm.c@{system\_fsm.c}}
@@ -121,18 +301,21 @@ false
 
 
 
-Checks if the drone is still. 
+Checks if the drone is still during the calibration. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the finite state machine \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-true 
-
-false 
+true if the drone is still, false otherwise 
 \end{DoxyReturn}
-\Hypertarget{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8}\label{system__fsm_8c_ab59561e8b51510af29eea869cccacdb8} 
+\Hypertarget{system__fsm_8c_a83804034b02bb04ea9fa5b4adeccf91b}\label{system__fsm_8c_a83804034b02bb04ea9fa5b4adeccf91b} 
 \index{system\_fsm.c@{system\_fsm.c}!system\_fsm\_create@{system\_fsm\_create}}
 \index{system\_fsm\_create@{system\_fsm\_create}!system\_fsm.c@{system\_fsm.c}}
 \doxysubsubsection{\texorpdfstring{system\_fsm\_create()}{system\_fsm\_create()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} system\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} system\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{green\+\_\+led\+\_\+fsm,  }\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{blue\+\_\+led\+\_\+fsm,  }\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{red\+\_\+led\+\_\+fsm }\end{DoxyParamCaption})}
 
 
 
@@ -141,3 +324,18 @@ Create the system finite state machine.
 \begin{DoxyReturn}{Returns}
 fsm\+\_\+t\texorpdfstring{$\ast$}{*} The system finite state machine 
 \end{DoxyReturn}
+\Hypertarget{system__fsm_8c_abcb3268282a00299bed1c05698168cf9}\label{system__fsm_8c_abcb3268282a00299bed1c05698168cf9} 
+\index{system\_fsm.c@{system\_fsm.c}!system\_fsm\_destroy@{system\_fsm\_destroy}}
+\index{system\_fsm\_destroy@{system\_fsm\_destroy}!system\_fsm.c@{system\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{system\_fsm\_destroy()}{system\_fsm\_destroy()}}
+{\footnotesize\ttfamily void system\+\_\+fsm\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Destroy the system finite state machine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & The system finite state machine \\
+\hline
+\end{DoxyParams}

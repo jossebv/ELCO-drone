@@ -125,6 +125,7 @@ $(function(){initNavTree('system__fsm_8c.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -134,71 +135,115 @@ $(function(){initNavTree('system__fsm_8c.html',''); initResizable(); });
 
 <p>Logic for the system finite state machine.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 <code>#include &quot;esp_timer.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="system_8h_source.html">system.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="controller_8h_source.html">controller.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="motors_8h_source.html">motors.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wifi_8h_source.html">wifi.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="adc_8h_source.html">adc.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfsm__drone__t.html">fsm_drone_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FSM structure for the system.  <a href="structfsm__drone__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:af43a62b239a60c15b8855b0ebccedfa5" id="r_af43a62b239a60c15b8855b0ebccedfa5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af43a62b239a60c15b8855b0ebccedfa5">CALIBRATION_TIME_US</a>&#160;&#160;&#160;10000000</td></tr>
+<tr class="separator:af43a62b239a60c15b8855b0ebccedfa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa54986884e6b472d57bceaae2776a3f7" id="r_aa54986884e6b472d57bceaae2776a3f7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa54986884e6b472d57bceaae2776a3f7">CALIBRATION_THRESHOLD</a>&#160;&#160;&#160;0.5</td></tr>
+<tr class="separator:aa54986884e6b472d57bceaae2776a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a8e18ade0bf0a99f2a39a76ef8ff90b21" id="r_a8e18ade0bf0a99f2a39a76ef8ff90b21"><td class="memItemLeft" align="right" valign="top"><a id="a8e18ade0bf0a99f2a39a76ef8ff90b21" name="a8e18ade0bf0a99f2a39a76ef8ff90b21"></a>
 typedef struct fsm_drone_t&#160;</td><td class="memItemRight" valign="bottom"><b>fsm_drone_t</b></td></tr>
+<tr class="memdesc:a8e18ade0bf0a99f2a39a76ef8ff90b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">FSM structure for the system. <br /></td></tr>
 <tr class="separator:a8e18ade0bf0a99f2a39a76ef8ff90b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6760aee1c3484ceb4d22432186bfb364" id="r_a6760aee1c3484ceb4d22432186bfb364"><td class="memItemLeft" align="right" valign="top"><a id="a6760aee1c3484ceb4d22432186bfb364" name="a6760aee1c3484ceb4d22432186bfb364"></a>
-typedef enum system_fsm_states&#160;</td><td class="memItemRight" valign="bottom"><b>system_fsm_states_t</b></td></tr>
+typedef enum <a class="el" href="#a666ff9dd3d4ea22b7a980927f046369e">system_fsm_states</a>&#160;</td><td class="memItemRight" valign="bottom"><b>system_fsm_states_t</b></td></tr>
+<tr class="memdesc:a6760aee1c3484ceb4d22432186bfb364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum with the states of the system finite state machine. <br /></td></tr>
 <tr class="separator:a6760aee1c3484ceb4d22432186bfb364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a666ff9dd3d4ea22b7a980927f046369e" id="r_a666ff9dd3d4ea22b7a980927f046369e"><td class="memItemLeft" align="right" valign="top"><a id="a666ff9dd3d4ea22b7a980927f046369e" name="a666ff9dd3d4ea22b7a980927f046369e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>system_fsm_states</b> { <b>IDLE</b> = 0
-, <b>CALIBRATING</b>
+<tr class="memitem:a666ff9dd3d4ea22b7a980927f046369e" id="r_a666ff9dd3d4ea22b7a980927f046369e"><td class="memItemLeft" align="right" valign="top"><a id="a666ff9dd3d4ea22b7a980927f046369e" name="a666ff9dd3d4ea22b7a980927f046369e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a666ff9dd3d4ea22b7a980927f046369e">system_fsm_states</a> { <b>CALIBRATING</b> = 0
+, <b>WAITING_CONTROLLER</b>
 , <b>FLYING</b>
 , <b>LANDING</b>
  }</td></tr>
+<tr class="memdesc:a666ff9dd3d4ea22b7a980927f046369e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum with the states of the system finite state machine. <br /></td></tr>
 <tr class="separator:a666ff9dd3d4ea22b7a980927f046369e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa941849af16ed920a8a241f81a80eba5" id="r_aa941849af16ed920a8a241f81a80eba5"><td class="memItemLeft" align="right" valign="top"><a id="aa941849af16ed920a8a241f81a80eba5" name="aa941849af16ed920a8a241f81a80eba5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>system_fsm_init</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *green_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *blue_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *red_led_fsm)</td></tr>
+<tr class="memdesc:aa941849af16ed920a8a241f81a80eba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the system fsm. <br /></td></tr>
+<tr class="separator:aa941849af16ed920a8a241f81a80eba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af92ee4ef21f979193abe1fabc54db506" id="r_af92ee4ef21f979193abe1fabc54db506"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af92ee4ef21f979193abe1fabc54db506">is_drone_still_and_under_time</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
-<tr class="memdesc:af92ee4ef21f979193abe1fabc54db506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the drone is still.  <br /></td></tr>
+<tr class="memdesc:af92ee4ef21f979193abe1fabc54db506"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the drone is still during the calibration.  <br /></td></tr>
 <tr class="separator:af92ee4ef21f979193abe1fabc54db506"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3eeb93156cd98673e7a0e20e52a41f" id="r_a4e3eeb93156cd98673e7a0e20e52a41f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e3eeb93156cd98673e7a0e20e52a41f">is_drone_moving_and_under_time</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a4e3eeb93156cd98673e7a0e20e52a41f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the drone is moving during the calibration.  <br /></td></tr>
+<tr class="separator:a4e3eeb93156cd98673e7a0e20e52a41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8d0bc522ea1657716055de7912ce512" id="r_ad8d0bc522ea1657716055de7912ce512"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8d0bc522ea1657716055de7912ce512">is_calibration_finished</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
 <tr class="memdesc:ad8d0bc522ea1657716055de7912ce512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the calibration is finished.  <br /></td></tr>
 <tr class="separator:ad8d0bc522ea1657716055de7912ce512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b6c42f76edf6fed67cbfd3c479c336" id="r_ae2b6c42f76edf6fed67cbfd3c479c336"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2b6c42f76edf6fed67cbfd3c479c336">is_controller_connected</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:ae2b6c42f76edf6fed67cbfd3c479c336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the controller is connected.  <br /></td></tr>
+<tr class="separator:ae2b6c42f76edf6fed67cbfd3c479c336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b8d5485cb30c5368cd1258b6d43818a" id="r_a3b8d5485cb30c5368cd1258b6d43818a"><td class="memItemLeft" align="right" valign="top"><a id="a3b8d5485cb30c5368cd1258b6d43818a" name="a3b8d5485cb30c5368cd1258b6d43818a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>is_battery_below_threshold</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a3b8d5485cb30c5368cd1258b6d43818a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is the battery below threshold. <br /></td></tr>
+<tr class="separator:a3b8d5485cb30c5368cd1258b6d43818a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46fd781a573a8e13dbae01940ccec101" id="r_a46fd781a573a8e13dbae01940ccec101"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46fd781a573a8e13dbae01940ccec101">is_battery_above_threshold_and_controller_connected</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
 <tr class="memdesc:a46fd781a573a8e13dbae01940ccec101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the battery is above threshold and the controller is connected.  <br /></td></tr>
 <tr class="separator:a46fd781a573a8e13dbae01940ccec101"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb2b5a6959559d1fb596b7ca0ff55412" id="r_abb2b5a6959559d1fb596b7ca0ff55412"><td class="memItemLeft" align="right" valign="top"><a id="abb2b5a6959559d1fb596b7ca0ff55412" name="abb2b5a6959559d1fb596b7ca0ff55412"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>is_battery_below_threshold_or_controller_disconnected</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memitem:abb2b5a6959559d1fb596b7ca0ff55412" id="r_abb2b5a6959559d1fb596b7ca0ff55412"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb2b5a6959559d1fb596b7ca0ff55412">is_battery_below_threshold_or_controller_disconnected</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:abb2b5a6959559d1fb596b7ca0ff55412"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the battery is below threshold or the controller is disconnected.  <br /></td></tr>
 <tr class="separator:abb2b5a6959559d1fb596b7ca0ff55412"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2b0291e2cae71b6c62850c2ed9e3010" id="r_af2b0291e2cae71b6c62850c2ed9e3010"><td class="memItemLeft" align="right" valign="top"><a id="af2b0291e2cae71b6c62850c2ed9e3010" name="af2b0291e2cae71b6c62850c2ed9e3010"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>do_update_calibration_progress</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
-<tr class="memdesc:af2b0291e2cae71b6c62850c2ed9e3010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the calibration progress. <br /></td></tr>
+<tr class="memitem:af2b0291e2cae71b6c62850c2ed9e3010" id="r_af2b0291e2cae71b6c62850c2ed9e3010"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2b0291e2cae71b6c62850c2ed9e3010">do_update_calibration_progress</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:af2b0291e2cae71b6c62850c2ed9e3010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the calibration progress.  <br /></td></tr>
 <tr class="separator:af2b0291e2cae71b6c62850c2ed9e3010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88b0f66b743e3460aa9de525f8fa6a68" id="r_a88b0f66b743e3460aa9de525f8fa6a68"><td class="memItemLeft" align="right" valign="top"><a id="a88b0f66b743e3460aa9de525f8fa6a68" name="a88b0f66b743e3460aa9de525f8fa6a68"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>do_finish_calibration</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
-<tr class="memdesc:a88b0f66b743e3460aa9de525f8fa6a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish the calibration. <br /></td></tr>
+<tr class="memitem:ac900263cc6406f2b0362601b8db1299f" id="r_ac900263cc6406f2b0362601b8db1299f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac900263cc6406f2b0362601b8db1299f">do_reset_calibration_progress</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:ac900263cc6406f2b0362601b8db1299f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the calibration progress.  <br /></td></tr>
+<tr class="separator:ac900263cc6406f2b0362601b8db1299f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b0f66b743e3460aa9de525f8fa6a68" id="r_a88b0f66b743e3460aa9de525f8fa6a68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88b0f66b743e3460aa9de525f8fa6a68">do_finish_calibration</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a88b0f66b743e3460aa9de525f8fa6a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates the calibration process turning the green led on.  <br /></td></tr>
 <tr class="separator:a88b0f66b743e3460aa9de525f8fa6a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c6064b395c8f4cdd70dd4c74631682" id="r_a16c6064b395c8f4cdd70dd4c74631682"><td class="memItemLeft" align="right" valign="top"><a id="a16c6064b395c8f4cdd70dd4c74631682" name="a16c6064b395c8f4cdd70dd4c74631682"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>do_update_drone</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
-<tr class="memdesc:a16c6064b395c8f4cdd70dd4c74631682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the drone status (sensors, motors, etc) <br /></td></tr>
-<tr class="separator:a16c6064b395c8f4cdd70dd4c74631682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c7dd5057e148c7d7a6d3595272f644b" id="r_a8c7dd5057e148c7d7a6d3595272f644b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c7dd5057e148c7d7a6d3595272f644b">do_controller_connected</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a8c7dd5057e148c7d7a6d3595272f644b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that the controller is connected turning the blue led on.  <br /></td></tr>
+<tr class="separator:a8c7dd5057e148c7d7a6d3595272f644b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9465617bd031b29709593bcddab811ae" id="r_a9465617bd031b29709593bcddab811ae"><td class="memItemLeft" align="right" valign="top"><a id="a9465617bd031b29709593bcddab811ae" name="a9465617bd031b29709593bcddab811ae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>do_update_drone_motors</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a9465617bd031b29709593bcddab811ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the drone status (sensors, motors, etc) <br /></td></tr>
+<tr class="separator:a9465617bd031b29709593bcddab811ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c1d00141f2d48058e7b9f196832d097" id="r_a5c1d00141f2d48058e7b9f196832d097"><td class="memItemLeft" align="right" valign="top"><a id="a5c1d00141f2d48058e7b9f196832d097" name="a5c1d00141f2d48058e7b9f196832d097"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>do_inform_battery_below_threshold</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a5c1d00141f2d48058e7b9f196832d097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inform that the battery is below threshold. <br /></td></tr>
+<tr class="separator:a5c1d00141f2d48058e7b9f196832d097"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b3cdc09616ee4ba870afc383703916a" id="r_a2b3cdc09616ee4ba870afc383703916a"><td class="memItemLeft" align="right" valign="top"><a id="a2b3cdc09616ee4ba870afc383703916a" name="a2b3cdc09616ee4ba870afc383703916a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>do_start_landing</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
 <tr class="memdesc:a2b3cdc09616ee4ba870afc383703916a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the landing process. <br /></td></tr>
 <tr class="separator:a2b3cdc09616ee4ba870afc383703916a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59561e8b51510af29eea869cccacdb8" id="r_ab59561e8b51510af29eea869cccacdb8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfsm__t.html">fsm_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab59561e8b51510af29eea869cccacdb8">system_fsm_create</a> ()</td></tr>
-<tr class="memdesc:ab59561e8b51510af29eea869cccacdb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the system finite state machine.  <br /></td></tr>
-<tr class="separator:ab59561e8b51510af29eea869cccacdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e3eeb93156cd98673e7a0e20e52a41f" id="r_a4e3eeb93156cd98673e7a0e20e52a41f"><td class="memItemLeft" align="right" valign="top"><a id="a4e3eeb93156cd98673e7a0e20e52a41f" name="a4e3eeb93156cd98673e7a0e20e52a41f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>is_drone_moving_and_under_time</b> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
-<tr class="separator:a4e3eeb93156cd98673e7a0e20e52a41f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83804034b02bb04ea9fa5b4adeccf91b" id="r_a83804034b02bb04ea9fa5b4adeccf91b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfsm__t.html">fsm_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83804034b02bb04ea9fa5b4adeccf91b">system_fsm_create</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *green_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *blue_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *red_led_fsm)</td></tr>
+<tr class="memdesc:a83804034b02bb04ea9fa5b4adeccf91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the system finite state machine.  <br /></td></tr>
+<tr class="separator:a83804034b02bb04ea9fa5b4adeccf91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcb3268282a00299bed1c05698168cf9" id="r_abcb3268282a00299bed1c05698168cf9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcb3268282a00299bed1c05698168cf9">system_fsm_destroy</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:abcb3268282a00299bed1c05698168cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the system finite state machine.  <br /></td></tr>
+<tr class="separator:abcb3268282a00299bed1c05698168cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbc15e3ae8598bfb9e4a15d1e91bbcbe" id="r_acbc15e3ae8598bfb9e4a15d1e91bbcbe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbc15e3ae8598bfb9e4a15d1e91bbcbe">is_drone_still</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:acbc15e3ae8598bfb9e4a15d1e91bbcbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the drone has not been moved during the calibration.  <br /></td></tr>
+<tr class="separator:acbc15e3ae8598bfb9e4a15d1e91bbcbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Logic for the system finite state machine. </p>
@@ -206,7 +251,138 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>is_drone_moving_and_un
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-03-04</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="aa54986884e6b472d57bceaae2776a3f7" name="aa54986884e6b472d57bceaae2776a3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa54986884e6b472d57bceaae2776a3f7">&#9670;&#160;</a></span>CALIBRATION_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CALIBRATION_THRESHOLD&#160;&#160;&#160;0.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Threshold for the calibration. The IMU variations will not reset the calibration if within this interval </p>
+
+</div>
+</div>
+<a id="af43a62b239a60c15b8855b0ebccedfa5" name="af43a62b239a60c15b8855b0ebccedfa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af43a62b239a60c15b8855b0ebccedfa5">&#9670;&#160;</a></span>CALIBRATION_TIME_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CALIBRATION_TIME_US&#160;&#160;&#160;10000000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Time for the calibration in microseconds </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a8c7dd5057e148c7d7a6d3595272f644b" name="a8c7dd5057e148c7d7a6d3595272f644b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c7dd5057e148c7d7a6d3595272f644b">&#9670;&#160;</a></span>do_controller_connected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_controller_connected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks that the controller is connected turning the blue led on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a88b0f66b743e3460aa9de525f8fa6a68" name="a88b0f66b743e3460aa9de525f8fa6a68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b0f66b743e3460aa9de525f8fa6a68">&#9670;&#160;</a></span>do_finish_calibration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_finish_calibration </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Terminates the calibration process turning the green led on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac900263cc6406f2b0362601b8db1299f" name="ac900263cc6406f2b0362601b8db1299f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac900263cc6406f2b0362601b8db1299f">&#9670;&#160;</a></span>do_reset_calibration_progress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_reset_calibration_progress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the calibration progress. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af2b0291e2cae71b6c62850c2ed9e3010" name="af2b0291e2cae71b6c62850c2ed9e3010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b0291e2cae71b6c62850c2ed9e3010">&#9670;&#160;</a></span>do_update_calibration_progress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_update_calibration_progress </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the calibration progress. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a46fd781a573a8e13dbae01940ccec101" name="a46fd781a573a8e13dbae01940ccec101"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46fd781a573a8e13dbae01940ccec101">&#9670;&#160;</a></span>is_battery_above_threshold_and_controller_connected()</h2>
 
@@ -223,9 +399,39 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>is_drone_moving_and_un
 </div><div class="memdoc">
 
 <p>Checks if the battery is above threshold and the controller is connected. </p>
-<dl class="section return"><dt>Returns</dt><dd>true </dd>
-<dd>
-false </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the battery is above threshold and the controller is connected, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="abb2b5a6959559d1fb596b7ca0ff55412" name="abb2b5a6959559d1fb596b7ca0ff55412"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb2b5a6959559d1fb596b7ca0ff55412">&#9670;&#160;</a></span>is_battery_below_threshold_or_controller_disconnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_battery_below_threshold_or_controller_disconnected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the battery is below threshold or the controller is disconnected. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int true if the battery is below threshold or the controller is disconnected, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -251,6 +457,84 @@ false </dd></dl>
 
 </div>
 </div>
+<a id="ae2b6c42f76edf6fed67cbfd3c479c336" name="ae2b6c42f76edf6fed67cbfd3c479c336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b6c42f76edf6fed67cbfd3c479c336">&#9670;&#160;</a></span>is_controller_connected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_controller_connected </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the controller is connected. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
+</div>
+</div>
+<a id="a4e3eeb93156cd98673e7a0e20e52a41f" name="a4e3eeb93156cd98673e7a0e20e52a41f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e3eeb93156cd98673e7a0e20e52a41f">&#9670;&#160;</a></span>is_drone_moving_and_under_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_drone_moving_and_under_time </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the drone is moving during the calibration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+
+</div>
+</div>
+<a id="acbc15e3ae8598bfb9e4a15d1e91bbcbe" name="acbc15e3ae8598bfb9e4a15d1e91bbcbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbc15e3ae8598bfb9e4a15d1e91bbcbe">&#9670;&#160;</a></span>is_drone_still()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_drone_still </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the drone has not been moved during the calibration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int true if the drone has not been moved, false otherwise </dd></dl>
+
+</div>
+</div>
 <a id="af92ee4ef21f979193abe1fabc54db506" name="af92ee4ef21f979193abe1fabc54db506"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af92ee4ef21f979193abe1fabc54db506">&#9670;&#160;</a></span>is_drone_still_and_under_time()</h2>
 
@@ -266,15 +550,19 @@ false </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>Checks if the drone is still. </p>
-<dl class="section return"><dt>Returns</dt><dd>true </dd>
-<dd>
-false </dd></dl>
+<p>Checks if the drone is still during the calibration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the drone is still, false otherwise </dd></dl>
 
 </div>
 </div>
-<a id="ab59561e8b51510af29eea869cccacdb8" name="ab59561e8b51510af29eea869cccacdb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab59561e8b51510af29eea869cccacdb8">&#9670;&#160;</a></span>system_fsm_create()</h2>
+<a id="a83804034b02bb04ea9fa5b4adeccf91b" name="a83804034b02bb04ea9fa5b4adeccf91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83804034b02bb04ea9fa5b4adeccf91b">&#9670;&#160;</a></span>system_fsm_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -282,14 +570,48 @@ false </dd></dl>
         <tr>
           <td class="memname"><a class="el" href="structfsm__t.html">fsm_t</a> * system_fsm_create </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>green_led_fsm</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>blue_led_fsm</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>red_led_fsm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create the system finite state machine. </p>
 <dl class="section return"><dt>Returns</dt><dd>fsm_t* The system finite state machine </dd></dl>
+
+</div>
+</div>
+<a id="abcb3268282a00299bed1c05698168cf9" name="abcb3268282a00299bed1c05698168cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcb3268282a00299bed1c05698168cf9">&#9670;&#160;</a></span>system_fsm_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void system_fsm_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy the system finite state machine. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>The system finite state machine </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

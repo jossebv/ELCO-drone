@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.10.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>ELCO-Drone: components/general/leds/led_fsm.c File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+    DoxygenAwesomeTabs.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/jothepro/doxygen-awesome-css" class="github-corner" title="View source on GitHub" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">ELCO-Drone
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.10.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('led__fsm_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">led_fsm.c File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>FSM for the led.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;esp_timer.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfsm__led__t.html">fsm_led_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FSM for the led.  <a href="structfsm__led__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a4f19c8acb592c8c1d4d6ee706d6ffe01" id="r_a4f19c8acb592c8c1d4d6ee706d6ffe01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f19c8acb592c8c1d4d6ee706d6ffe01">LED_BLINKING_PERIOD_US</a>&#160;&#160;&#160;500000</td></tr>
+<tr class="separator:a4f19c8acb592c8c1d4d6ee706d6ffe01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aa5434ff87f7a9cb69e2db7cb0ad2d1dc" id="r_aa5434ff87f7a9cb69e2db7cb0ad2d1dc"><td class="memItemLeft" align="right" valign="top"><a id="aa5434ff87f7a9cb69e2db7cb0ad2d1dc" name="aa5434ff87f7a9cb69e2db7cb0ad2d1dc"></a>
+typedef enum <a class="el" href="#a3c80b02b43657b012f7a058fb5e5376d">led_fsm_states</a>&#160;</td><td class="memItemRight" valign="bottom"><b>led_fsm_states_t</b></td></tr>
+<tr class="memdesc:aa5434ff87f7a9cb69e2db7cb0ad2d1dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum with the states of the led finite state machine. <br /></td></tr>
+<tr class="separator:aa5434ff87f7a9cb69e2db7cb0ad2d1dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8d286ed48874945e8cb4a24ea2a70f3" id="r_ad8d286ed48874945e8cb4a24ea2a70f3"><td class="memItemLeft" align="right" valign="top"><a id="ad8d286ed48874945e8cb4a24ea2a70f3" name="ad8d286ed48874945e8cb4a24ea2a70f3"></a>
+typedef struct fsm_led_t&#160;</td><td class="memItemRight" valign="bottom"><b>fsm_led_t</b></td></tr>
+<tr class="memdesc:ad8d286ed48874945e8cb4a24ea2a70f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">FSM for the led. <br /></td></tr>
+<tr class="separator:ad8d286ed48874945e8cb4a24ea2a70f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a3c80b02b43657b012f7a058fb5e5376d" id="r_a3c80b02b43657b012f7a058fb5e5376d"><td class="memItemLeft" align="right" valign="top"><a id="a3c80b02b43657b012f7a058fb5e5376d" name="a3c80b02b43657b012f7a058fb5e5376d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c80b02b43657b012f7a058fb5e5376d">led_fsm_states</a> { <b>BLINKING</b> = 0
+, <b>ON</b>
+, <b>OFF</b>
+ }</td></tr>
+<tr class="memdesc:a3c80b02b43657b012f7a058fb5e5376d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum with the states of the led finite state machine. <br /></td></tr>
+<tr class="separator:a3c80b02b43657b012f7a058fb5e5376d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac67c4a820300892ef87c330b048acda1" id="r_ac67c4a820300892ef87c330b048acda1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac67c4a820300892ef87c330b048acda1">led_fsm_set_blinking</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:ac67c4a820300892ef87c330b048acda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the fsm to blink.  <br /></td></tr>
+<tr class="separator:ac67c4a820300892ef87c330b048acda1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7358d96e36a7a13e961370b7ad53b54f" id="r_a7358d96e36a7a13e961370b7ad53b54f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7358d96e36a7a13e961370b7ad53b54f">led_fsm_set_on</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a7358d96e36a7a13e961370b7ad53b54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the fsm to on.  <br /></td></tr>
+<tr class="separator:a7358d96e36a7a13e961370b7ad53b54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8e738b02439d24fbdb8578badc22c1" id="r_a6f8e738b02439d24fbdb8578badc22c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f8e738b02439d24fbdb8578badc22c1">led_fsm_set_off</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a6f8e738b02439d24fbdb8578badc22c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the fsm to off.  <br /></td></tr>
+<tr class="separator:a6f8e738b02439d24fbdb8578badc22c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b03c97d7c79f74a1a6d8d499f3a07a2" id="r_a9b03c97d7c79f74a1a6d8d499f3a07a2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b03c97d7c79f74a1a6d8d499f3a07a2">is_time_elapsed</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a9b03c97d7c79f74a1a6d8d499f3a07a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the time has elapsed.  <br /></td></tr>
+<tr class="separator:a9b03c97d7c79f74a1a6d8d499f3a07a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af770ee67c58cc35c5496ee90cd62ca56" id="r_af770ee67c58cc35c5496ee90cd62ca56"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af770ee67c58cc35c5496ee90cd62ca56">is_on</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:af770ee67c58cc35c5496ee90cd62ca56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the led is on.  <br /></td></tr>
+<tr class="separator:af770ee67c58cc35c5496ee90cd62ca56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a241792bb9142ade1bca5b2bac28931a9" id="r_a241792bb9142ade1bca5b2bac28931a9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a241792bb9142ade1bca5b2bac28931a9">is_off</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a241792bb9142ade1bca5b2bac28931a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the led is off.  <br /></td></tr>
+<tr class="separator:a241792bb9142ade1bca5b2bac28931a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab13409844db7df2da8b7917c7fc92e" id="r_a1ab13409844db7df2da8b7917c7fc92e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ab13409844db7df2da8b7917c7fc92e">do_toggle_led</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a1ab13409844db7df2da8b7917c7fc92e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles the led.  <br /></td></tr>
+<tr class="separator:a1ab13409844db7df2da8b7917c7fc92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ad15b7db67e89a3d9d938dec3ddc0f" id="r_af5ad15b7db67e89a3d9d938dec3ddc0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5ad15b7db67e89a3d9d938dec3ddc0f">do_turn_led_on</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:af5ad15b7db67e89a3d9d938dec3ddc0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns the led on.  <br /></td></tr>
+<tr class="separator:af5ad15b7db67e89a3d9d938dec3ddc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace959508350c4ce147a38b2a19a4da3c" id="r_ace959508350c4ce147a38b2a19a4da3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace959508350c4ce147a38b2a19a4da3c">do_turn_led_off</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:ace959508350c4ce147a38b2a19a4da3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Turns the led off.  <br /></td></tr>
+<tr class="separator:ace959508350c4ce147a38b2a19a4da3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad466a0339a7c362cabbb78e269f9db20" id="r_ad466a0339a7c362cabbb78e269f9db20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad466a0339a7c362cabbb78e269f9db20">led_fsm_init</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm, uint8_t led_pin)</td></tr>
+<tr class="memdesc:ad466a0339a7c362cabbb78e269f9db20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the led fsm.  <br /></td></tr>
+<tr class="separator:ad466a0339a7c362cabbb78e269f9db20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0115bd417fae4054dc386f374210ef8e" id="r_a0115bd417fae4054dc386f374210ef8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfsm__t.html">fsm_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0115bd417fae4054dc386f374210ef8e">led_fsm_create</a> (uint8_t led_pin)</td></tr>
+<tr class="memdesc:a0115bd417fae4054dc386f374210ef8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the led fsm.  <br /></td></tr>
+<tr class="separator:a0115bd417fae4054dc386f374210ef8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b109a851414f33b70ad5f35f85e2c8c" id="r_a9b109a851414f33b70ad5f35f85e2c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b109a851414f33b70ad5f35f85e2c8c">led_fsm_destroy</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *fsm)</td></tr>
+<tr class="memdesc:a9b109a851414f33b70ad5f35f85e2c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the led fsm.  <br /></td></tr>
+<tr class="separator:a9b109a851414f33b70ad5f35f85e2c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>FSM for the led. </p>
+<dl class="section author"><dt>Author</dt><dd>Jose Manuel Bravo </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2024-03-19</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a4f19c8acb592c8c1d4d6ee706d6ffe01" name="a4f19c8acb592c8c1d4d6ee706d6ffe01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f19c8acb592c8c1d4d6ee706d6ffe01">&#9670;&#160;</a></span>LED_BLINKING_PERIOD_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LED_BLINKING_PERIOD_US&#160;&#160;&#160;500000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Period of the led blinking </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a1ab13409844db7df2da8b7917c7fc92e" name="a1ab13409844db7df2da8b7917c7fc92e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab13409844db7df2da8b7917c7fc92e">&#9670;&#160;</a></span>do_toggle_led()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_toggle_led </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Toggles the led. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ace959508350c4ce147a38b2a19a4da3c" name="ace959508350c4ce147a38b2a19a4da3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace959508350c4ce147a38b2a19a4da3c">&#9670;&#160;</a></span>do_turn_led_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_turn_led_off </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turns the led off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af5ad15b7db67e89a3d9d938dec3ddc0f" name="af5ad15b7db67e89a3d9d938dec3ddc0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5ad15b7db67e89a3d9d938dec3ddc0f">&#9670;&#160;</a></span>do_turn_led_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_turn_led_on </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Turns the led on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a241792bb9142ade1bca5b2bac28931a9" name="a241792bb9142ade1bca5b2bac28931a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a241792bb9142ade1bca5b2bac28931a9">&#9670;&#160;</a></span>is_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_off </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the led is off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int 1 if the led is off, 0 otherwise </dd></dl>
+
+</div>
+</div>
+<a id="af770ee67c58cc35c5496ee90cd62ca56" name="af770ee67c58cc35c5496ee90cd62ca56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af770ee67c58cc35c5496ee90cd62ca56">&#9670;&#160;</a></span>is_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_on </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the led is on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int 1 if the led is on, 0 otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a9b03c97d7c79f74a1a6d8d499f3a07a2" name="a9b03c97d7c79f74a1a6d8d499f3a07a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b03c97d7c79f74a1a6d8d499f3a07a2">&#9670;&#160;</a></span>is_time_elapsed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int is_time_elapsed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if the time has elapsed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int 1 if the time has elapsed, 0 otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a0115bd417fae4054dc386f374210ef8e" name="a0115bd417fae4054dc386f374210ef8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0115bd417fae4054dc386f374210ef8e">&#9670;&#160;</a></span>led_fsm_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structfsm__t.html">fsm_t</a> * led_fsm_create </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>led_pin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the led fsm. </p>
+<dl class="section return"><dt>Returns</dt><dd>fsm_t* </dd></dl>
+
+</div>
+</div>
+<a id="a9b109a851414f33b70ad5f35f85e2c8c" name="a9b109a851414f33b70ad5f35f85e2c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b109a851414f33b70ad5f35f85e2c8c">&#9670;&#160;</a></span>led_fsm_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void led_fsm_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroys the led fsm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad466a0339a7c362cabbb78e269f9db20" name="ad466a0339a7c362cabbb78e269f9db20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad466a0339a7c362cabbb78e269f9db20">&#9670;&#160;</a></span>led_fsm_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void led_fsm_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>led_pin</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the led fsm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+    <tr><td class="paramname">led_pin</td><td>Pin of the led </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac67c4a820300892ef87c330b048acda1" name="ac67c4a820300892ef87c330b048acda1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac67c4a820300892ef87c330b048acda1">&#9670;&#160;</a></span>led_fsm_set_blinking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void led_fsm_set_blinking </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the fsm to blink. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6f8e738b02439d24fbdb8578badc22c1" name="a6f8e738b02439d24fbdb8578badc22c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f8e738b02439d24fbdb8578badc22c1">&#9670;&#160;</a></span>led_fsm_set_off()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void led_fsm_set_off </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the fsm to off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7358d96e36a7a13e961370b7ad53b54f" name="a7358d96e36a7a13e961370b7ad53b54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7358d96e36a7a13e961370b7ad53b54f">&#9670;&#160;</a></span>led_fsm_set_on()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void led_fsm_set_on </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>fsm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the fsm to on. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fsm</td><td>Pointer to the fsm </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_68023d9a222e0ea331d5b1c7b55c9e1b.html">general</a></li><li class="navelem"><a class="el" href="dir_2ffb51488b016042de2c5c4a29396b38.html">leds</a></li><li class="navelem"><a class="el" href="led__fsm_8c.html">led_fsm.c</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
+  </ul>
+</div>
+</body>
+</html>

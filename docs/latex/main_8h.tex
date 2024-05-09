@@ -8,11 +8,9 @@ Header file for the drone.
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{main_8h_ad72dbcf6d0153db1b8d8a58001feed83}\label{main_8h_ad72dbcf6d0153db1b8d8a58001feed83} 
-\#define {\bfseries DEBUG}~1
+\#define \mbox{\hyperlink{main_8h_a86d24c9283dc39baa03c54fa23dba567}{DRONE\+\_\+\+UPDATE\+\_\+\+MS}}~4
 \item 
-\Hypertarget{main_8h_a86d24c9283dc39baa03c54fa23dba567}\label{main_8h_a86d24c9283dc39baa03c54fa23dba567} 
-\#define {\bfseries DRONE\+\_\+\+UPDATE\+\_\+\+MS}~5
+\#define \mbox{\hyperlink{main_8h_ab09ae36ba21e2f9762c2cb009702ac83}{DRONE\+\_\+\+UPDATE\+\_\+\+FREQ}}~(1000 / \mbox{\hyperlink{main_8h_a86d24c9283dc39baa03c54fa23dba567}{DRONE\+\_\+\+UPDATE\+\_\+\+MS}})
 \end{DoxyCompactItemize}
 
 
@@ -31,3 +29,19 @@ Jose Manuel Bravo
 \begin{DoxyCopyright}{Copyright}
 Copyright (c) 2024 
 \end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8h_ab09ae36ba21e2f9762c2cb009702ac83}\label{main_8h_ab09ae36ba21e2f9762c2cb009702ac83} 
+\index{main.h@{main.h}!DRONE\_UPDATE\_FREQ@{DRONE\_UPDATE\_FREQ}}
+\index{DRONE\_UPDATE\_FREQ@{DRONE\_UPDATE\_FREQ}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{DRONE\_UPDATE\_FREQ}{DRONE\_UPDATE\_FREQ}}
+{\footnotesize\ttfamily \#define DRONE\+\_\+\+UPDATE\+\_\+\+FREQ~(1000 / \mbox{\hyperlink{main_8h_a86d24c9283dc39baa03c54fa23dba567}{DRONE\+\_\+\+UPDATE\+\_\+\+MS}})}
+
+Frequency of the update \Hypertarget{main_8h_a86d24c9283dc39baa03c54fa23dba567}\label{main_8h_a86d24c9283dc39baa03c54fa23dba567} 
+\index{main.h@{main.h}!DRONE\_UPDATE\_MS@{DRONE\_UPDATE\_MS}}
+\index{DRONE\_UPDATE\_MS@{DRONE\_UPDATE\_MS}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{DRONE\_UPDATE\_MS}{DRONE\_UPDATE\_MS}}
+{\footnotesize\ttfamily \#define DRONE\+\_\+\+UPDATE\+\_\+\+MS~4}
+
+Ms between each update 

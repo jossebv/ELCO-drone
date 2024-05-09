@@ -1,0 +1,283 @@
+\doxysection{components/general/leds/led\+\_\+fsm.c File Reference}
+\hypertarget{led__fsm_8c}{}\label{led__fsm_8c}\index{components/general/leds/led\_fsm.c@{components/general/leds/led\_fsm.c}}
+
+
+FSM for the led.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structfsm__led__t}{fsm\+\_\+led\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em FSM for the led. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{led__fsm_8c_a4f19c8acb592c8c1d4d6ee706d6ffe01}{LED\+\_\+\+BLINKING\+\_\+\+PERIOD\+\_\+\+US}}~500000
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{led__fsm_8c_aa5434ff87f7a9cb69e2db7cb0ad2d1dc}\label{led__fsm_8c_aa5434ff87f7a9cb69e2db7cb0ad2d1dc} 
+typedef enum \mbox{\hyperlink{led__fsm_8c_a3c80b02b43657b012f7a058fb5e5376d}{led\+\_\+fsm\+\_\+states}} {\bfseries led\+\_\+fsm\+\_\+states\+\_\+t}
+\begin{DoxyCompactList}\small\item\em Enum with the states of the led finite state machine. \end{DoxyCompactList}\item 
+\Hypertarget{led__fsm_8c_ad8d286ed48874945e8cb4a24ea2a70f3}\label{led__fsm_8c_ad8d286ed48874945e8cb4a24ea2a70f3} 
+typedef struct fsm\+\_\+led\+\_\+t {\bfseries fsm\+\_\+led\+\_\+t}
+\begin{DoxyCompactList}\small\item\em FSM for the led. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{led__fsm_8c_a3c80b02b43657b012f7a058fb5e5376d}\label{led__fsm_8c_a3c80b02b43657b012f7a058fb5e5376d} 
+enum \mbox{\hyperlink{led__fsm_8c_a3c80b02b43657b012f7a058fb5e5376d}{led\+\_\+fsm\+\_\+states}} \{ {\bfseries BLINKING} = 0
+, {\bfseries ON}
+, {\bfseries OFF}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum with the states of the led finite state machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{led__fsm_8c_ac67c4a820300892ef87c330b048acda1}{led\+\_\+fsm\+\_\+set\+\_\+blinking}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to blink. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_a7358d96e36a7a13e961370b7ad53b54f}{led\+\_\+fsm\+\_\+set\+\_\+on}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_a6f8e738b02439d24fbdb8578badc22c1}{led\+\_\+fsm\+\_\+set\+\_\+off}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to off. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{led__fsm_8c_a9b03c97d7c79f74a1a6d8d499f3a07a2}{is\+\_\+time\+\_\+elapsed}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the time has elapsed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{led__fsm_8c_af770ee67c58cc35c5496ee90cd62ca56}{is\+\_\+on}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the led is on. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{led__fsm_8c_a241792bb9142ade1bca5b2bac28931a9}{is\+\_\+off}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Checks if the led is off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_a1ab13409844db7df2da8b7917c7fc92e}{do\+\_\+toggle\+\_\+led}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Toggles the led. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_af5ad15b7db67e89a3d9d938dec3ddc0f}{do\+\_\+turn\+\_\+led\+\_\+on}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Turns the led on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_ace959508350c4ce147a38b2a19a4da3c}{do\+\_\+turn\+\_\+led\+\_\+off}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Turns the led off. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_ad466a0339a7c362cabbb78e269f9db20}{led\+\_\+fsm\+\_\+init}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm, uint8\+\_\+t led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Initializes the led fsm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{led__fsm_8c_a0115bd417fae4054dc386f374210ef8e}{led\+\_\+fsm\+\_\+create}} (uint8\+\_\+t led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Creates the led fsm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led__fsm_8c_a9b109a851414f33b70ad5f35f85e2c8c}{led\+\_\+fsm\+\_\+destroy}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Destroys the led fsm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+FSM for the led. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/19
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{led__fsm_8c_a4f19c8acb592c8c1d4d6ee706d6ffe01}\label{led__fsm_8c_a4f19c8acb592c8c1d4d6ee706d6ffe01} 
+\index{led\_fsm.c@{led\_fsm.c}!LED\_BLINKING\_PERIOD\_US@{LED\_BLINKING\_PERIOD\_US}}
+\index{LED\_BLINKING\_PERIOD\_US@{LED\_BLINKING\_PERIOD\_US}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{LED\_BLINKING\_PERIOD\_US}{LED\_BLINKING\_PERIOD\_US}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+BLINKING\+\_\+\+PERIOD\+\_\+\+US~500000}
+
+Period of the led blinking 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{led__fsm_8c_a1ab13409844db7df2da8b7917c7fc92e}\label{led__fsm_8c_a1ab13409844db7df2da8b7917c7fc92e} 
+\index{led\_fsm.c@{led\_fsm.c}!do\_toggle\_led@{do\_toggle\_led}}
+\index{do\_toggle\_led@{do\_toggle\_led}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_toggle\_led()}{do\_toggle\_led()}}
+{\footnotesize\ttfamily void do\+\_\+toggle\+\_\+led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Toggles the led. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_ace959508350c4ce147a38b2a19a4da3c}\label{led__fsm_8c_ace959508350c4ce147a38b2a19a4da3c} 
+\index{led\_fsm.c@{led\_fsm.c}!do\_turn\_led\_off@{do\_turn\_led\_off}}
+\index{do\_turn\_led\_off@{do\_turn\_led\_off}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_turn\_led\_off()}{do\_turn\_led\_off()}}
+{\footnotesize\ttfamily void do\+\_\+turn\+\_\+led\+\_\+off (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Turns the led off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_af5ad15b7db67e89a3d9d938dec3ddc0f}\label{led__fsm_8c_af5ad15b7db67e89a3d9d938dec3ddc0f} 
+\index{led\_fsm.c@{led\_fsm.c}!do\_turn\_led\_on@{do\_turn\_led\_on}}
+\index{do\_turn\_led\_on@{do\_turn\_led\_on}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{do\_turn\_led\_on()}{do\_turn\_led\_on()}}
+{\footnotesize\ttfamily void do\+\_\+turn\+\_\+led\+\_\+on (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Turns the led on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_a241792bb9142ade1bca5b2bac28931a9}\label{led__fsm_8c_a241792bb9142ade1bca5b2bac28931a9} 
+\index{led\_fsm.c@{led\_fsm.c}!is\_off@{is\_off}}
+\index{is\_off@{is\_off}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_off()}{is\_off()}}
+{\footnotesize\ttfamily int is\+\_\+off (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the led is off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if the led is off, 0 otherwise 
+\end{DoxyReturn}
+\Hypertarget{led__fsm_8c_af770ee67c58cc35c5496ee90cd62ca56}\label{led__fsm_8c_af770ee67c58cc35c5496ee90cd62ca56} 
+\index{led\_fsm.c@{led\_fsm.c}!is\_on@{is\_on}}
+\index{is\_on@{is\_on}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_on()}{is\_on()}}
+{\footnotesize\ttfamily int is\+\_\+on (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the led is on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if the led is on, 0 otherwise 
+\end{DoxyReturn}
+\Hypertarget{led__fsm_8c_a9b03c97d7c79f74a1a6d8d499f3a07a2}\label{led__fsm_8c_a9b03c97d7c79f74a1a6d8d499f3a07a2} 
+\index{led\_fsm.c@{led\_fsm.c}!is\_time\_elapsed@{is\_time\_elapsed}}
+\index{is\_time\_elapsed@{is\_time\_elapsed}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{is\_time\_elapsed()}{is\_time\_elapsed()}}
+{\footnotesize\ttfamily int is\+\_\+time\+\_\+elapsed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Checks if the time has elapsed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 1 if the time has elapsed, 0 otherwise 
+\end{DoxyReturn}
+\Hypertarget{led__fsm_8c_a0115bd417fae4054dc386f374210ef8e}\label{led__fsm_8c_a0115bd417fae4054dc386f374210ef8e} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_create@{led\_fsm\_create}}
+\index{led\_fsm\_create@{led\_fsm\_create}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_create()}{led\_fsm\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} led\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{led\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Creates the led fsm. 
+
+\begin{DoxyReturn}{Returns}
+fsm\+\_\+t\texorpdfstring{$\ast$}{*} 
+\end{DoxyReturn}
+\Hypertarget{led__fsm_8c_a9b109a851414f33b70ad5f35f85e2c8c}\label{led__fsm_8c_a9b109a851414f33b70ad5f35f85e2c8c} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_destroy@{led\_fsm\_destroy}}
+\index{led\_fsm\_destroy@{led\_fsm\_destroy}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_destroy()}{led\_fsm\_destroy()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Destroys the led fsm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_ad466a0339a7c362cabbb78e269f9db20}\label{led__fsm_8c_ad466a0339a7c362cabbb78e269f9db20} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_init@{led\_fsm\_init}}
+\index{led\_fsm\_init@{led\_fsm\_init}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_init()}{led\_fsm\_init()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm,  }\item[{uint8\+\_\+t}]{led\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Initializes the led fsm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+{\em led\+\_\+pin} & Pin of the led \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_ac67c4a820300892ef87c330b048acda1}\label{led__fsm_8c_ac67c4a820300892ef87c330b048acda1} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_set\_blinking@{led\_fsm\_set\_blinking}}
+\index{led\_fsm\_set\_blinking@{led\_fsm\_set\_blinking}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_blinking()}{led\_fsm\_set\_blinking()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+blinking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to blink. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_a6f8e738b02439d24fbdb8578badc22c1}\label{led__fsm_8c_a6f8e738b02439d24fbdb8578badc22c1} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_set\_off@{led\_fsm\_set\_off}}
+\index{led\_fsm\_set\_off@{led\_fsm\_set\_off}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_off()}{led\_fsm\_set\_off()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+off (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led__fsm_8c_a7358d96e36a7a13e961370b7ad53b54f}\label{led__fsm_8c_a7358d96e36a7a13e961370b7ad53b54f} 
+\index{led\_fsm.c@{led\_fsm.c}!led\_fsm\_set\_on@{led\_fsm\_set\_on}}
+\index{led\_fsm\_set\_on@{led\_fsm\_set\_on}!led\_fsm.c@{led\_fsm.c}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_on()}{led\_fsm\_set\_on()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+on (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}

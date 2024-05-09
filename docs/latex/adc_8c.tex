@@ -1,0 +1,65 @@
+\doxysection{components/drivers/adc/adc.c File Reference}
+\hypertarget{adc_8c}{}\label{adc_8c}\index{components/drivers/adc/adc.c@{components/drivers/adc/adc.c}}
+{\ttfamily \#include "{}adc.\+h"{}}\newline
+{\ttfamily \#include "{}driver/adc.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{adc_8c_a2000cd4951968cc02f632c54eb27e362}{MAX\+\_\+V}}~3300
+\item 
+\#define \mbox{\hyperlink{adc_8c_ad4189ffd3a90a1d83afbc51359211d55}{NO\+\_\+\+OF\+\_\+\+SAMPLES}}~64
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{adc_8c_a755cd62075da10bcf6cb4b165b4371d1}{adc\+\_\+read\+\_\+voltage}} ()
+\begin{DoxyCompactList}\small\item\em Read the voltage from the ADC. \end{DoxyCompactList}\item 
+\Hypertarget{adc_8c_a2b815e6730e8723a6d1d06d9ef8f31c0}\label{adc_8c_a2b815e6730e8723a6d1d06d9ef8f31c0} 
+void {\bfseries adc\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize the ADC. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/04-\/18
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{adc_8c_a2000cd4951968cc02f632c54eb27e362}\label{adc_8c_a2000cd4951968cc02f632c54eb27e362} 
+\index{adc.c@{adc.c}!MAX\_V@{MAX\_V}}
+\index{MAX\_V@{MAX\_V}!adc.c@{adc.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_V}{MAX\_V}}
+{\footnotesize\ttfamily \#define MAX\+\_\+V~3300}
+
+Maximum voltage on the ADC \Hypertarget{adc_8c_ad4189ffd3a90a1d83afbc51359211d55}\label{adc_8c_ad4189ffd3a90a1d83afbc51359211d55} 
+\index{adc.c@{adc.c}!NO\_OF\_SAMPLES@{NO\_OF\_SAMPLES}}
+\index{NO\_OF\_SAMPLES@{NO\_OF\_SAMPLES}!adc.c@{adc.c}}
+\doxysubsubsection{\texorpdfstring{NO\_OF\_SAMPLES}{NO\_OF\_SAMPLES}}
+{\footnotesize\ttfamily \#define NO\+\_\+\+OF\+\_\+\+SAMPLES~64}
+
+Number of sambles on the adc 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{adc_8c_a755cd62075da10bcf6cb4b165b4371d1}\label{adc_8c_a755cd62075da10bcf6cb4b165b4371d1} 
+\index{adc.c@{adc.c}!adc\_read\_voltage@{adc\_read\_voltage}}
+\index{adc\_read\_voltage@{adc\_read\_voltage}!adc.c@{adc.c}}
+\doxysubsubsection{\texorpdfstring{adc\_read\_voltage()}{adc\_read\_voltage()}}
+{\footnotesize\ttfamily uint32\+\_\+t adc\+\_\+read\+\_\+voltage (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Read the voltage from the ADC. 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t Voltage read from the ADC 
+\end{DoxyReturn}

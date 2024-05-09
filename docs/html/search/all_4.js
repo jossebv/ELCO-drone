@@ -1,6 +1,28 @@
 var searchData=
 [
-  ['fsm_5fdrone_5ft_0',['fsm_drone_t',['../structfsm__drone__t.html',1,'']]],
-  ['fsm_5ft_1',['fsm_t',['../structfsm__t.html',1,'']]],
-  ['fsm_5ftrans_5ft_2',['fsm_trans_t',['../structfsm__trans__t.html',1,'']]]
+  ['data_0',['data',['../struct_u_d_p_packet.html#a16242aa820e3458beedb27a07e89e62a',1,'UDPPacket']]],
+  ['debug_5faccel_1',['DEBUG_ACCEL',['../sensors_8c.html#a39fd9d70f4f570bcf2a596ae6cf8e70b',1,'sensors.c']]],
+  ['debug_5faccel_5fto_5fangles_2',['DEBUG_ACCEL_TO_ANGLES',['../sensors_8c.html#a63b51f692e2b01b45d64a94aeb45405e',1,'sensors.c']]],
+  ['debug_5fcontroller_3',['DEBUG_CONTROLLER',['../controller_8c.html#a62d5c8530dbb596275056970aead6e82',1,'controller.c']]],
+  ['debug_5fgyro_4',['DEBUG_GYRO',['../sensors_8c.html#ad55d18617e7eb22c46d7ec13290dc4dc',1,'sensors.c']]],
+  ['debug_5fsensors_5',['DEBUG_SENSORS',['../sensors_8c.html#af50de1a7b3e4c43474df1d78dbf3d229',1,'sensors.c']]],
+  ['debug_5fupd_6',['DEBUG_UPD',['../wifi_8c.html#ac2c75e9db9d384283884551b13125980',1,'wifi.c']]],
+  ['debug_5fwifi_7',['DEBUG_WIFI',['../sensors_8c.html#ae2169453362dc55e2eaf6d41353864d9',1,'sensors.c']]],
+  ['decode_5fcommand_8',['decode_command',['../controller_8c.html#a35b9ef3f002e0e4eda6ae76063c20f37',1,'controller.c']]],
+  ['dest_5fstate_9',['dest_state',['../structfsm__trans__t.html#af125a66cfa85df848aa173961218e809',1,'fsm_trans_t']]],
+  ['do_5fcontroller_5fconnected_10',['do_controller_connected',['../system__fsm_8c.html#a8c7dd5057e148c7d7a6d3595272f644b',1,'system_fsm.c']]],
+  ['do_5ffinish_5fcalibration_11',['do_finish_calibration',['../system__fsm_8c.html#a88b0f66b743e3460aa9de525f8fa6a68',1,'system_fsm.c']]],
+  ['do_5finform_5fbattery_5fbelow_5fthreshold_12',['do_inform_battery_below_threshold',['../system__fsm_8c.html#a5c1d00141f2d48058e7b9f196832d097',1,'system_fsm.c']]],
+  ['do_5freset_5fcalibration_5fprogress_13',['do_reset_calibration_progress',['../system__fsm_8c.html#ac900263cc6406f2b0362601b8db1299f',1,'system_fsm.c']]],
+  ['do_5fstart_5flanding_14',['do_start_landing',['../system__fsm_8c.html#a2b3cdc09616ee4ba870afc383703916a',1,'system_fsm.c']]],
+  ['do_5ftoggle_5fled_15',['do_toggle_led',['../led__fsm_8c.html#a1ab13409844db7df2da8b7917c7fc92e',1,'led_fsm.c']]],
+  ['do_5fturn_5fled_5foff_16',['do_turn_led_off',['../led__fsm_8c.html#ace959508350c4ce147a38b2a19a4da3c',1,'led_fsm.c']]],
+  ['do_5fturn_5fled_5fon_17',['do_turn_led_on',['../led__fsm_8c.html#af5ad15b7db67e89a3d9d938dec3ddc0f',1,'led_fsm.c']]],
+  ['do_5fupdate_5fcalibration_5fprogress_18',['do_update_calibration_progress',['../system__fsm_8c.html#af2b0291e2cae71b6c62850c2ed9e3010',1,'system_fsm.c']]],
+  ['do_5fupdate_5fdrone_5fmotors_19',['do_update_drone_motors',['../system__fsm_8c.html#a9465617bd031b29709593bcddab811ae',1,'system_fsm.c']]],
+  ['drone_20',['ELCO-Drone',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['drone_5fangles_5ft_21',['drone_angles_t',['../structdrone__angles__t.html',1,'drone_angles_t'],['../comb__filter_8h.html#a3ee44171b3322c73a867fa22e43c535f',1,'drone_angles_t:&#160;comb_filter.h']]],
+  ['drone_5fdata_5ft_22',['drone_data_t',['../structdrone__data__t.html',1,'drone_data_t'],['../sensors_8h.html#aa2fc880dd01ce0578a63f4237732e1c7',1,'drone_data_t:&#160;sensors.h']]],
+  ['drone_5fupdate_5ffreq_23',['DRONE_UPDATE_FREQ',['../main_8h.html#ab09ae36ba21e2f9762c2cb009702ac83',1,'main.h']]],
+  ['drone_5fupdate_5fms_24',['DRONE_UPDATE_MS',['../main_8h.html#a86d24c9283dc39baa03c54fa23dba567',1,'main.h']]]
 ];

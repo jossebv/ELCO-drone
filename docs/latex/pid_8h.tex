@@ -1,5 +1,5 @@
-\doxysection{components/general/pid/pid.h File Reference}
-\hypertarget{pid_8h}{}\label{pid_8h}\index{components/general/pid/pid.h@{components/general/pid/pid.h}}
+\doxysection{components/general/pid\+\_\+control/pid.h File Reference}
+\hypertarget{pid_8h}{}\label{pid_8h}\index{components/general/pid\_control/pid.h@{components/general/pid\_control/pid.h}}
 
 
 Header file for PID controller.  
@@ -9,13 +9,13 @@ Header file for PID controller.
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure for PID controller, contains the constants and saved values for the pid control. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{pid_8h_aaf4e8fb097267534ed231ffe407220d1}\label{pid_8h_aaf4e8fb097267534ed231ffe407220d1} 
 typedef struct pid\+\_\+data\+\_\+t {\bfseries pid\+\_\+data\+\_\+t}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Structure for PID controller, contains the constants and saved values for the pid control. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,8 +23,12 @@ typedef struct pid\+\_\+data\+\_\+t {\bfseries pid\+\_\+data\+\_\+t}
 \begin{DoxyCompactList}\small\item\em Create a PID object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{pid_8h_a723976eff0898d5539fd6d39f4417902}{pid\+\_\+destroy}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid)
 \begin{DoxyCompactList}\small\item\em Destroy a PID object. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{pid_8h_a87ec06db5dfcaa2cdb168c6a783d9ba6}{pid\+\_\+update}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float error)
-\begin{DoxyCompactList}\small\item\em Update the PID controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+double \mbox{\hyperlink{pid_8h_afa2a97ac0e3c6989b0366dc31c712cc2}{pid\+\_\+update}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float error)
+\begin{DoxyCompactList}\small\item\em Update the PID controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8h_a35520a276b4d34eb4b9815c5e51d2018}{pid\+\_\+reset}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid)
+\begin{DoxyCompactList}\small\item\em Reset the PID controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8h_a41b8e8eafba31386dd9a60fbeb532971}{pid\+\_\+update\+\_\+constants}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float kp, float ki, float kd)
+\begin{DoxyCompactList}\small\item\em Updates a pid\+\_\+t object with new constants. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -82,11 +86,26 @@ Destroy a PID object.
 {\em pid} & PID object \\
 \hline
 \end{DoxyParams}
-\Hypertarget{pid_8h_a87ec06db5dfcaa2cdb168c6a783d9ba6}\label{pid_8h_a87ec06db5dfcaa2cdb168c6a783d9ba6} 
+\Hypertarget{pid_8h_a35520a276b4d34eb4b9815c5e51d2018}\label{pid_8h_a35520a276b4d34eb4b9815c5e51d2018} 
+\index{pid.h@{pid.h}!pid\_reset@{pid\_reset}}
+\index{pid\_reset@{pid\_reset}!pid.h@{pid.h}}
+\doxysubsubsection{\texorpdfstring{pid\_reset()}{pid\_reset()}}
+{\footnotesize\ttfamily void pid\+\_\+reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid }\end{DoxyParamCaption})}
+
+
+
+Reset the PID controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & PID object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{pid_8h_afa2a97ac0e3c6989b0366dc31c712cc2}\label{pid_8h_afa2a97ac0e3c6989b0366dc31c712cc2} 
 \index{pid.h@{pid.h}!pid\_update@{pid\_update}}
 \index{pid\_update@{pid\_update}!pid.h@{pid.h}}
 \doxysubsubsection{\texorpdfstring{pid\_update()}{pid\_update()}}
-{\footnotesize\ttfamily float pid\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{error }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double pid\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{error }\end{DoxyParamCaption})}
 
 
 
@@ -100,5 +119,26 @@ Update the PID controller.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-float Value to be applied to the motors 
+uint16\+\_\+t Output of the PID controller. The value should be between a duty cycle. 
 \end{DoxyReturn}
+\Hypertarget{pid_8h_a41b8e8eafba31386dd9a60fbeb532971}\label{pid_8h_a41b8e8eafba31386dd9a60fbeb532971} 
+\index{pid.h@{pid.h}!pid\_update\_constants@{pid\_update\_constants}}
+\index{pid\_update\_constants@{pid\_update\_constants}!pid.h@{pid.h}}
+\doxysubsubsection{\texorpdfstring{pid\_update\_constants()}{pid\_update\_constants()}}
+{\footnotesize\ttfamily void pid\+\_\+update\+\_\+constants (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{kp,  }\item[{float}]{ki,  }\item[{float}]{kd }\end{DoxyParamCaption})}
+
+
+
+Updates a pid\+\_\+t object with new constants. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & \\
+\hline
+{\em kp} & \\
+\hline
+{\em ki} & \\
+\hline
+{\em kd} & \\
+\hline
+\end{DoxyParams}

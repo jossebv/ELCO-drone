@@ -134,47 +134,36 @@ $(function(){initNavTree('mpu6050_8c.html',''); initResizable(); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="mpu6050_8h_source.html">mpu6050.h</a>&quot;</code><br />
 <code>#include &quot;driver/i2c.h&quot;</code><br />
 <code>#include &quot;sdkconfig.h&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ad4d6255d8f7e5dc770e773b787977508" id="r_ad4d6255d8f7e5dc770e773b787977508"><td class="memItemLeft" align="right" valign="top"><a id="ad4d6255d8f7e5dc770e773b787977508" name="ad4d6255d8f7e5dc770e773b787977508"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_ADDR</b>&#160;&#160;&#160;0x68</td></tr>
+<tr class="memitem:ad4d6255d8f7e5dc770e773b787977508" id="r_ad4d6255d8f7e5dc770e773b787977508"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4d6255d8f7e5dc770e773b787977508">MPU6050_ADDR</a>&#160;&#160;&#160;0x68</td></tr>
 <tr class="separator:ad4d6255d8f7e5dc770e773b787977508"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6659bbde3b9ef9d139758a467fcb3ec1" id="r_a6659bbde3b9ef9d139758a467fcb3ec1"><td class="memItemLeft" align="right" valign="top"><a id="a6659bbde3b9ef9d139758a467fcb3ec1" name="a6659bbde3b9ef9d139758a467fcb3ec1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_GYRO_CONFIG_REG</b>&#160;&#160;&#160;0x1B</td></tr>
+<tr class="memitem:a6659bbde3b9ef9d139758a467fcb3ec1" id="r_a6659bbde3b9ef9d139758a467fcb3ec1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6659bbde3b9ef9d139758a467fcb3ec1">MPU6050_GYRO_CONFIG_REG</a>&#160;&#160;&#160;0x1B</td></tr>
 <tr class="separator:a6659bbde3b9ef9d139758a467fcb3ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeae6c0fbc47aa2c613342fce2cc45372" id="r_aeae6c0fbc47aa2c613342fce2cc45372"><td class="memItemLeft" align="right" valign="top"><a id="aeae6c0fbc47aa2c613342fce2cc45372" name="aeae6c0fbc47aa2c613342fce2cc45372"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_GYRO_XOUT_H_REG</b>&#160;&#160;&#160;0x43</td></tr>
+<tr class="memitem:aeae6c0fbc47aa2c613342fce2cc45372" id="r_aeae6c0fbc47aa2c613342fce2cc45372"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeae6c0fbc47aa2c613342fce2cc45372">MPU6050_GYRO_XOUT_H_REG</a>&#160;&#160;&#160;0x43</td></tr>
 <tr class="separator:aeae6c0fbc47aa2c613342fce2cc45372"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5554ecebfe3505952bcf8c08236b8600" id="r_a5554ecebfe3505952bcf8c08236b8600"><td class="memItemLeft" align="right" valign="top"><a id="a5554ecebfe3505952bcf8c08236b8600" name="a5554ecebfe3505952bcf8c08236b8600"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_ACCEL_CONFIG_REG</b>&#160;&#160;&#160;0x1C</td></tr>
+<tr class="memitem:a5554ecebfe3505952bcf8c08236b8600" id="r_a5554ecebfe3505952bcf8c08236b8600"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5554ecebfe3505952bcf8c08236b8600">MPU6050_ACCEL_CONFIG_REG</a>&#160;&#160;&#160;0x1C</td></tr>
 <tr class="separator:a5554ecebfe3505952bcf8c08236b8600"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeab81c73034a21153b844f22a0014014" id="r_aeab81c73034a21153b844f22a0014014"><td class="memItemLeft" align="right" valign="top"><a id="aeab81c73034a21153b844f22a0014014" name="aeab81c73034a21153b844f22a0014014"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_ACCEL_XOUT_H_REG</b>&#160;&#160;&#160;0x3B</td></tr>
+<tr class="memitem:aeab81c73034a21153b844f22a0014014" id="r_aeab81c73034a21153b844f22a0014014"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeab81c73034a21153b844f22a0014014">MPU6050_ACCEL_XOUT_H_REG</a>&#160;&#160;&#160;0x3B</td></tr>
 <tr class="separator:aeab81c73034a21153b844f22a0014014"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8e6174d5a02ed531329494959e57304" id="r_ac8e6174d5a02ed531329494959e57304"><td class="memItemLeft" align="right" valign="top"><a id="ac8e6174d5a02ed531329494959e57304" name="ac8e6174d5a02ed531329494959e57304"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_PWR_MGMT_1_REG</b>&#160;&#160;&#160;0x6B</td></tr>
+<tr class="memitem:ac8e6174d5a02ed531329494959e57304" id="r_ac8e6174d5a02ed531329494959e57304"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8e6174d5a02ed531329494959e57304">MPU6050_PWR_MGMT_1_REG</a>&#160;&#160;&#160;0x6B</td></tr>
 <tr class="separator:ac8e6174d5a02ed531329494959e57304"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8264ea96144f5fa98bd1a22ceb590315" id="r_a8264ea96144f5fa98bd1a22ceb590315"><td class="memItemLeft" align="right" valign="top"><a id="a8264ea96144f5fa98bd1a22ceb590315" name="a8264ea96144f5fa98bd1a22ceb590315"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_SMPLRT_DIV_REG</b>&#160;&#160;&#160;0x19</td></tr>
+<tr class="memitem:a8264ea96144f5fa98bd1a22ceb590315" id="r_a8264ea96144f5fa98bd1a22ceb590315"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8264ea96144f5fa98bd1a22ceb590315">MPU6050_SMPLRT_DIV_REG</a>&#160;&#160;&#160;0x19</td></tr>
 <tr class="separator:a8264ea96144f5fa98bd1a22ceb590315"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ffd1f39961f1c9f2a97e60be4efce65" id="r_a2ffd1f39961f1c9f2a97e60be4efce65"><td class="memItemLeft" align="right" valign="top"><a id="a2ffd1f39961f1c9f2a97e60be4efce65" name="a2ffd1f39961f1c9f2a97e60be4efce65"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>MPU6050_CONFIG_REG</b>&#160;&#160;&#160;0x1A</td></tr>
+<tr class="memitem:a2ffd1f39961f1c9f2a97e60be4efce65" id="r_a2ffd1f39961f1c9f2a97e60be4efce65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ffd1f39961f1c9f2a97e60be4efce65">MPU6050_CONFIG_REG</a>&#160;&#160;&#160;0x1A</td></tr>
 <tr class="separator:a2ffd1f39961f1c9f2a97e60be4efce65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0b695393aa19afdbac44b84c234eee3" id="r_ab0b695393aa19afdbac44b84c234eee3"><td class="memItemLeft" align="right" valign="top"><a id="ab0b695393aa19afdbac44b84c234eee3" name="ab0b695393aa19afdbac44b84c234eee3"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PWR_MGMT_1_DEVICE_RESET_MASK</b>&#160;&#160;&#160;0X1 &lt;&lt; 7</td></tr>
+<tr class="memitem:ab0b695393aa19afdbac44b84c234eee3" id="r_ab0b695393aa19afdbac44b84c234eee3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0b695393aa19afdbac44b84c234eee3">PWR_MGMT_1_DEVICE_RESET_MASK</a>&#160;&#160;&#160;0X1 &lt;&lt; 7</td></tr>
 <tr class="separator:ab0b695393aa19afdbac44b84c234eee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3c5775de768f57e28c543b2dd2c1eac" id="r_aa3c5775de768f57e28c543b2dd2c1eac"><td class="memItemLeft" align="right" valign="top"><a id="aa3c5775de768f57e28c543b2dd2c1eac" name="aa3c5775de768f57e28c543b2dd2c1eac"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PWR_MGMT_1_DEVICE_SLEEP_MASK</b>&#160;&#160;&#160;0X1 &lt;&lt; 6</td></tr>
+<tr class="memitem:aa3c5775de768f57e28c543b2dd2c1eac" id="r_aa3c5775de768f57e28c543b2dd2c1eac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3c5775de768f57e28c543b2dd2c1eac">PWR_MGMT_1_DEVICE_SLEEP_MASK</a>&#160;&#160;&#160;0X1 &lt;&lt; 6</td></tr>
 <tr class="separator:aa3c5775de768f57e28c543b2dd2c1eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed6c5a7bd128a1b91715838ef1490c7f" id="r_aed6c5a7bd128a1b91715838ef1490c7f"><td class="memItemLeft" align="right" valign="top"><a id="aed6c5a7bd128a1b91715838ef1490c7f" name="aed6c5a7bd128a1b91715838ef1490c7f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>GYRO_CONFIG_NO_TEST_FS_2000</b>&#160;&#160;&#160;0x18</td></tr>
+<tr class="memitem:aed6c5a7bd128a1b91715838ef1490c7f" id="r_aed6c5a7bd128a1b91715838ef1490c7f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed6c5a7bd128a1b91715838ef1490c7f">GYRO_CONFIG_NO_TEST_FS_2000</a>&#160;&#160;&#160;0x18</td></tr>
 <tr class="separator:aed6c5a7bd128a1b91715838ef1490c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a073a33d8d1006874168c2c87b599e208" id="r_a073a33d8d1006874168c2c87b599e208"><td class="memItemLeft" align="right" valign="top"><a id="a073a33d8d1006874168c2c87b599e208" name="a073a33d8d1006874168c2c87b599e208"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ACCEL_CONFIG_NO_TEST_FS_2G</b>&#160;&#160;&#160;0x00</td></tr>
+<tr class="memitem:a073a33d8d1006874168c2c87b599e208" id="r_a073a33d8d1006874168c2c87b599e208"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a073a33d8d1006874168c2c87b599e208">ACCEL_CONFIG_NO_TEST_FS_2G</a>&#160;&#160;&#160;0x00</td></tr>
 <tr class="separator:a073a33d8d1006874168c2c87b599e208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -225,8 +214,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_init</b> ()</
 <tr class="memitem:aecebb10c83a97b7866abf09c9a5fa6b3" id="r_aecebb10c83a97b7866abf09c9a5fa6b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structacc__vector__t.html">acc_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecebb10c83a97b7866abf09c9a5fa6b3">mpu6050_read_accelerometer</a> ()</td></tr>
 <tr class="memdesc:aecebb10c83a97b7866abf09c9a5fa6b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the accelerometer data.  <br /></td></tr>
 <tr class="separator:aecebb10c83a97b7866abf09c9a5fa6b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ec19abb8479cfffc714317ac03006ea" id="r_a3ec19abb8479cfffc714317ac03006ea"><td class="memItemLeft" align="right" valign="top"><a id="a3ec19abb8479cfffc714317ac03006ea" name="a3ec19abb8479cfffc714317ac03006ea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_calibrate</b> (<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> gyro_offsets, <a class="el" href="structacc__vector__t.html">acc_vector_t</a> acc_offsets)</td></tr>
+<tr class="memitem:a3ec19abb8479cfffc714317ac03006ea" id="r_a3ec19abb8479cfffc714317ac03006ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ec19abb8479cfffc714317ac03006ea">mpu6050_calibrate</a> (<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> gyro_offsets, <a class="el" href="structacc__vector__t.html">acc_vector_t</a> acc_offsets)</td></tr>
+<tr class="memdesc:a3ec19abb8479cfffc714317ac03006ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrates the sensor adding the offsets to the current values.  <br /></td></tr>
 <tr class="separator:a3ec19abb8479cfffc714317ac03006ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -235,7 +224,219 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_calibrate</b>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-02-29</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a073a33d8d1006874168c2c87b599e208" name="a073a33d8d1006874168c2c87b599e208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a073a33d8d1006874168c2c87b599e208">&#9670;&#160;</a></span>ACCEL_CONFIG_NO_TEST_FS_2G</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ACCEL_CONFIG_NO_TEST_FS_2G&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mask for full scale of 2G on accelerometers </p>
+
+</div>
+</div>
+<a id="aed6c5a7bd128a1b91715838ef1490c7f" name="aed6c5a7bd128a1b91715838ef1490c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed6c5a7bd128a1b91715838ef1490c7f">&#9670;&#160;</a></span>GYRO_CONFIG_NO_TEST_FS_2000</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GYRO_CONFIG_NO_TEST_FS_2000&#160;&#160;&#160;0x18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Mask for full scale of 2000 degrees per second on gyroscopes </p>
+
+</div>
+</div>
+<a id="a5554ecebfe3505952bcf8c08236b8600" name="a5554ecebfe3505952bcf8c08236b8600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5554ecebfe3505952bcf8c08236b8600">&#9670;&#160;</a></span>MPU6050_ACCEL_CONFIG_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_ACCEL_CONFIG_REG&#160;&#160;&#160;0x1C</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of ACCEL_CONFIG register </p>
+
+</div>
+</div>
+<a id="aeab81c73034a21153b844f22a0014014" name="aeab81c73034a21153b844f22a0014014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeab81c73034a21153b844f22a0014014">&#9670;&#160;</a></span>MPU6050_ACCEL_XOUT_H_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_ACCEL_XOUT_H_REG&#160;&#160;&#160;0x3B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of ACCEL_XOUT_H register </p>
+
+</div>
+</div>
+<a id="ad4d6255d8f7e5dc770e773b787977508" name="ad4d6255d8f7e5dc770e773b787977508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4d6255d8f7e5dc770e773b787977508">&#9670;&#160;</a></span>MPU6050_ADDR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_ADDR&#160;&#160;&#160;0x68</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of the MPU6050 sensor </p>
+
+</div>
+</div>
+<a id="a2ffd1f39961f1c9f2a97e60be4efce65" name="a2ffd1f39961f1c9f2a97e60be4efce65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ffd1f39961f1c9f2a97e60be4efce65">&#9670;&#160;</a></span>MPU6050_CONFIG_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_CONFIG_REG&#160;&#160;&#160;0x1A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of CONFIG register </p>
+
+</div>
+</div>
+<a id="a6659bbde3b9ef9d139758a467fcb3ec1" name="a6659bbde3b9ef9d139758a467fcb3ec1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6659bbde3b9ef9d139758a467fcb3ec1">&#9670;&#160;</a></span>MPU6050_GYRO_CONFIG_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_GYRO_CONFIG_REG&#160;&#160;&#160;0x1B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of GYRO_CONFIG register </p>
+
+</div>
+</div>
+<a id="aeae6c0fbc47aa2c613342fce2cc45372" name="aeae6c0fbc47aa2c613342fce2cc45372"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeae6c0fbc47aa2c613342fce2cc45372">&#9670;&#160;</a></span>MPU6050_GYRO_XOUT_H_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_GYRO_XOUT_H_REG&#160;&#160;&#160;0x43</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of GYRO_XOUT_H register </p>
+
+</div>
+</div>
+<a id="ac8e6174d5a02ed531329494959e57304" name="ac8e6174d5a02ed531329494959e57304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e6174d5a02ed531329494959e57304">&#9670;&#160;</a></span>MPU6050_PWR_MGMT_1_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_PWR_MGMT_1_REG&#160;&#160;&#160;0x6B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of PWR_MGMT_1 register </p>
+
+</div>
+</div>
+<a id="a8264ea96144f5fa98bd1a22ceb590315" name="a8264ea96144f5fa98bd1a22ceb590315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8264ea96144f5fa98bd1a22ceb590315">&#9670;&#160;</a></span>MPU6050_SMPLRT_DIV_REG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MPU6050_SMPLRT_DIV_REG&#160;&#160;&#160;0x19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Address of SMPLRT_DIV register </p>
+
+</div>
+</div>
+<a id="ab0b695393aa19afdbac44b84c234eee3" name="ab0b695393aa19afdbac44b84c234eee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b695393aa19afdbac44b84c234eee3">&#9670;&#160;</a></span>PWR_MGMT_1_DEVICE_RESET_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PWR_MGMT_1_DEVICE_RESET_MASK&#160;&#160;&#160;0X1 &lt;&lt; 7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Reset device </p>
+
+</div>
+</div>
+<a id="aa3c5775de768f57e28c543b2dd2c1eac" name="aa3c5775de768f57e28c543b2dd2c1eac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3c5775de768f57e28c543b2dd2c1eac">&#9670;&#160;</a></span>PWR_MGMT_1_DEVICE_SLEEP_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PWR_MGMT_1_DEVICE_SLEEP_MASK&#160;&#160;&#160;0X1 &lt;&lt; 6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sleep mode </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a3ec19abb8479cfffc714317ac03006ea" name="a3ec19abb8479cfffc714317ac03006ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec19abb8479cfffc714317ac03006ea">&#9670;&#160;</a></span>mpu6050_calibrate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpu6050_calibrate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structgyro__vector__t.html">gyro_vector_t</a></td>          <td class="paramname"><span class="paramname"><em>gyro_offsets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structacc__vector__t.html">acc_vector_t</a></td>          <td class="paramname"><span class="paramname"><em>acc_offsets</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calibrates the sensor adding the offsets to the current values. </p>
+<p>Is divided by 2 to help the convergence of the calibration</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gyro_offsets</td><td></td></tr>
+    <tr><td class="paramname">acc_offsets</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aecebb10c83a97b7866abf09c9a5fa6b3" name="aecebb10c83a97b7866abf09c9a5fa6b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecebb10c83a97b7866abf09c9a5fa6b3">&#9670;&#160;</a></span>mpu6050_read_accelerometer()</h2>
 

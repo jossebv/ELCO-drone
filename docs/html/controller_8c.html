@@ -125,7 +125,8 @@ $(function(){initNavTree('controller_8c.html',''); initResizable(); });
 <div class="header">
   <div class="summary">
 <a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">controller.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -138,8 +139,7 @@ $(function(){initNavTree('controller_8c.html',''); initResizable(); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a62d5c8530dbb596275056970aead6e82" id="r_a62d5c8530dbb596275056970aead6e82"><td class="memItemLeft" align="right" valign="top"><a id="a62d5c8530dbb596275056970aead6e82" name="a62d5c8530dbb596275056970aead6e82"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>DEBUG_CONTROLLER</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a62d5c8530dbb596275056970aead6e82" id="r_a62d5c8530dbb596275056970aead6e82"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62d5c8530dbb596275056970aead6e82">DEBUG_CONTROLLER</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a62d5c8530dbb596275056970aead6e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -147,9 +147,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a35b9ef3f002e0e4eda6ae76063c20f37" id="r_a35b9ef3f002e0e4eda6ae76063c20f37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35b9ef3f002e0e4eda6ae76063c20f37">decode_command</a> (<a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *packet, <a class="el" href="structcommand__t.html">command_t</a> *command)</td></tr>
 <tr class="memdesc:a35b9ef3f002e0e4eda6ae76063c20f37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode the command from the packet.  <br /></td></tr>
 <tr class="separator:a35b9ef3f002e0e4eda6ae76063c20f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19edda3fbf662a10f446a2568bbf23fe" id="r_a19edda3fbf662a10f446a2568bbf23fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19edda3fbf662a10f446a2568bbf23fe">get_command</a> (<a class="el" href="structcommand__t.html">command_t</a> *command)</td></tr>
-<tr class="memdesc:a19edda3fbf662a10f446a2568bbf23fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the command from the remote controller.  <br /></td></tr>
-<tr class="separator:a19edda3fbf662a10f446a2568bbf23fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f4f725dcf24716e6032ad9788c8044f" id="r_a8f4f725dcf24716e6032ad9788c8044f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f4f725dcf24716e6032ad9788c8044f">controller_get_command</a> (<a class="el" href="structcommand__t.html">command_t</a> *command)</td></tr>
+<tr class="memdesc:a8f4f725dcf24716e6032ad9788c8044f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the command from the remote controller.  <br /></td></tr>
+<tr class="separator:a8f4f725dcf24716e6032ad9788c8044f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23646e202f51fb75907ea10ae0ca54be" id="r_a23646e202f51fb75907ea10ae0ca54be"><td class="memItemLeft" align="right" valign="top"><a id="a23646e202f51fb75907ea10ae0ca54be" name="a23646e202f51fb75907ea10ae0ca54be"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>controller_is_connected</b> ()</td></tr>
+<tr class="memdesc:a23646e202f51fb75907ea10ae0ca54be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the controller is connected. <br /></td></tr>
+<tr class="separator:a23646e202f51fb75907ea10ae0ca54be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:afbd561db29d3a530e3094ce4c0f275da" id="r_afbd561db29d3a530e3094ce4c0f275da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcommand__t.html">command_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbd561db29d3a530e3094ce4c0f275da">prev_command</a></td></tr>
+<tr class="separator:afbd561db29d3a530e3094ce4c0f275da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functionality of the remote controller. </p>
@@ -157,7 +166,48 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-03-06</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a62d5c8530dbb596275056970aead6e82" name="a62d5c8530dbb596275056970aead6e82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d5c8530dbb596275056970aead6e82">&#9670;&#160;</a></span>DEBUG_CONTROLLER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEBUG_CONTROLLER&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Debug the controller data </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a8f4f725dcf24716e6032ad9788c8044f" name="a8f4f725dcf24716e6032ad9788c8044f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f4f725dcf24716e6032ad9788c8044f">&#9670;&#160;</a></span>controller_get_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void controller_get_command </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcommand__t.html">command_t</a> *</td>          <td class="paramname"><span class="paramname"><em>command</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the command from the remote controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a35b9ef3f002e0e4eda6ae76063c20f37" name="a35b9ef3f002e0e4eda6ae76063c20f37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35b9ef3f002e0e4eda6ae76063c20f37">&#9670;&#160;</a></span>decode_command()</h2>
 
@@ -188,28 +238,19 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a19edda3fbf662a10f446a2568bbf23fe" name="a19edda3fbf662a10f446a2568bbf23fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19edda3fbf662a10f446a2568bbf23fe">&#9670;&#160;</a></span>get_command()</h2>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="afbd561db29d3a530e3094ce4c0f275da" name="afbd561db29d3a530e3094ce4c0f275da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd561db29d3a530e3094ce4c0f275da">&#9670;&#160;</a></span>prev_command</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void get_command </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcommand__t.html">command_t</a> *</td>          <td class="paramname"><span class="paramname"><em>command</em></span></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="structcommand__t.html">command_t</a> prev_command</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Get the command from the remote controller. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">command</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Prev command received. Store for keeping a constant streaming of commands </p>
 
 </div>
 </div>

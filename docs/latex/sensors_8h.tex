@@ -23,14 +23,17 @@ typedef struct drone\+\_\+data\+\_\+t {\bfseries drone\+\_\+data\+\_\+t}
 \Hypertarget{sensors_8h_a41e7d1dd0cac7bd20fc32a6ebc87a985}\label{sensors_8h_a41e7d1dd0cac7bd20fc32a6ebc87a985} 
 void {\bfseries sensors\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Inits all the sensors. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{sensors_8h_a680c739ca88410fd87aef3e6d342b214}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} \mbox{\hyperlink{sensors_8h_a7d7fb91c3536f4ea02ba6412dbceff85}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Gets the data from the sensors and updates the drone data. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} \mbox{\hyperlink{sensors_8h_aff44196352fa8d83714fc5fbce93d631}{sensors\+\_\+get\+\_\+drone\+\_\+data}} ()
 \begin{DoxyCompactList}\small\item\em Get the drone data object containing the pitch, roll, yaw speed and altitude. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8h_ab3a2b802621c02e4b0885026a913beb6}{get\+\_\+gyroscope\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Get the gyroscope data object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Reads the gyroscope data from the IMU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8h_a3597d4da61f83153c11ea09392a5bd93}{get\+\_\+accelerometer\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Get the accelerometer data object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Reads the accelerometer data from the IMU. \end{DoxyCompactList}\item 
+\Hypertarget{sensors_8h_aef3dfa9a2809a32b9d86e0922fc4b11f}\label{sensors_8h_aef3dfa9a2809a32b9d86e0922fc4b11f} 
+void {\bfseries sensors\+\_\+calibrate\+\_\+imu} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\begin{DoxyCompactList}\small\item\em Calibrate the IMU. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -59,7 +62,7 @@ Copyright (c) 2024
 
 
 
-Get the accelerometer data object. 
+Reads the accelerometer data from the IMU. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} 
@@ -72,7 +75,7 @@ Get the accelerometer data object.
 
 
 
-Get the gyroscope data object. 
+Reads the gyroscope data from the IMU. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t} 
@@ -88,17 +91,17 @@ Get the gyroscope data object.
 Get the drone data object containing the pitch, roll, yaw speed and altitude. 
 
 \begin{DoxyReturn}{Returns}
-\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 
+\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} Drone data object 
 \end{DoxyReturn}
-\Hypertarget{sensors_8h_a680c739ca88410fd87aef3e6d342b214}\label{sensors_8h_a680c739ca88410fd87aef3e6d342b214} 
+\Hypertarget{sensors_8h_a7d7fb91c3536f4ea02ba6412dbceff85}\label{sensors_8h_a7d7fb91c3536f4ea02ba6412dbceff85} 
 \index{sensors.h@{sensors.h}!sensors\_update\_drone\_data@{sensors\_update\_drone\_data}}
 \index{sensors\_update\_drone\_data@{sensors\_update\_drone\_data}!sensors.h@{sensors.h}}
 \doxysubsubsection{\texorpdfstring{sensors\_update\_drone\_data()}{sensors\_update\_drone\_data()}}
-{\footnotesize\ttfamily void sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Returns all the data obtained from the sensors. 
+Gets the data from the sensors and updates the drone data. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 

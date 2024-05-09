@@ -1,4 +1,30 @@
 var motors_8c =
 [
-    [ "motors_init", "motors_8c.html#ad522af7d5cf6fcbf8e873cb7a91df8f3", null ]
+    [ "MOTOR1_PIN", "motors_8c.html#a7e0eea1bd9e61520c1374fa3a986e706", null ],
+    [ "MOTOR2_PIN", "motors_8c.html#ace060db125055131dc1384dcf2684db6", null ],
+    [ "MOTOR3_PIN", "motors_8c.html#adbfe9e9e285db9135f7182c05afd56e3", null ],
+    [ "MOTOR4_PIN", "motors_8c.html#a91e74ae8fae3b623a8fba2f687b62942", null ],
+    [ "MOTOR_MAX_US", "motors_8c.html#a688e33800b11985c143d26587f134b41", null ],
+    [ "MOTOR_MIN_US", "motors_8c.html#a409b508b0fb15e169dcb3d8efd4b52a6", null ],
+    [ "PITCH_KD", "motors_8c.html#a3244bae9859f42f7ecc38ada03846e5f", null ],
+    [ "PITCH_KI", "motors_8c.html#ad5f44db51ef15d5f040408d6fb530983", null ],
+    [ "PITCH_KP", "motors_8c.html#afd3476572dee5126a8ee3b25d428f7be", null ],
+    [ "PWM_FREQ_HZ", "motors_8c.html#a56e165627f596c2f42f843ae6571de0e", null ],
+    [ "PWM_PERIOD_MS", "motors_8c.html#a74d5fe7ba943c118658c452e82c6c3c5", null ],
+    [ "ROLL_KD", "motors_8c.html#a9db8dab9e2d41a1dd5475662d84353d4", null ],
+    [ "ROLL_KI", "motors_8c.html#ad652c0868411f27cf9db04bab3242ba2", null ],
+    [ "ROLL_KP", "motors_8c.html#aa525784ca76f13fcf3f5153ad3fac2cd", null ],
+    [ "THROTTLE_MAX", "motors_8c.html#a150f0a256648d7b97768a47534f62a01", null ],
+    [ "YAW_KD", "motors_8c.html#a65fdd35536f162217009ad1ff74cf1ae", null ],
+    [ "YAW_KI", "motors_8c.html#ae8149ffd6246b8b2fd2b2ac985cbe299", null ],
+    [ "YAW_KP", "motors_8c.html#ad8e8d21fecf19b9934ff9658bdd7673d", null ],
+    [ "_motors_ledc_init", "motors_8c.html#a0b70d46a9014701e1836fb28651e908f", null ],
+    [ "motors_deinit", "motors_8c.html#ac8ef5b4991907a39280c4a86518680bf", null ],
+    [ "motors_init", "motors_8c.html#ad522af7d5cf6fcbf8e873cb7a91df8f3", null ],
+    [ "motors_reset", "motors_8c.html#aa710e3e7cc10641491e56644a6cf44a0", null ],
+    [ "motors_update", "motors_8c.html#a438c7c164e625e480f6131478a59956a", null ],
+    [ "motors_update_duties", "motors_8c.html#a7408acf874e3ba752d70c626ad2555d7", null ],
+    [ "motors_update_pid_constants", "motors_8c.html#aaf118ca4fcc6850b15b9e47c3c64d90d", null ],
+    [ "normalize_motor_duties", "motors_8c.html#aa3186097c1de2202ef538432d0e9ebb8", null ],
+    [ "normalize_thrust_value", "motors_8c.html#af14211ac3a889c0f4292b0144d1434af", null ]
 ];

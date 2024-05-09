@@ -16,7 +16,7 @@
 <meta name="twitter:title" content="Doxygen Awesome" />
 <meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
 <!-- END twitter metadata -->
-<title>ELCO-Drone: components/general/pid/pid.c File Reference</title>
+<title>ELCO-Drone: components/general/pid_control/pid.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -124,6 +124,7 @@ $(function(){initNavTree('pid_8c.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">pid.c File Reference</div></div>
 </div><!--header-->
@@ -133,7 +134,13 @@ $(function(){initNavTree('pid_8c.html',''); initResizable(); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="pid_8h_source.html">pid.h</a>&quot;</code><br />
+<code>#include &quot;esp_timer.h&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a5313299a8d5ac80d698bd9f5a4f68e78" id="r_a5313299a8d5ac80d698bd9f5a4f68e78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5313299a8d5ac80d698bd9f5a4f68e78">MAX_INTEGRAL_VALUE</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a5313299a8d5ac80d698bd9f5a4f68e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a88a6f011498a7732b1a8f42ca891bda2" id="r_a88a6f011498a7732b1a8f42ca891bda2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpid__data__t.html">pid_data_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88a6f011498a7732b1a8f42ca891bda2">pid_create</a> (float kp, float ki, float kd)</td></tr>
@@ -142,9 +149,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a723976eff0898d5539fd6d39f4417902" id="r_a723976eff0898d5539fd6d39f4417902"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a723976eff0898d5539fd6d39f4417902">pid_destroy</a> (<a class="el" href="structpid__data__t.html">pid_data_t</a> *pid)</td></tr>
 <tr class="memdesc:a723976eff0898d5539fd6d39f4417902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a PID object.  <br /></td></tr>
 <tr class="separator:a723976eff0898d5539fd6d39f4417902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87ec06db5dfcaa2cdb168c6a783d9ba6" id="r_a87ec06db5dfcaa2cdb168c6a783d9ba6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87ec06db5dfcaa2cdb168c6a783d9ba6">pid_update</a> (<a class="el" href="structpid__data__t.html">pid_data_t</a> *pid, float error)</td></tr>
-<tr class="memdesc:a87ec06db5dfcaa2cdb168c6a783d9ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the PID controller.  <br /></td></tr>
-<tr class="separator:a87ec06db5dfcaa2cdb168c6a783d9ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa2a97ac0e3c6989b0366dc31c712cc2" id="r_afa2a97ac0e3c6989b0366dc31c712cc2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa2a97ac0e3c6989b0366dc31c712cc2">pid_update</a> (<a class="el" href="structpid__data__t.html">pid_data_t</a> *pid, float error)</td></tr>
+<tr class="memdesc:afa2a97ac0e3c6989b0366dc31c712cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the PID controller.  <br /></td></tr>
+<tr class="separator:afa2a97ac0e3c6989b0366dc31c712cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35520a276b4d34eb4b9815c5e51d2018" id="r_a35520a276b4d34eb4b9815c5e51d2018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35520a276b4d34eb4b9815c5e51d2018">pid_reset</a> (<a class="el" href="structpid__data__t.html">pid_data_t</a> *pid)</td></tr>
+<tr class="memdesc:a35520a276b4d34eb4b9815c5e51d2018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the PID controller.  <br /></td></tr>
+<tr class="separator:a35520a276b4d34eb4b9815c5e51d2018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b8e8eafba31386dd9a60fbeb532971" id="r_a41b8e8eafba31386dd9a60fbeb532971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41b8e8eafba31386dd9a60fbeb532971">pid_update_constants</a> (<a class="el" href="structpid__data__t.html">pid_data_t</a> *pid, float kp, float ki, float kd)</td></tr>
+<tr class="memdesc:a41b8e8eafba31386dd9a60fbeb532971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates a pid_t object with new constants.  <br /></td></tr>
+<tr class="separator:a41b8e8eafba31386dd9a60fbeb532971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Functionality of the PID controller. </p>
@@ -152,7 +165,23 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-03-04</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a5313299a8d5ac80d698bd9f5a4f68e78" name="a5313299a8d5ac80d698bd9f5a4f68e78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5313299a8d5ac80d698bd9f5a4f68e78">&#9670;&#160;</a></span>MAX_INTEGRAL_VALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_INTEGRAL_VALUE&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Max value allowed for the integral </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="a88a6f011498a7732b1a8f42ca891bda2" name="a88a6f011498a7732b1a8f42ca891bda2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a88a6f011498a7732b1a8f42ca891bda2">&#9670;&#160;</a></span>pid_create()</h2>
 
@@ -215,14 +244,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a87ec06db5dfcaa2cdb168c6a783d9ba6" name="a87ec06db5dfcaa2cdb168c6a783d9ba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87ec06db5dfcaa2cdb168c6a783d9ba6">&#9670;&#160;</a></span>pid_update()</h2>
+<a id="a35520a276b4d34eb4b9815c5e51d2018" name="a35520a276b4d34eb4b9815c5e51d2018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35520a276b4d34eb4b9815c5e51d2018">&#9670;&#160;</a></span>pid_reset()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float pid_update </td>
+          <td class="memname">void pid_reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpid__data__t.html">pid_data_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pid</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reset the PID controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td>PID object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa2a97ac0e3c6989b0366dc31c712cc2" name="afa2a97ac0e3c6989b0366dc31c712cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa2a97ac0e3c6989b0366dc31c712cc2">&#9670;&#160;</a></span>pid_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_update </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structpid__data__t.html">pid_data_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pid</em>, </span></td>
         </tr>
@@ -242,7 +296,49 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>float Value to be applied to the motors </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>uint16_t Output of the PID controller. The value should be between a duty cycle. </dd></dl>
+
+</div>
+</div>
+<a id="a41b8e8eafba31386dd9a60fbeb532971" name="a41b8e8eafba31386dd9a60fbeb532971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b8e8eafba31386dd9a60fbeb532971">&#9670;&#160;</a></span>pid_update_constants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pid_update_constants </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structpid__data__t.html">pid_data_t</a> *</td>          <td class="paramname"><span class="paramname"><em>pid</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kp</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ki</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kd</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates a pid_t object with new constants. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid</td><td></td></tr>
+    <tr><td class="paramname">kp</td><td></td></tr>
+    <tr><td class="paramname">ki</td><td></td></tr>
+    <tr><td class="paramname">kd</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -251,7 +347,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_68023d9a222e0ea331d5b1c7b55c9e1b.html">general</a></li><li class="navelem"><a class="el" href="dir_b9e596ac5b1b74f7da015900030b82f4.html">pid</a></li><li class="navelem"><a class="el" href="pid_8c.html">pid.c</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_68023d9a222e0ea331d5b1c7b55c9e1b.html">general</a></li><li class="navelem"><a class="el" href="dir_2153cf1366abaaf452e7ab168496ffaf.html">pid_control</a></li><li class="navelem"><a class="el" href="pid_8c.html">pid.c</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0 </li>
   </ul>
 </div>

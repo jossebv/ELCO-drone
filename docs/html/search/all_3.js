@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['elco_20drone_0',['ELCO-Drone',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['calibration_5fthreshold_0',['CALIBRATION_THRESHOLD',['../system__fsm_8c.html#aa54986884e6b472d57bceaae2776a3f7',1,'system_fsm.c']]],
+  ['calibration_5ftime_5fus_1',['CALIBRATION_TIME_US',['../system__fsm_8c.html#af43a62b239a60c15b8855b0ebccedfa5',1,'system_fsm.c']]],
+  ['comb_5ffilter_2ec_2',['comb_filter.c',['../comb__filter_8c.html',1,'']]],
+  ['comb_5ffilter_2eh_3',['comb_filter.h',['../comb__filter_8h.html',1,'']]],
+  ['comb_5ffilter_5fget_5fangles_4',['comb_filter_get_angles',['../comb__filter_8c.html#ac77171406784394a4dd27a40beaef7ee',1,'comb_filter_get_angles(drone_angles_t gyros_delta_angle, drone_angles_t acc_angle):&#160;comb_filter.c'],['../comb__filter_8h.html#ac77171406784394a4dd27a40beaef7ee',1,'comb_filter_get_angles(drone_angles_t gyros_delta_angle, drone_angles_t acc_angle):&#160;comb_filter.c']]],
+  ['comb_5ffilter_5finit_5',['comb_filter_init',['../comb__filter_8c.html#a072dd52a133a6d7566ae8730997c574e',1,'comb_filter_init():&#160;comb_filter.c'],['../comb__filter_8h.html#a072dd52a133a6d7566ae8730997c574e',1,'comb_filter_init():&#160;comb_filter.c']]],
+  ['command_5ft_6',['command_t',['../structcommand__t.html',1,'command_t'],['../controller_8h.html#a77405a1771a07a3f36d37641e4b62d1c',1,'command_t:&#160;controller.h']]],
+  ['comms_2ec_7',['comms.c',['../comms_8c.html',1,'']]],
+  ['comms_2eh_8',['comms.h',['../comms_8h.html',1,'']]],
+  ['comms_5finit_9',['comms_init',['../comms_8c.html#a4f30a29167ebafc840681647e93d4183',1,'comms_init():&#160;comms.c'],['../comms_8h.html#a4f30a29167ebafc840681647e93d4183',1,'comms_init():&#160;comms.c']]],
+  ['comms_5ftask_10',['comms_task',['../comms_8c.html#a0d0c4b7f2665b8dcf610e5afc0bb75d4',1,'comms.c']]],
+  ['config_5fwifi_5fbase_5fssid_11',['CONFIG_WIFI_BASE_SSID',['../wifi_8c.html#acc3474cecd2acd1ab6233ec12a17ffc9',1,'wifi.c']]],
+  ['config_5fwifi_5fchannel_12',['CONFIG_WIFI_CHANNEL',['../wifi_8c.html#ad407c5ebd90483b2b2f491973e28ce68',1,'wifi.c']]],
+  ['config_5fwifi_5fmax_5fsta_5fconn_13',['CONFIG_WIFI_MAX_STA_CONN',['../wifi_8c.html#ac12fb648a91c49754e31dd29d078cd6e',1,'wifi.c']]],
+  ['config_5fwifi_5fpassword_14',['CONFIG_WIFI_PASSWORD',['../wifi_8c.html#a8fe00da730b7d9da249655f3446d4c9b',1,'wifi.c']]],
+  ['configure_5flow_5fpass_5ffilter_15',['configure_low_pass_filter',['../mpu6050_8c.html#a815ea3ecaa187ce708e948643edbd562',1,'mpu6050.c']]],
+  ['contributing_16',['Contributing',['../md__r_e_a_d_m_e.html#autotoc_md2',1,'']]],
+  ['controller_2ec_17',['controller.c',['../controller_8c.html',1,'']]],
+  ['controller_2eh_18',['controller.h',['../controller_8h.html',1,'']]],
+  ['controller_5fget_5fcommand_19',['controller_get_command',['../controller_8c.html#a8f4f725dcf24716e6032ad9788c8044f',1,'controller_get_command(command_t *command):&#160;controller.c'],['../controller_8h.html#a8f4f725dcf24716e6032ad9788c8044f',1,'controller_get_command(command_t *command):&#160;controller.c']]],
+  ['controller_5fis_5fconnected_20',['controller_is_connected',['../controller_8c.html#a23646e202f51fb75907ea10ae0ca54be',1,'controller_is_connected():&#160;controller.c'],['../controller_8h.html#a23646e202f51fb75907ea10ae0ca54be',1,'controller_is_connected():&#160;controller.c']]],
+  ['current_5fstate_21',['current_state',['../structfsm__t.html#ab250e61dab922ea23423a06fd1e6ea34',1,'fsm_t']]]
 ];

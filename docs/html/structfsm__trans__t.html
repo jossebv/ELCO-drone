@@ -129,22 +129,86 @@ $(function(){initNavTree('structfsm__trans__t.html',''); initResizable(); });
   <div class="headertitle"><div class="title">fsm_trans_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Transition structure for the FSM.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="fsm_8h_source.html">fsm.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:adc67dd348bb6fc59cb4d59d598747274" id="r_adc67dd348bb6fc59cb4d59d598747274"><td class="memItemLeft" align="right" valign="top"><a id="adc67dd348bb6fc59cb4d59d598747274" name="adc67dd348bb6fc59cb4d59d598747274"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>orig_state</b></td></tr>
+<tr class="memitem:adc67dd348bb6fc59cb4d59d598747274" id="r_adc67dd348bb6fc59cb4d59d598747274"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc67dd348bb6fc59cb4d59d598747274">orig_state</a></td></tr>
 <tr class="separator:adc67dd348bb6fc59cb4d59d598747274"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88eefe4fbfe9c61845f867752d692ef1" id="r_a88eefe4fbfe9c61845f867752d692ef1"><td class="memItemLeft" align="right" valign="top"><a id="a88eefe4fbfe9c61845f867752d692ef1" name="a88eefe4fbfe9c61845f867752d692ef1"></a>
-fsm_input_func_t&#160;</td><td class="memItemRight" valign="bottom"><b>in</b></td></tr>
+<tr class="memitem:a88eefe4fbfe9c61845f867752d692ef1" id="r_a88eefe4fbfe9c61845f867752d692ef1"><td class="memItemLeft" align="right" valign="top">fsm_input_func_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88eefe4fbfe9c61845f867752d692ef1">in</a></td></tr>
 <tr class="separator:a88eefe4fbfe9c61845f867752d692ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af125a66cfa85df848aa173961218e809" id="r_af125a66cfa85df848aa173961218e809"><td class="memItemLeft" align="right" valign="top"><a id="af125a66cfa85df848aa173961218e809" name="af125a66cfa85df848aa173961218e809"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>dest_state</b></td></tr>
+<tr class="memitem:af125a66cfa85df848aa173961218e809" id="r_af125a66cfa85df848aa173961218e809"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af125a66cfa85df848aa173961218e809">dest_state</a></td></tr>
 <tr class="separator:af125a66cfa85df848aa173961218e809"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa14b0ae2ea26e60da884d09f281f7302" id="r_aa14b0ae2ea26e60da884d09f281f7302"><td class="memItemLeft" align="right" valign="top"><a id="aa14b0ae2ea26e60da884d09f281f7302" name="aa14b0ae2ea26e60da884d09f281f7302"></a>
-fsm_output_func_t&#160;</td><td class="memItemRight" valign="bottom"><b>out</b></td></tr>
+<tr class="memitem:aa14b0ae2ea26e60da884d09f281f7302" id="r_aa14b0ae2ea26e60da884d09f281f7302"><td class="memItemLeft" align="right" valign="top">fsm_output_func_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa14b0ae2ea26e60da884d09f281f7302">out</a></td></tr>
 <tr class="separator:aa14b0ae2ea26e60da884d09f281f7302"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Transition structure for the FSM. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="af125a66cfa85df848aa173961218e809" name="af125a66cfa85df848aa173961218e809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af125a66cfa85df848aa173961218e809">&#9670;&#160;</a></span>dest_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fsm_trans_t::dest_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Destination state of the transition </p>
+
+</div>
+</div>
+<a id="a88eefe4fbfe9c61845f867752d692ef1" name="a88eefe4fbfe9c61845f867752d692ef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88eefe4fbfe9c61845f867752d692ef1">&#9670;&#160;</a></span>in</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fsm_input_func_t fsm_trans_t::in</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Input function, act as a checker </p>
+
+</div>
+</div>
+<a id="adc67dd348bb6fc59cb4d59d598747274" name="adc67dd348bb6fc59cb4d59d598747274"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc67dd348bb6fc59cb4d59d598747274">&#9670;&#160;</a></span>orig_state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fsm_trans_t::orig_state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Original state of the transition </p>
+
+</div>
+</div>
+<a id="aa14b0ae2ea26e60da884d09f281f7302" name="aa14b0ae2ea26e60da884d09f281f7302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa14b0ae2ea26e60da884d09f281f7302">&#9670;&#160;</a></span>out</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fsm_output_func_t fsm_trans_t::out</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Output function, act as a handler </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>components/drivers/fsm/<a class="el" href="fsm_8h_source.html">fsm.h</a></li>
 </ul>

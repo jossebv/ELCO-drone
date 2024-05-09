@@ -9,19 +9,20 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
 \DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
 \DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ WIFI\_RX\_TX\_PACKET\_SIZE\ (64)}}
-\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ WIFI\_RX\_TX\_PACKET\_SIZE\ (64)\ }}
 \DoxyCodeLine{00020\ \textcolor{comment}{/*\ Structure\ used\ for\ in/out\ data\ via\ USB\ */}}
-\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
-\DoxyCodeLine{00022\ \{}
-\DoxyCodeLine{00023\ \ \ \ \ uint8\_t\ size;}
-\DoxyCodeLine{00024\ \ \ \ \ uint8\_t\ data[WIFI\_RX\_TX\_PACKET\_SIZE];}
-\DoxyCodeLine{00025\ \}\ \mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}};}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wifi_8h_af67410a15ecc24ecef0e5abce0c5b30c}{wifi\_init}}();}
-\DoxyCodeLine{00028\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}{wifiGetDataBlocking}}(\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}\ *in);}
-\DoxyCodeLine{00029\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6}{wifiSendData}}(\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}\ *out);}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{struct_u_d_p_packet_a76786a09cc4659689e811bfd9baf5baa}{size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ uint8\_t\ data[\mbox{\hyperlink{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da}{WIFI\_RX\_TX\_PACKET\_SIZE}}];\ }
+\DoxyCodeLine{00029\ \}\ \mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}};}
 \DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIFI\_H}}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{wifi_8h_af67410a15ecc24ecef0e5abce0c5b30c}{wifi\_init}}();}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}{wifiGetDataBlocking}}(\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}\ *in);}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{wifi_8h_ae034387a745420b9e0fb968e6e17b415}{wifi\_get\_instruction\_blocking}}(\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}\ *instruction);}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{wifi_8h_a4e957a2af77990095c5ca47c17d24cf1}{wifi\_send\_data}}(\textcolor{keywordtype}{char}\ *data,\ uint8\_t\ size);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{wifi_8h_a68256baf219f1b8d5cbb7e67a61917f2}{wifiIsControllerConnected}}();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIFI\_H}}
 
 \end{DoxyCode}

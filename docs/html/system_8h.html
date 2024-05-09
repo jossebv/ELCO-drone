@@ -124,6 +124,7 @@ $(function(){initNavTree('system_8h.html',''); initResizable(); });
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">system.h File Reference</div></div>
 </div><!--header-->
@@ -132,17 +133,27 @@ $(function(){initNavTree('system_8h.html',''); initResizable(); });
 <p>system.c header file. Contains all types and methods for system initialization.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;fsm.h&quot;</code><br />
+<code>#include &quot;driver/gpio.h&quot;</code><br />
 </div>
 <p><a href="system_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a8131714b6d25634105b1122f222dca26" id="r_a8131714b6d25634105b1122f222dca26"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8131714b6d25634105b1122f222dca26">GREEN_LED_PIN</a>&#160;&#160;&#160;GPIO_NUM_2</td></tr>
+<tr class="separator:a8131714b6d25634105b1122f222dca26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a8a44baec34d5355cbfdb6d16786f84" id="r_a5a8a44baec34d5355cbfdb6d16786f84"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a8a44baec34d5355cbfdb6d16786f84">BLUE_LED_PIN</a>&#160;&#160;&#160;GPIO_NUM_19</td></tr>
+<tr class="separator:a5a8a44baec34d5355cbfdb6d16786f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab16f55d54417647f44dca8b11d988f02" id="r_ab16f55d54417647f44dca8b11d988f02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab16f55d54417647f44dca8b11d988f02">RED_LED_PIN</a>&#160;&#160;&#160;GPIO_NUM_4</td></tr>
+<tr class="separator:ab16f55d54417647f44dca8b11d988f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a68e9365f4b4a4922ae761a90e16bf5ea" id="r_a68e9365f4b4a4922ae761a90e16bf5ea"><td class="memItemLeft" align="right" valign="top"><a id="a68e9365f4b4a4922ae761a90e16bf5ea" name="a68e9365f4b4a4922ae761a90e16bf5ea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>system_task</b> ()</td></tr>
-<tr class="separator:a68e9365f4b4a4922ae761a90e16bf5ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab59561e8b51510af29eea869cccacdb8" id="r_ab59561e8b51510af29eea869cccacdb8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfsm__t.html">fsm_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab59561e8b51510af29eea869cccacdb8">system_fsm_create</a> ()</td></tr>
-<tr class="memdesc:ab59561e8b51510af29eea869cccacdb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the system finite state machine.  <br /></td></tr>
-<tr class="separator:ab59561e8b51510af29eea869cccacdb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a649b7bf4953ac740c7139c3b946b77e9" id="r_a649b7bf4953ac740c7139c3b946b77e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a649b7bf4953ac740c7139c3b946b77e9">system_task</a> (void *arg)</td></tr>
+<tr class="memdesc:a649b7bf4953ac740c7139c3b946b77e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task for the system.  <br /></td></tr>
+<tr class="separator:a649b7bf4953ac740c7139c3b946b77e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83804034b02bb04ea9fa5b4adeccf91b" id="r_a83804034b02bb04ea9fa5b4adeccf91b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structfsm__t.html">fsm_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83804034b02bb04ea9fa5b4adeccf91b">system_fsm_create</a> (<a class="el" href="structfsm__t.html">fsm_t</a> *green_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *blue_led_fsm, <a class="el" href="structfsm__t.html">fsm_t</a> *red_led_fsm)</td></tr>
+<tr class="memdesc:a83804034b02bb04ea9fa5b4adeccf91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the system finite state machine.  <br /></td></tr>
+<tr class="separator:a83804034b02bb04ea9fa5b4adeccf91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>system.c header file. Contains all types and methods for system initialization. </p>
@@ -150,9 +161,55 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>system_task</b> ()</t
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-02-29</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="ab59561e8b51510af29eea869cccacdb8" name="ab59561e8b51510af29eea869cccacdb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab59561e8b51510af29eea869cccacdb8">&#9670;&#160;</a></span>system_fsm_create()</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a5a8a44baec34d5355cbfdb6d16786f84" name="a5a8a44baec34d5355cbfdb6d16786f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a8a44baec34d5355cbfdb6d16786f84">&#9670;&#160;</a></span>BLUE_LED_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BLUE_LED_PIN&#160;&#160;&#160;GPIO_NUM_19</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin where blue led is connected </p>
+
+</div>
+</div>
+<a id="a8131714b6d25634105b1122f222dca26" name="a8131714b6d25634105b1122f222dca26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8131714b6d25634105b1122f222dca26">&#9670;&#160;</a></span>GREEN_LED_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GREEN_LED_PIN&#160;&#160;&#160;GPIO_NUM_2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin where green led is connected </p>
+
+</div>
+</div>
+<a id="ab16f55d54417647f44dca8b11d988f02" name="ab16f55d54417647f44dca8b11d988f02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab16f55d54417647f44dca8b11d988f02">&#9670;&#160;</a></span>RED_LED_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RED_LED_PIN&#160;&#160;&#160;GPIO_NUM_4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin where red led is connected </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a83804034b02bb04ea9fa5b4adeccf91b" name="a83804034b02bb04ea9fa5b4adeccf91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83804034b02bb04ea9fa5b4adeccf91b">&#9670;&#160;</a></span>system_fsm_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,14 +217,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>system_task</b> ()</t
         <tr>
           <td class="memname"><a class="el" href="structfsm__t.html">fsm_t</a> * system_fsm_create </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>green_led_fsm</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>blue_led_fsm</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structfsm__t.html">fsm_t</a> *</td>          <td class="paramname"><span class="paramname"><em>red_led_fsm</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Create the system finite state machine. </p>
 <dl class="section return"><dt>Returns</dt><dd>fsm_t* The system finite state machine </dd></dl>
+
+</div>
+</div>
+<a id="a649b7bf4953ac740c7139c3b946b77e9" name="a649b7bf4953ac740c7139c3b946b77e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a649b7bf4953ac740c7139c3b946b77e9">&#9670;&#160;</a></span>system_task()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void system_task </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Task for the system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arg</td><td>pointer to the arguments, not used </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

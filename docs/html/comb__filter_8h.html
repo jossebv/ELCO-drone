@@ -153,9 +153,10 @@ typedef struct drone_angles_t&#160;</td><td class="memItemRight" valign="bottom"
 Functions</h2></td></tr>
 <tr class="memitem:a072dd52a133a6d7566ae8730997c574e" id="r_a072dd52a133a6d7566ae8730997c574e"><td class="memItemLeft" align="right" valign="top"><a id="a072dd52a133a6d7566ae8730997c574e" name="a072dd52a133a6d7566ae8730997c574e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>comb_filter_init</b> ()</td></tr>
+<tr class="memdesc:a072dd52a133a6d7566ae8730997c574e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the combinatory filter. <br /></td></tr>
 <tr class="separator:a072dd52a133a6d7566ae8730997c574e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac77171406784394a4dd27a40beaef7ee" id="r_ac77171406784394a4dd27a40beaef7ee"><td class="memItemLeft" align="right" valign="top"><a id="ac77171406784394a4dd27a40beaef7ee" name="ac77171406784394a4dd27a40beaef7ee"></a>
-<a class="el" href="structdrone__angles__t.html">drone_angles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>comb_filter_get_angles</b> (<a class="el" href="structdrone__angles__t.html">drone_angles_t</a> gyros_delta_angle, <a class="el" href="structdrone__angles__t.html">drone_angles_t</a> acc_angle)</td></tr>
+<tr class="memitem:ac77171406784394a4dd27a40beaef7ee" id="r_ac77171406784394a4dd27a40beaef7ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdrone__angles__t.html">drone_angles_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac77171406784394a4dd27a40beaef7ee">comb_filter_get_angles</a> (<a class="el" href="structdrone__angles__t.html">drone_angles_t</a> gyros_delta_angle, <a class="el" href="structdrone__angles__t.html">drone_angles_t</a> acc_angle)</td></tr>
+<tr class="memdesc:ac77171406784394a4dd27a40beaef7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the calculation for the combinatory filter.  <br /></td></tr>
 <tr class="separator:ac77171406784394a4dd27a40beaef7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -164,7 +165,39 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>comb_filter_init</b> 
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-02-28</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ac77171406784394a4dd27a40beaef7ee" name="ac77171406784394a4dd27a40beaef7ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac77171406784394a4dd27a40beaef7ee">&#9670;&#160;</a></span>comb_filter_get_angles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structdrone__angles__t.html">drone_angles_t</a> comb_filter_get_angles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structdrone__angles__t.html">drone_angles_t</a></td>          <td class="paramname"><span class="paramname"><em>gyros_delta_angle</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdrone__angles__t.html">drone_angles_t</a></td>          <td class="paramname"><span class="paramname"><em>acc_angle</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs the calculation for the combinatory filter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gyros_delta_angle</td><td>The delta angle from the gyroscope </td></tr>
+    <tr><td class="paramname">acc_angle</td><td>The angle from the accelerometer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structdrone__angles__t.html" title="Type for storing the angles of the drone.">drone_angles_t</a> Structure with the angles of the drone </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

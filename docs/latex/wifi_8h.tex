@@ -11,12 +11,11 @@ Header file for the wifi driver.
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Packet structure for UDP communication. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da}\label{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da} 
-\#define {\bfseries WIFI\+\_\+\+RX\+\_\+\+TX\+\_\+\+PACKET\+\_\+\+SIZE}~(64)
+\#define \mbox{\hyperlink{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da}{WIFI\+\_\+\+RX\+\_\+\+TX\+\_\+\+PACKET\+\_\+\+SIZE}}~(64)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -26,8 +25,12 @@ void {\bfseries wifi\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Initialize the wifi module. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}{wifi\+Get\+Data\+Blocking}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}in)
 \begin{DoxyCompactList}\small\item\em Gets the data from the UDP server blocking until it receives data. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6}{wifi\+Send\+Data}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}out)
-\begin{DoxyCompactList}\small\item\em Send data to the UDP server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+bool \mbox{\hyperlink{wifi_8h_ae034387a745420b9e0fb968e6e17b415}{wifi\+\_\+get\+\_\+instruction\+\_\+blocking}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}instruction)
+\begin{DoxyCompactList}\small\item\em Get the instruction from the UDP server blocking until it receives data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{wifi_8h_a4e957a2af77990095c5ca47c17d24cf1}{wifi\+\_\+send\+\_\+data}} (char \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Send data to the UDP server. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{wifi_8h_a68256baf219f1b8d5cbb7e67a61917f2}{wifi\+Is\+Controller\+Connected}} ()
+\begin{DoxyCompactList}\small\item\em Returns if the controller is connected by udp channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -47,7 +50,54 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da}\label{wifi_8h_ae9094d44a93df5ed4eab2eb4eba685da} 
+\index{wifi.h@{wifi.h}!WIFI\_RX\_TX\_PACKET\_SIZE@{WIFI\_RX\_TX\_PACKET\_SIZE}}
+\index{WIFI\_RX\_TX\_PACKET\_SIZE@{WIFI\_RX\_TX\_PACKET\_SIZE}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{WIFI\_RX\_TX\_PACKET\_SIZE}{WIFI\_RX\_TX\_PACKET\_SIZE}}
+{\footnotesize\ttfamily \#define WIFI\+\_\+\+RX\+\_\+\+TX\+\_\+\+PACKET\+\_\+\+SIZE~(64)}
+
+Size of the packet for the wifi communication 
+
 \doxysubsection{Function Documentation}
+\Hypertarget{wifi_8h_ae034387a745420b9e0fb968e6e17b415}\label{wifi_8h_ae034387a745420b9e0fb968e6e17b415} 
+\index{wifi.h@{wifi.h}!wifi\_get\_instruction\_blocking@{wifi\_get\_instruction\_blocking}}
+\index{wifi\_get\_instruction\_blocking@{wifi\_get\_instruction\_blocking}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_get\_instruction\_blocking()}{wifi\_get\_instruction\_blocking()}}
+{\footnotesize\ttfamily bool wifi\+\_\+get\+\_\+instruction\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{instruction }\end{DoxyParamCaption})}
+
+
+
+Get the instruction from the UDP server blocking until it receives data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Pointer to UDP packet to store the instruction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the instruction was received 
+\end{DoxyReturn}
+\Hypertarget{wifi_8h_a4e957a2af77990095c5ca47c17d24cf1}\label{wifi_8h_a4e957a2af77990095c5ca47c17d24cf1} 
+\index{wifi.h@{wifi.h}!wifi\_send\_data@{wifi\_send\_data}}
+\index{wifi\_send\_data@{wifi\_send\_data}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_send\_data()}{wifi\_send\_data()}}
+{\footnotesize\ttfamily bool wifi\+\_\+send\+\_\+data (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint8\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Send data to the UDP server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & char pointer to the data \\
+\hline
+{\em size} & size of the data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the data was sent 
+\end{DoxyReturn}
 \Hypertarget{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e}\label{wifi_8h_a268202254dfe5becc13bc90bbe7f4d7e} 
 \index{wifi.h@{wifi.h}!wifiGetDataBlocking@{wifiGetDataBlocking}}
 \index{wifiGetDataBlocking@{wifiGetDataBlocking}!wifi.h@{wifi.h}}
@@ -68,21 +118,16 @@ true
 
 false 
 \end{DoxyReturn}
-\Hypertarget{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6}\label{wifi_8h_a577a89d39c39a1e75b554aad9ed0afe6} 
-\index{wifi.h@{wifi.h}!wifiSendData@{wifiSendData}}
-\index{wifiSendData@{wifiSendData}!wifi.h@{wifi.h}}
-\doxysubsubsection{\texorpdfstring{wifiSendData()}{wifiSendData()}}
-{\footnotesize\ttfamily bool wifi\+Send\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+\Hypertarget{wifi_8h_a68256baf219f1b8d5cbb7e67a61917f2}\label{wifi_8h_a68256baf219f1b8d5cbb7e67a61917f2} 
+\index{wifi.h@{wifi.h}!wifiIsControllerConnected@{wifiIsControllerConnected}}
+\index{wifiIsControllerConnected@{wifiIsControllerConnected}!wifi.h@{wifi.h}}
+\doxysubsubsection{\texorpdfstring{wifiIsControllerConnected()}{wifiIsControllerConnected()}}
+{\footnotesize\ttfamily int wifi\+Is\+Controller\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Send data to the UDP server. 
+Returns if the controller is connected by udp channel. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em out} & UDP packet to send \\
-\hline
-\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true 
 

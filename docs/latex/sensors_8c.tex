@@ -8,38 +8,51 @@ Contains the functionality for reading and processing all drone sensors.
 {\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include "{}main.\+h"{}}\newline
 {\ttfamily \#include "{}sensors.\+h"{}}\newline
+{\ttfamily \#include "{}wifi.\+h"{}}\newline
 {\ttfamily \#include "{}comb\+\_\+filter.\+h"{}}\newline
+{\ttfamily \#include "{}mpu6050.\+h"{}}\newline
+{\ttfamily \#include "{}ultrasonic.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{sensors_8c_ad72dbcf6d0153db1b8d8a58001feed83}\label{sensors_8c_ad72dbcf6d0153db1b8d8a58001feed83} 
-\#define {\bfseries DEBUG}~1
+\#define \mbox{\hyperlink{sensors_8c_ae2169453362dc55e2eaf6d41353864d9}{DEBUG\+\_\+\+WIFI}}~0
 \item 
-\Hypertarget{sensors_8c_a89e47af0449640d4f15191aba5ca24c6}\label{sensors_8c_a89e47af0449640d4f15191aba5ca24c6} 
-\#define {\bfseries RAD\+\_\+\+TO\+\_\+\+DEG}~180 / M\+\_\+\+PI
+\#define \mbox{\hyperlink{sensors_8c_af50de1a7b3e4c43474df1d78dbf3d229}{DEBUG\+\_\+\+SENSORS}}~0
+\item 
+\#define \mbox{\hyperlink{sensors_8c_a39fd9d70f4f570bcf2a596ae6cf8e70b}{DEBUG\+\_\+\+ACCEL}}~0
+\item 
+\#define \mbox{\hyperlink{sensors_8c_ad55d18617e7eb22c46d7ec13290dc4dc}{DEBUG\+\_\+\+GYRO}}~0
+\item 
+\#define \mbox{\hyperlink{sensors_8c_a63b51f692e2b01b45d64a94aeb45405e}{DEBUG\+\_\+\+ACCEL\+\_\+\+TO\+\_\+\+ANGLES}}~0
+\item 
+\#define \mbox{\hyperlink{sensors_8c_a89e47af0449640d4f15191aba5ca24c6}{RAD\+\_\+\+TO\+\_\+\+DEG}}~180 / M\+\_\+\+PI
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{sensors_8c_aaa6a496538d1398a821802e17b2f13a4}\label{sensors_8c_aaa6a496538d1398a821802e17b2f13a4} 
-double {\bfseries get\+\_\+altitude\+\_\+data} ()
-\item 
+double \mbox{\hyperlink{sensors_8c_aaa6a496538d1398a821802e17b2f13a4}{get\+\_\+altitude\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Get the altitude data object. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8c_ab3a2b802621c02e4b0885026a913beb6}{get\+\_\+gyroscope\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Get the gyroscope data object. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Reads the gyroscope data from the IMU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} \mbox{\hyperlink{sensors_8c_a72be0cb30e177b2e30ff75c87718a2aa}{gyros\+\_\+speeds\+\_\+to\+\_\+delta\+\_\+angles}} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyros\+\_\+speeds, double delta\+\_\+time\+\_\+ms)
 \begin{DoxyCompactList}\small\item\em Transforms the gyroscope speed into an angle. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{sensors_8c_a3597d4da61f83153c11ea09392a5bd93}{get\+\_\+accelerometer\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Get the accelerometer data object. \end{DoxyCompactList}\item 
-\Hypertarget{sensors_8c_a927ef48ea944072634796a7e85a17a92}\label{sensors_8c_a927ef48ea944072634796a7e85a17a92} 
-\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} {\bfseries acc\+\_\+to\+\_\+angles} (\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} accelerations)
-\item 
+\begin{DoxyCompactList}\small\item\em Reads the accelerometer data from the IMU. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} \mbox{\hyperlink{sensors_8c_a927ef48ea944072634796a7e85a17a92}{acc\+\_\+to\+\_\+angles}} (\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} accelerations)
+\begin{DoxyCompactList}\small\item\em Converts the accelerations into angles. \end{DoxyCompactList}\item 
 \Hypertarget{sensors_8c_a41e7d1dd0cac7bd20fc32a6ebc87a985}\label{sensors_8c_a41e7d1dd0cac7bd20fc32a6ebc87a985} 
 void {\bfseries sensors\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Inits all the sensors. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{sensors_8c_a680c739ca88410fd87aef3e6d342b214}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
-\begin{DoxyCompactList}\small\item\em Returns all the data obtained from the sensors. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} \mbox{\hyperlink{sensors_8c_a7d7fb91c3536f4ea02ba6412dbceff85}{sensors\+\_\+update\+\_\+drone\+\_\+data}} ()
+\begin{DoxyCompactList}\small\item\em Gets the data from the sensors and updates the drone data. \end{DoxyCompactList}\item 
+\Hypertarget{sensors_8c_aef3dfa9a2809a32b9d86e0922fc4b11f}\label{sensors_8c_aef3dfa9a2809a32b9d86e0922fc4b11f} 
+void {\bfseries sensors\+\_\+calibrate\+\_\+imu} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\begin{DoxyCompactList}\small\item\em Calibrate the IMU. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} \mbox{\hyperlink{sensors_8c_aff44196352fa8d83714fc5fbce93d631}{sensors\+\_\+get\+\_\+drone\+\_\+data}} ()
 \begin{DoxyCompactList}\small\item\em Get the drone data object containing the pitch, roll, yaw speed and altitude. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -61,7 +74,64 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{sensors_8c_a39fd9d70f4f570bcf2a596ae6cf8e70b}\label{sensors_8c_a39fd9d70f4f570bcf2a596ae6cf8e70b} 
+\index{sensors.c@{sensors.c}!DEBUG\_ACCEL@{DEBUG\_ACCEL}}
+\index{DEBUG\_ACCEL@{DEBUG\_ACCEL}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_ACCEL}{DEBUG\_ACCEL}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+ACCEL~0}
+
+Debug the accelerometer data \Hypertarget{sensors_8c_a63b51f692e2b01b45d64a94aeb45405e}\label{sensors_8c_a63b51f692e2b01b45d64a94aeb45405e} 
+\index{sensors.c@{sensors.c}!DEBUG\_ACCEL\_TO\_ANGLES@{DEBUG\_ACCEL\_TO\_ANGLES}}
+\index{DEBUG\_ACCEL\_TO\_ANGLES@{DEBUG\_ACCEL\_TO\_ANGLES}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_ACCEL\_TO\_ANGLES}{DEBUG\_ACCEL\_TO\_ANGLES}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+ACCEL\+\_\+\+TO\+\_\+\+ANGLES~0}
+
+Debug the acc to angles function \Hypertarget{sensors_8c_ad55d18617e7eb22c46d7ec13290dc4dc}\label{sensors_8c_ad55d18617e7eb22c46d7ec13290dc4dc} 
+\index{sensors.c@{sensors.c}!DEBUG\_GYRO@{DEBUG\_GYRO}}
+\index{DEBUG\_GYRO@{DEBUG\_GYRO}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_GYRO}{DEBUG\_GYRO}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+GYRO~0}
+
+Debug the gyroscope data \Hypertarget{sensors_8c_af50de1a7b3e4c43474df1d78dbf3d229}\label{sensors_8c_af50de1a7b3e4c43474df1d78dbf3d229} 
+\index{sensors.c@{sensors.c}!DEBUG\_SENSORS@{DEBUG\_SENSORS}}
+\index{DEBUG\_SENSORS@{DEBUG\_SENSORS}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_SENSORS}{DEBUG\_SENSORS}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+SENSORS~0}
+
+Debug the sensors data \Hypertarget{sensors_8c_ae2169453362dc55e2eaf6d41353864d9}\label{sensors_8c_ae2169453362dc55e2eaf6d41353864d9} 
+\index{sensors.c@{sensors.c}!DEBUG\_WIFI@{DEBUG\_WIFI}}
+\index{DEBUG\_WIFI@{DEBUG\_WIFI}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_WIFI}{DEBUG\_WIFI}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+WIFI~0}
+
+Debug the data via wifi \Hypertarget{sensors_8c_a89e47af0449640d4f15191aba5ca24c6}\label{sensors_8c_a89e47af0449640d4f15191aba5ca24c6} 
+\index{sensors.c@{sensors.c}!RAD\_TO\_DEG@{RAD\_TO\_DEG}}
+\index{RAD\_TO\_DEG@{RAD\_TO\_DEG}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{RAD\_TO\_DEG}{RAD\_TO\_DEG}}
+{\footnotesize\ttfamily \#define RAD\+\_\+\+TO\+\_\+\+DEG~180 / M\+\_\+\+PI}
+
+Conversion factor from radians to degrees 
+
 \doxysubsection{Function Documentation}
+\Hypertarget{sensors_8c_a927ef48ea944072634796a7e85a17a92}\label{sensors_8c_a927ef48ea944072634796a7e85a17a92} 
+\index{sensors.c@{sensors.c}!acc\_to\_angles@{acc\_to\_angles}}
+\index{acc\_to\_angles@{acc\_to\_angles}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{acc\_to\_angles()}{acc\_to\_angles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} acc\+\_\+to\+\_\+angles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}}}]{accelerations }\end{DoxyParamCaption})}
+
+
+
+Converts the accelerations into angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em accelerations} & \doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} with the accelerations \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t} drone angles obtained from the accelerations 
+\end{DoxyReturn}
 \Hypertarget{sensors_8c_a3597d4da61f83153c11ea09392a5bd93}\label{sensors_8c_a3597d4da61f83153c11ea09392a5bd93} 
 \index{sensors.c@{sensors.c}!get\_accelerometer\_data@{get\_accelerometer\_data}}
 \index{get\_accelerometer\_data@{get\_accelerometer\_data}!sensors.c@{sensors.c}}
@@ -70,10 +140,23 @@ Copyright (c) 2024
 
 
 
-Get the accelerometer data object. 
+Reads the accelerometer data from the IMU. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structacc__vector__t}{acc\+\_\+vector\+\_\+t} 
+\end{DoxyReturn}
+\Hypertarget{sensors_8c_aaa6a496538d1398a821802e17b2f13a4}\label{sensors_8c_aaa6a496538d1398a821802e17b2f13a4} 
+\index{sensors.c@{sensors.c}!get\_altitude\_data@{get\_altitude\_data}}
+\index{get\_altitude\_data@{get\_altitude\_data}!sensors.c@{sensors.c}}
+\doxysubsubsection{\texorpdfstring{get\_altitude\_data()}{get\_altitude\_data()}}
+{\footnotesize\ttfamily double get\+\_\+altitude\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the altitude data object. 
+
+\begin{DoxyReturn}{Returns}
+double Altitude data 
 \end{DoxyReturn}
 \Hypertarget{sensors_8c_ab3a2b802621c02e4b0885026a913beb6}\label{sensors_8c_ab3a2b802621c02e4b0885026a913beb6} 
 \index{sensors.c@{sensors.c}!get\_gyroscope\_data@{get\_gyroscope\_data}}
@@ -83,7 +166,7 @@ Get the accelerometer data object.
 
 
 
-Get the gyroscope data object. 
+Reads the gyroscope data from the IMU. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t} 
@@ -100,7 +183,7 @@ Transforms the gyroscope speed into an angle.
 
 
 \begin{DoxyParams}{Parameters}
-{\em gyros\+\_\+speed} & Speed obtained from the gyroscope \\
+{\em gyros\+\_\+speeds} & Speeds obtained from the gyroscope \\
 \hline
 {\em delta\+\_\+time\+\_\+ms} & Time between samples in miliseconds \\
 \hline
@@ -119,17 +202,17 @@ double
 Get the drone data object containing the pitch, roll, yaw speed and altitude. 
 
 \begin{DoxyReturn}{Returns}
-\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 
+\doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} Drone data object 
 \end{DoxyReturn}
-\Hypertarget{sensors_8c_a680c739ca88410fd87aef3e6d342b214}\label{sensors_8c_a680c739ca88410fd87aef3e6d342b214} 
+\Hypertarget{sensors_8c_a7d7fb91c3536f4ea02ba6412dbceff85}\label{sensors_8c_a7d7fb91c3536f4ea02ba6412dbceff85} 
 \index{sensors.c@{sensors.c}!sensors\_update\_drone\_data@{sensors\_update\_drone\_data}}
 \index{sensors\_update\_drone\_data@{sensors\_update\_drone\_data}!sensors.c@{sensors.c}}
 \doxysubsubsection{\texorpdfstring{sensors\_update\_drone\_data()}{sensors\_update\_drone\_data()}}
-{\footnotesize\ttfamily void sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} sensors\+\_\+update\+\_\+drone\+\_\+data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Returns all the data obtained from the sensors. 
+Gets the data from the sensors and updates the drone data. 
 
 \begin{DoxyReturn}{Returns}
 \doxylink{structdrone__data__t}{drone\+\_\+data\+\_\+t} 

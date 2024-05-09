@@ -129,27 +129,122 @@ $(function(){initNavTree('structpid__data__t.html',''); initResizable(); });
   <div class="headertitle"><div class="title">pid_data_t Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Structure for PID controller, contains the constants and saved values for the pid control.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="pid_8h_source.html">pid.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac45e1dae846552be63416ee3d6451647" id="r_ac45e1dae846552be63416ee3d6451647"><td class="memItemLeft" align="right" valign="top"><a id="ac45e1dae846552be63416ee3d6451647" name="ac45e1dae846552be63416ee3d6451647"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>kp</b></td></tr>
-<tr class="separator:ac45e1dae846552be63416ee3d6451647"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7708ed72e1bcbdd7aed420e9257c8774" id="r_a7708ed72e1bcbdd7aed420e9257c8774"><td class="memItemLeft" align="right" valign="top"><a id="a7708ed72e1bcbdd7aed420e9257c8774" name="a7708ed72e1bcbdd7aed420e9257c8774"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>ki</b></td></tr>
-<tr class="separator:a7708ed72e1bcbdd7aed420e9257c8774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a700877b434a6934eb49af2d7ce79bd35" id="r_a700877b434a6934eb49af2d7ce79bd35"><td class="memItemLeft" align="right" valign="top"><a id="a700877b434a6934eb49af2d7ce79bd35" name="a700877b434a6934eb49af2d7ce79bd35"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>kd</b></td></tr>
-<tr class="separator:a700877b434a6934eb49af2d7ce79bd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a887b20c9c06c80d9d942b0b51c534cda" id="r_a887b20c9c06c80d9d942b0b51c534cda"><td class="memItemLeft" align="right" valign="top"><a id="a887b20c9c06c80d9d942b0b51c534cda" name="a887b20c9c06c80d9d942b0b51c534cda"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>integral</b></td></tr>
-<tr class="separator:a887b20c9c06c80d9d942b0b51c534cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ddfcead2e84b87beb0d794a9a3e1f46" id="r_a7ddfcead2e84b87beb0d794a9a3e1f46"><td class="memItemLeft" align="right" valign="top"><a id="a7ddfcead2e84b87beb0d794a9a3e1f46" name="a7ddfcead2e84b87beb0d794a9a3e1f46"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>last_error</b></td></tr>
-<tr class="separator:a7ddfcead2e84b87beb0d794a9a3e1f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a031fad30a5496b7038eb5ce4ba289ba6" id="r_a031fad30a5496b7038eb5ce4ba289ba6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a031fad30a5496b7038eb5ce4ba289ba6">kp</a></td></tr>
+<tr class="separator:a031fad30a5496b7038eb5ce4ba289ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0e8635af86a01e8fbe4a18a1e994461" id="r_af0e8635af86a01e8fbe4a18a1e994461"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0e8635af86a01e8fbe4a18a1e994461">ki</a></td></tr>
+<tr class="separator:af0e8635af86a01e8fbe4a18a1e994461"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57cb596a9674a256315f4f32062b18fb" id="r_a57cb596a9674a256315f4f32062b18fb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57cb596a9674a256315f4f32062b18fb">kd</a></td></tr>
+<tr class="separator:a57cb596a9674a256315f4f32062b18fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac04f59e944f59532b05a201d6508c8f2" id="r_ac04f59e944f59532b05a201d6508c8f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac04f59e944f59532b05a201d6508c8f2">integral</a></td></tr>
+<tr class="separator:ac04f59e944f59532b05a201d6508c8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad59ca80a8f18864eedad89e3898011e3" id="r_ad59ca80a8f18864eedad89e3898011e3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad59ca80a8f18864eedad89e3898011e3">last_error</a></td></tr>
+<tr class="separator:ad59ca80a8f18864eedad89e3898011e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb5830ee3115e65a36790900e4111dcb" id="r_acb5830ee3115e65a36790900e4111dcb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb5830ee3115e65a36790900e4111dcb">last_time</a></td></tr>
+<tr class="separator:acb5830ee3115e65a36790900e4111dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure for PID controller, contains the constants and saved values for the pid control. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac04f59e944f59532b05a201d6508c8f2" name="ac04f59e944f59532b05a201d6508c8f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac04f59e944f59532b05a201d6508c8f2">&#9670;&#160;</a></span>integral</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::integral</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integral value </p>
+
+</div>
+</div>
+<a id="a57cb596a9674a256315f4f32062b18fb" name="a57cb596a9674a256315f4f32062b18fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57cb596a9674a256315f4f32062b18fb">&#9670;&#160;</a></span>kd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::kd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>PID derivative constants </p>
+
+</div>
+</div>
+<a id="af0e8635af86a01e8fbe4a18a1e994461" name="af0e8635af86a01e8fbe4a18a1e994461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0e8635af86a01e8fbe4a18a1e994461">&#9670;&#160;</a></span>ki</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::ki</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>PID integral constants </p>
+
+</div>
+</div>
+<a id="a031fad30a5496b7038eb5ce4ba289ba6" name="a031fad30a5496b7038eb5ce4ba289ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a031fad30a5496b7038eb5ce4ba289ba6">&#9670;&#160;</a></span>kp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::kp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>PID proportional constants </p>
+
+</div>
+</div>
+<a id="ad59ca80a8f18864eedad89e3898011e3" name="ad59ca80a8f18864eedad89e3898011e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad59ca80a8f18864eedad89e3898011e3">&#9670;&#160;</a></span>last_error</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::last_error</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Last error value </p>
+
+</div>
+</div>
+<a id="acb5830ee3115e65a36790900e4111dcb" name="acb5830ee3115e65a36790900e4111dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb5830ee3115e65a36790900e4111dcb">&#9670;&#160;</a></span>last_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double pid_data_t::last_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Last time PID was updated </p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>components/general/pid/<a class="el" href="pid_8h_source.html">pid.h</a></li>
+<li>components/general/pid_control/<a class="el" href="pid_8h_source.html">pid.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

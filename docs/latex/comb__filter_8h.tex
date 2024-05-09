@@ -21,10 +21,9 @@ typedef struct drone\+\_\+angles\+\_\+t {\bfseries drone\+\_\+angles\+\_\+t}
 \item 
 \Hypertarget{comb__filter_8h_a072dd52a133a6d7566ae8730997c574e}\label{comb__filter_8h_a072dd52a133a6d7566ae8730997c574e} 
 void {\bfseries comb\+\_\+filter\+\_\+init} ()
-\item 
-\Hypertarget{comb__filter_8h_ac77171406784394a4dd27a40beaef7ee}\label{comb__filter_8h_ac77171406784394a4dd27a40beaef7ee} 
-\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} {\bfseries comb\+\_\+filter\+\_\+get\+\_\+angles} (\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} gyros\+\_\+delta\+\_\+angle, \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} acc\+\_\+angle)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Initializes the combinatory filter. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} \mbox{\hyperlink{comb__filter_8h_ac77171406784394a4dd27a40beaef7ee}{comb\+\_\+filter\+\_\+get\+\_\+angles}} (\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} gyros\+\_\+delta\+\_\+angle, \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} acc\+\_\+angle)
+\begin{DoxyCompactList}\small\item\em Performs the calculation for the combinatory filter. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -42,3 +41,26 @@ Jose Manuel Bravo
 \begin{DoxyCopyright}{Copyright}
 Copyright (c) 2024 
 \end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{comb__filter_8h_ac77171406784394a4dd27a40beaef7ee}\label{comb__filter_8h_ac77171406784394a4dd27a40beaef7ee} 
+\index{comb\_filter.h@{comb\_filter.h}!comb\_filter\_get\_angles@{comb\_filter\_get\_angles}}
+\index{comb\_filter\_get\_angles@{comb\_filter\_get\_angles}!comb\_filter.h@{comb\_filter.h}}
+\doxysubsubsection{\texorpdfstring{comb\_filter\_get\_angles()}{comb\_filter\_get\_angles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}} comb\+\_\+filter\+\_\+get\+\_\+angles (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}}}]{gyros\+\_\+delta\+\_\+angle,  }\item[{\mbox{\hyperlink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t}}}]{acc\+\_\+angle }\end{DoxyParamCaption})}
+
+
+
+Performs the calculation for the combinatory filter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gyros\+\_\+delta\+\_\+angle} & The delta angle from the gyroscope \\
+\hline
+{\em acc\+\_\+angle} & The angle from the accelerometer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structdrone__angles__t}{drone\+\_\+angles\+\_\+t} Structure with the angles of the drone 
+\end{DoxyReturn}

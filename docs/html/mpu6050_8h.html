@@ -162,8 +162,8 @@ Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_init</b> ()</td></tr>
 <tr class="memdesc:a6f122b1d346421c8419f39a995d34494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inits the MPU6050 sensor. <br /></td></tr>
 <tr class="separator:a6f122b1d346421c8419f39a995d34494"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ec19abb8479cfffc714317ac03006ea" id="r_a3ec19abb8479cfffc714317ac03006ea"><td class="memItemLeft" align="right" valign="top"><a id="a3ec19abb8479cfffc714317ac03006ea" name="a3ec19abb8479cfffc714317ac03006ea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_calibrate</b> (<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> gyro_offsets, <a class="el" href="structacc__vector__t.html">acc_vector_t</a> acc_offsets)</td></tr>
+<tr class="memitem:a3ec19abb8479cfffc714317ac03006ea" id="r_a3ec19abb8479cfffc714317ac03006ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ec19abb8479cfffc714317ac03006ea">mpu6050_calibrate</a> (<a class="el" href="structgyro__vector__t.html">gyro_vector_t</a> gyro_offsets, <a class="el" href="structacc__vector__t.html">acc_vector_t</a> acc_offsets)</td></tr>
+<tr class="memdesc:a3ec19abb8479cfffc714317ac03006ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibrates the sensor adding the offsets to the current values.  <br /></td></tr>
 <tr class="separator:a3ec19abb8479cfffc714317ac03006ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a87105cd2a54f0cf7287ece123aafe8" id="r_a2a87105cd2a54f0cf7287ece123aafe8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgyro__vector__t.html">gyro_vector_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a87105cd2a54f0cf7287ece123aafe8">mpu6050_read_gyro</a> ()</td></tr>
 <tr class="memdesc:a2a87105cd2a54f0cf7287ece123aafe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the gyro data.  <br /></td></tr>
@@ -179,6 +179,37 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>mpu6050_calibrate</b>
 <dl class="section date"><dt>Date</dt><dd>2024-02-29</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="a3ec19abb8479cfffc714317ac03006ea" name="a3ec19abb8479cfffc714317ac03006ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec19abb8479cfffc714317ac03006ea">&#9670;&#160;</a></span>mpu6050_calibrate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpu6050_calibrate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structgyro__vector__t.html">gyro_vector_t</a></td>          <td class="paramname"><span class="paramname"><em>gyro_offsets</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structacc__vector__t.html">acc_vector_t</a></td>          <td class="paramname"><span class="paramname"><em>acc_offsets</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calibrates the sensor adding the offsets to the current values. </p>
+<p>Is divided by 2 to help the convergence of the calibration</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gyro_offsets</td><td></td></tr>
+    <tr><td class="paramname">acc_offsets</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aecebb10c83a97b7866abf09c9a5fa6b3" name="aecebb10c83a97b7866abf09c9a5fa6b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aecebb10c83a97b7866abf09c9a5fa6b3">&#9670;&#160;</a></span>mpu6050_read_accelerometer()</h2>
 

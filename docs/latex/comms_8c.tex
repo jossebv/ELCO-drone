@@ -1,0 +1,100 @@
+\doxysection{components/general/comms/comms.c File Reference}
+\hypertarget{comms_8c}{}\label{comms_8c}\index{components/general/comms/comms.c@{components/general/comms/comms.c}}
+
+
+Handle all the communications between the drone and the ground station.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}wifi.\+h"{}}\newline
+{\ttfamily \#include "{}comms.\+h"{}}\newline
+{\ttfamily \#include "{}motors.\+h"{}}\newline
+{\ttfamily \#include "{}sensors.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{comms_8c_ac764fb8f4d21d9af88eb7ba0d689a0ab}{PID\+\_\+\+UPDATE\+\_\+\+HEADER}}~0x51
+\item 
+\#define \mbox{\hyperlink{comms_8c_a0c059a6e42fb776c4f2cdcba7f13b234}{REQ\+\_\+\+IMU\+\_\+\+HEADER}}~0x82
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{comms_8c_a6fcb0038d064e44dbee3152fd38e004f}\label{comms_8c_a6fcb0038d064e44dbee3152fd38e004f} 
+void {\bfseries handle\+\_\+imu\+\_\+req} ()
+\begin{DoxyCompactList}\small\item\em Handle the IMU request from the ground station. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{comms_8c_adf76b4c59690ddc4f27920cf090dd583}{process\+\_\+instruction}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}instruction)
+\begin{DoxyCompactList}\small\item\em Process the instruction received from the ground station. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{comms_8c_a0d0c4b7f2665b8dcf610e5afc0bb75d4}{comms\+\_\+task}} (void \texorpdfstring{$\ast$}{*}pv\+Parameters)
+\begin{DoxyCompactList}\small\item\em Task for the communications module. \end{DoxyCompactList}\item 
+\Hypertarget{comms_8c_a4f30a29167ebafc840681647e93d4183}\label{comms_8c_a4f30a29167ebafc840681647e93d4183} 
+void {\bfseries comms\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Initialize the communications module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handle all the communications between the drone and the ground station. 
+
+\begin{DoxyAuthor}{Author}
+José Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/04-\/25
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{comms_8c_ac764fb8f4d21d9af88eb7ba0d689a0ab}\label{comms_8c_ac764fb8f4d21d9af88eb7ba0d689a0ab} 
+\index{comms.c@{comms.c}!PID\_UPDATE\_HEADER@{PID\_UPDATE\_HEADER}}
+\index{PID\_UPDATE\_HEADER@{PID\_UPDATE\_HEADER}!comms.c@{comms.c}}
+\doxysubsubsection{\texorpdfstring{PID\_UPDATE\_HEADER}{PID\_UPDATE\_HEADER}}
+{\footnotesize\ttfamily \#define PID\+\_\+\+UPDATE\+\_\+\+HEADER~0x51}
+
+Header for the PID update \Hypertarget{comms_8c_a0c059a6e42fb776c4f2cdcba7f13b234}\label{comms_8c_a0c059a6e42fb776c4f2cdcba7f13b234} 
+\index{comms.c@{comms.c}!REQ\_IMU\_HEADER@{REQ\_IMU\_HEADER}}
+\index{REQ\_IMU\_HEADER@{REQ\_IMU\_HEADER}!comms.c@{comms.c}}
+\doxysubsubsection{\texorpdfstring{REQ\_IMU\_HEADER}{REQ\_IMU\_HEADER}}
+{\footnotesize\ttfamily \#define REQ\+\_\+\+IMU\+\_\+\+HEADER~0x82}
+
+Header for the IMU request 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{comms_8c_a0d0c4b7f2665b8dcf610e5afc0bb75d4}\label{comms_8c_a0d0c4b7f2665b8dcf610e5afc0bb75d4} 
+\index{comms.c@{comms.c}!comms\_task@{comms\_task}}
+\index{comms\_task@{comms\_task}!comms.c@{comms.c}}
+\doxysubsubsection{\texorpdfstring{comms\_task()}{comms\_task()}}
+{\footnotesize\ttfamily void comms\+\_\+task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Parameters }\end{DoxyParamCaption})}
+
+
+
+Task for the communications module. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\+Parameters} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{comms_8c_adf76b4c59690ddc4f27920cf090dd583}\label{comms_8c_adf76b4c59690ddc4f27920cf090dd583} 
+\index{comms.c@{comms.c}!process\_instruction@{process\_instruction}}
+\index{process\_instruction@{process\_instruction}!comms.c@{comms.c}}
+\doxysubsubsection{\texorpdfstring{process\_instruction()}{process\_instruction()}}
+{\footnotesize\ttfamily void process\+\_\+instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{instruction }\end{DoxyParamCaption})}
+
+
+
+Process the instruction received from the ground station. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & \\
+\hline
+\end{DoxyParams}

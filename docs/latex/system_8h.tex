@@ -6,13 +6,22 @@ system.\+c header file. Contains all types and methods for system initialization
 
 
 {\ttfamily \#include "{}fsm.\+h"{}}\newline
+{\ttfamily \#include "{}driver/gpio.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{system_8h_a8131714b6d25634105b1122f222dca26}{GREEN\+\_\+\+LED\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+2
+\item 
+\#define \mbox{\hyperlink{system_8h_a5a8a44baec34d5355cbfdb6d16786f84}{BLUE\+\_\+\+LED\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+19
+\item 
+\#define \mbox{\hyperlink{system_8h_ab16f55d54417647f44dca8b11d988f02}{RED\+\_\+\+LED\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+4
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{system_8h_a68e9365f4b4a4922ae761a90e16bf5ea}\label{system_8h_a68e9365f4b4a4922ae761a90e16bf5ea} 
-void {\bfseries system\+\_\+task} ()
-\item 
-\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{system_8h_ab59561e8b51510af29eea869cccacdb8}{system\+\_\+fsm\+\_\+create}} ()
+void \mbox{\hyperlink{system_8h_a649b7bf4953ac740c7139c3b946b77e9}{system\+\_\+task}} (void \texorpdfstring{$\ast$}{*}arg)
+\begin{DoxyCompactList}\small\item\em Task for the system. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{system_8h_a83804034b02bb04ea9fa5b4adeccf91b}{system\+\_\+fsm\+\_\+create}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}green\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}blue\+\_\+led\+\_\+fsm, \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}red\+\_\+led\+\_\+fsm)
 \begin{DoxyCompactList}\small\item\em Create the system finite state machine. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -33,12 +42,33 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{system_8h_a5a8a44baec34d5355cbfdb6d16786f84}\label{system_8h_a5a8a44baec34d5355cbfdb6d16786f84} 
+\index{system.h@{system.h}!BLUE\_LED\_PIN@{BLUE\_LED\_PIN}}
+\index{BLUE\_LED\_PIN@{BLUE\_LED\_PIN}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{BLUE\_LED\_PIN}{BLUE\_LED\_PIN}}
+{\footnotesize\ttfamily \#define BLUE\+\_\+\+LED\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+19}
+
+Pin where blue led is connected \Hypertarget{system_8h_a8131714b6d25634105b1122f222dca26}\label{system_8h_a8131714b6d25634105b1122f222dca26} 
+\index{system.h@{system.h}!GREEN\_LED\_PIN@{GREEN\_LED\_PIN}}
+\index{GREEN\_LED\_PIN@{GREEN\_LED\_PIN}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{GREEN\_LED\_PIN}{GREEN\_LED\_PIN}}
+{\footnotesize\ttfamily \#define GREEN\+\_\+\+LED\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+2}
+
+Pin where green led is connected \Hypertarget{system_8h_ab16f55d54417647f44dca8b11d988f02}\label{system_8h_ab16f55d54417647f44dca8b11d988f02} 
+\index{system.h@{system.h}!RED\_LED\_PIN@{RED\_LED\_PIN}}
+\index{RED\_LED\_PIN@{RED\_LED\_PIN}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{RED\_LED\_PIN}{RED\_LED\_PIN}}
+{\footnotesize\ttfamily \#define RED\+\_\+\+LED\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+4}
+
+Pin where red led is connected 
+
 \doxysubsection{Function Documentation}
-\Hypertarget{system_8h_ab59561e8b51510af29eea869cccacdb8}\label{system_8h_ab59561e8b51510af29eea869cccacdb8} 
+\Hypertarget{system_8h_a83804034b02bb04ea9fa5b4adeccf91b}\label{system_8h_a83804034b02bb04ea9fa5b4adeccf91b} 
 \index{system.h@{system.h}!system\_fsm\_create@{system\_fsm\_create}}
 \index{system\_fsm\_create@{system\_fsm\_create}!system.h@{system.h}}
 \doxysubsubsection{\texorpdfstring{system\_fsm\_create()}{system\_fsm\_create()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} system\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} system\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{green\+\_\+led\+\_\+fsm,  }\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{blue\+\_\+led\+\_\+fsm,  }\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{red\+\_\+led\+\_\+fsm }\end{DoxyParamCaption})}
 
 
 
@@ -47,3 +77,18 @@ Create the system finite state machine.
 \begin{DoxyReturn}{Returns}
 fsm\+\_\+t\texorpdfstring{$\ast$}{*} The system finite state machine 
 \end{DoxyReturn}
+\Hypertarget{system_8h_a649b7bf4953ac740c7139c3b946b77e9}\label{system_8h_a649b7bf4953ac740c7139c3b946b77e9} 
+\index{system.h@{system.h}!system\_task@{system\_task}}
+\index{system\_task@{system\_task}!system.h@{system.h}}
+\doxysubsubsection{\texorpdfstring{system\_task()}{system\_task()}}
+{\footnotesize\ttfamily void system\+\_\+task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{arg }\end{DoxyParamCaption})}
+
+
+
+Task for the system. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em arg} & pointer to the arguments, not used \\
+\hline
+\end{DoxyParams}

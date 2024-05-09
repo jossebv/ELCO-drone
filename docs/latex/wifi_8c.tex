@@ -19,54 +19,44 @@ Driver for the wifi module.
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{wifi_8c_ac2c75e9db9d384283884551b13125980}\label{wifi_8c_ac2c75e9db9d384283884551b13125980} 
-\#define {\bfseries DEBUG\+\_\+\+UPD}~0
+\#define \mbox{\hyperlink{wifi_8c_ac2c75e9db9d384283884551b13125980}{DEBUG\+\_\+\+UPD}}~0
 \item 
-\Hypertarget{wifi_8c_a40bc1cdca057b24c8083b35a5fd67cd9}\label{wifi_8c_a40bc1cdca057b24c8083b35a5fd67cd9} 
-\#define {\bfseries MAC2\+STR}(a)~(a)\mbox{[}0\mbox{]}, (a)\mbox{[}1\mbox{]}, (a)\mbox{[}2\mbox{]}, (a)\mbox{[}3\mbox{]}, (a)\mbox{[}4\mbox{]}, (a)\mbox{[}5\mbox{]}
+\#define \mbox{\hyperlink{wifi_8c_a40bc1cdca057b24c8083b35a5fd67cd9}{MAC2\+STR}}(a)~(a)\mbox{[}0\mbox{]}, (a)\mbox{[}1\mbox{]}, (a)\mbox{[}2\mbox{]}, (a)\mbox{[}3\mbox{]}, (a)\mbox{[}4\mbox{]}, (a)\mbox{[}5\mbox{]}
 \item 
-\Hypertarget{wifi_8c_ad6e69a2870c8f219cc679677af110849}\label{wifi_8c_ad6e69a2870c8f219cc679677af110849} 
-\#define {\bfseries MACSTR}~"{}\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x"{}
+\#define \mbox{\hyperlink{wifi_8c_ad6e69a2870c8f219cc679677af110849}{MACSTR}}~"{}\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x"{}
 \item 
-\Hypertarget{wifi_8c_acc3474cecd2acd1ab6233ec12a17ffc9}\label{wifi_8c_acc3474cecd2acd1ab6233ec12a17ffc9} 
-\#define {\bfseries CONFIG\+\_\+\+WIFI\+\_\+\+BASE\+\_\+\+SSID}~"{}ESP32\+\_\+\+DRONE"{}
+\#define \mbox{\hyperlink{wifi_8c_acc3474cecd2acd1ab6233ec12a17ffc9}{CONFIG\+\_\+\+WIFI\+\_\+\+BASE\+\_\+\+SSID}}~"{}ESP32\+\_\+\+DRONE"{}
 \item 
-\Hypertarget{wifi_8c_a8fe00da730b7d9da249655f3446d4c9b}\label{wifi_8c_a8fe00da730b7d9da249655f3446d4c9b} 
-\#define {\bfseries CONFIG\+\_\+\+WIFI\+\_\+\+PASSWORD}~"{}12345678"{}
+\#define \mbox{\hyperlink{wifi_8c_a8fe00da730b7d9da249655f3446d4c9b}{CONFIG\+\_\+\+WIFI\+\_\+\+PASSWORD}}~"{}12345678"{}
 \item 
-\Hypertarget{wifi_8c_ad407c5ebd90483b2b2f491973e28ce68}\label{wifi_8c_ad407c5ebd90483b2b2f491973e28ce68} 
-\#define {\bfseries CONFIG\+\_\+\+WIFI\+\_\+\+CHANNEL}~1
+\#define \mbox{\hyperlink{wifi_8c_ad407c5ebd90483b2b2f491973e28ce68}{CONFIG\+\_\+\+WIFI\+\_\+\+CHANNEL}}~1
 \item 
-\Hypertarget{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e}\label{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e} 
-\#define {\bfseries CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}~4
+\#define \mbox{\hyperlink{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e}{CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}}~4
 \item 
-\Hypertarget{wifi_8c_aeec977cc354300cacdfaa2c953546544}\label{wifi_8c_aeec977cc354300cacdfaa2c953546544} 
-\#define {\bfseries WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}~CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN
+\#define \mbox{\hyperlink{wifi_8c_aeec977cc354300cacdfaa2c953546544}{WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}}~\mbox{\hyperlink{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e}{CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}}
 \item 
-\Hypertarget{wifi_8c_a9245add78f421992c6f1aff393305143}\label{wifi_8c_a9245add78f421992c6f1aff393305143} 
-\#define {\bfseries UDP\+\_\+\+SERVER\+\_\+\+PORT}~2390
+\#define \mbox{\hyperlink{wifi_8c_a9245add78f421992c6f1aff393305143}{UDP\+\_\+\+SERVER\+\_\+\+PORT}}~2390
 \item 
-\Hypertarget{wifi_8c_a0c2c9bc659bddf3164360330d68e977f}\label{wifi_8c_a0c2c9bc659bddf3164360330d68e977f} 
-\#define {\bfseries UDP\+\_\+\+SERVER\+\_\+\+BUFFSIZE}~128
+\#define \mbox{\hyperlink{wifi_8c_a0c2c9bc659bddf3164360330d68e977f}{UDP\+\_\+\+SERVER\+\_\+\+BUFFSIZE}}~128
 \item 
-\Hypertarget{wifi_8c_ab4bb4783e39f9b4ad6f61cd7d3949ab7}\label{wifi_8c_ab4bb4783e39f9b4ad6f61cd7d3949ab7} 
-\#define {\bfseries UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+STACKSIZE}~2048
+\#define \mbox{\hyperlink{wifi_8c_ab4bb4783e39f9b4ad6f61cd7d3949ab7}{UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+STACKSIZE}}~2048
 \item 
-\Hypertarget{wifi_8c_a195853c7872a05f3d13e1cdd93ce4709}\label{wifi_8c_a195853c7872a05f3d13e1cdd93ce4709} 
-\#define {\bfseries UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+PRI}~3
+\#define \mbox{\hyperlink{wifi_8c_a195853c7872a05f3d13e1cdd93ce4709}{UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+PRI}}~3
 \item 
-\Hypertarget{wifi_8c_a68c6c19eb1919f16206c81fbdb30c796}\label{wifi_8c_a68c6c19eb1919f16206c81fbdb30c796} 
-\#define {\bfseries UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+STACKSIZE}~2048
+\#define \mbox{\hyperlink{wifi_8c_a68c6c19eb1919f16206c81fbdb30c796}{UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+STACKSIZE}}~2048
 \item 
-\Hypertarget{wifi_8c_a088e41711b24a414a01df1c858098958}\label{wifi_8c_a088e41711b24a414a01df1c858098958} 
-\#define {\bfseries UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+PRI}~3
+\#define \mbox{\hyperlink{wifi_8c_a088e41711b24a414a01df1c858098958}{UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+PRI}}~3
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+int \mbox{\hyperlink{wifi_8c_a68256baf219f1b8d5cbb7e67a61917f2}{wifi\+Is\+Controller\+Connected}} ()
+\begin{DoxyCompactList}\small\item\em Returns if the controller is connected by udp channel. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{wifi_8c_a268202254dfe5becc13bc90bbe7f4d7e}{wifi\+Get\+Data\+Blocking}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}in)
 \begin{DoxyCompactList}\small\item\em Gets the data from the UDP server blocking until it receives data. \end{DoxyCompactList}\item 
-bool \mbox{\hyperlink{wifi_8c_a577a89d39c39a1e75b554aad9ed0afe6}{wifi\+Send\+Data}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}out)
+bool \mbox{\hyperlink{wifi_8c_ae034387a745420b9e0fb968e6e17b415}{wifi\+\_\+get\+\_\+instruction\+\_\+blocking}} (\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}instruction)
+\begin{DoxyCompactList}\small\item\em Get the instruction from the UDP server blocking until it receives data. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{wifi_8c_a4e957a2af77990095c5ca47c17d24cf1}{wifi\+\_\+send\+\_\+data}} (char \texorpdfstring{$\ast$}{*}data, uint8\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Send data to the UDP server. \end{DoxyCompactList}\item 
 esp\+\_\+err\+\_\+t \mbox{\hyperlink{wifi_8c_acb9eaaba1344fe979dd64403d928d4bc}{udp\+\_\+server\+\_\+create}} (void \texorpdfstring{$\ast$}{*}arg)
 \begin{DoxyCompactList}\small\item\em Create the UDP server. \end{DoxyCompactList}\item 
@@ -76,8 +66,7 @@ void {\bfseries wifi\+\_\+init} ()
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{wifi_8c_a91aeff1220701b1ecdc74ab211de8243}\label{wifi_8c_a91aeff1220701b1ecdc74ab211de8243} 
-esp\+\_\+netif\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries ap\+\_\+netif}
+esp\+\_\+netif\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{wifi_8c_a91aeff1220701b1ecdc74ab211de8243}{ap\+\_\+netif}}
 \end{DoxyCompactItemize}
 
 
@@ -98,6 +87,93 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{wifi_8c_acc3474cecd2acd1ab6233ec12a17ffc9}\label{wifi_8c_acc3474cecd2acd1ab6233ec12a17ffc9} 
+\index{wifi.c@{wifi.c}!CONFIG\_WIFI\_BASE\_SSID@{CONFIG\_WIFI\_BASE\_SSID}}
+\index{CONFIG\_WIFI\_BASE\_SSID@{CONFIG\_WIFI\_BASE\_SSID}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_WIFI\_BASE\_SSID}{CONFIG\_WIFI\_BASE\_SSID}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+WIFI\+\_\+\+BASE\+\_\+\+SSID~"{}ESP32\+\_\+\+DRONE"{}}
+
+Base SSID for the wifi \Hypertarget{wifi_8c_ad407c5ebd90483b2b2f491973e28ce68}\label{wifi_8c_ad407c5ebd90483b2b2f491973e28ce68} 
+\index{wifi.c@{wifi.c}!CONFIG\_WIFI\_CHANNEL@{CONFIG\_WIFI\_CHANNEL}}
+\index{CONFIG\_WIFI\_CHANNEL@{CONFIG\_WIFI\_CHANNEL}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_WIFI\_CHANNEL}{CONFIG\_WIFI\_CHANNEL}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+WIFI\+\_\+\+CHANNEL~1}
+
+Channel for the wifi \Hypertarget{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e}\label{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e} 
+\index{wifi.c@{wifi.c}!CONFIG\_WIFI\_MAX\_STA\_CONN@{CONFIG\_WIFI\_MAX\_STA\_CONN}}
+\index{CONFIG\_WIFI\_MAX\_STA\_CONN@{CONFIG\_WIFI\_MAX\_STA\_CONN}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_WIFI\_MAX\_STA\_CONN}{CONFIG\_WIFI\_MAX\_STA\_CONN}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN~4}
+
+Maximum number of stations allowed to connect to the ESP32 \Hypertarget{wifi_8c_a8fe00da730b7d9da249655f3446d4c9b}\label{wifi_8c_a8fe00da730b7d9da249655f3446d4c9b} 
+\index{wifi.c@{wifi.c}!CONFIG\_WIFI\_PASSWORD@{CONFIG\_WIFI\_PASSWORD}}
+\index{CONFIG\_WIFI\_PASSWORD@{CONFIG\_WIFI\_PASSWORD}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{CONFIG\_WIFI\_PASSWORD}{CONFIG\_WIFI\_PASSWORD}}
+{\footnotesize\ttfamily \#define CONFIG\+\_\+\+WIFI\+\_\+\+PASSWORD~"{}12345678"{}}
+
+Password for the wifi \Hypertarget{wifi_8c_ac2c75e9db9d384283884551b13125980}\label{wifi_8c_ac2c75e9db9d384283884551b13125980} 
+\index{wifi.c@{wifi.c}!DEBUG\_UPD@{DEBUG\_UPD}}
+\index{DEBUG\_UPD@{DEBUG\_UPD}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_UPD}{DEBUG\_UPD}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+UPD~0}
+
+Flag for debugging UDP reception \Hypertarget{wifi_8c_a40bc1cdca057b24c8083b35a5fd67cd9}\label{wifi_8c_a40bc1cdca057b24c8083b35a5fd67cd9} 
+\index{wifi.c@{wifi.c}!MAC2STR@{MAC2STR}}
+\index{MAC2STR@{MAC2STR}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{MAC2STR}{MAC2STR}}
+{\footnotesize\ttfamily \#define MAC2\+STR(\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})~(a)\mbox{[}0\mbox{]}, (a)\mbox{[}1\mbox{]}, (a)\mbox{[}2\mbox{]}, (a)\mbox{[}3\mbox{]}, (a)\mbox{[}4\mbox{]}, (a)\mbox{[}5\mbox{]}}
+
+Convert MAC address to string \Hypertarget{wifi_8c_ad6e69a2870c8f219cc679677af110849}\label{wifi_8c_ad6e69a2870c8f219cc679677af110849} 
+\index{wifi.c@{wifi.c}!MACSTR@{MACSTR}}
+\index{MACSTR@{MACSTR}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{MACSTR}{MACSTR}}
+{\footnotesize\ttfamily \#define MACSTR~"{}\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x\+:\%02x"{}}
+
+MAC address string \Hypertarget{wifi_8c_a195853c7872a05f3d13e1cdd93ce4709}\label{wifi_8c_a195853c7872a05f3d13e1cdd93ce4709} 
+\index{wifi.c@{wifi.c}!UDP\_RX\_TASK\_PRI@{UDP\_RX\_TASK\_PRI}}
+\index{UDP\_RX\_TASK\_PRI@{UDP\_RX\_TASK\_PRI}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_RX\_TASK\_PRI}{UDP\_RX\_TASK\_PRI}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+PRI~3}
+
+Task priority for reception \Hypertarget{wifi_8c_ab4bb4783e39f9b4ad6f61cd7d3949ab7}\label{wifi_8c_ab4bb4783e39f9b4ad6f61cd7d3949ab7} 
+\index{wifi.c@{wifi.c}!UDP\_RX\_TASK\_STACKSIZE@{UDP\_RX\_TASK\_STACKSIZE}}
+\index{UDP\_RX\_TASK\_STACKSIZE@{UDP\_RX\_TASK\_STACKSIZE}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_RX\_TASK\_STACKSIZE}{UDP\_RX\_TASK\_STACKSIZE}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+RX\+\_\+\+TASK\+\_\+\+STACKSIZE~2048}
+
+Task stack size for reception \Hypertarget{wifi_8c_a0c2c9bc659bddf3164360330d68e977f}\label{wifi_8c_a0c2c9bc659bddf3164360330d68e977f} 
+\index{wifi.c@{wifi.c}!UDP\_SERVER\_BUFFSIZE@{UDP\_SERVER\_BUFFSIZE}}
+\index{UDP\_SERVER\_BUFFSIZE@{UDP\_SERVER\_BUFFSIZE}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_SERVER\_BUFFSIZE}{UDP\_SERVER\_BUFFSIZE}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+SERVER\+\_\+\+BUFFSIZE~128}
+
+Buffer size for the UDP server \Hypertarget{wifi_8c_a9245add78f421992c6f1aff393305143}\label{wifi_8c_a9245add78f421992c6f1aff393305143} 
+\index{wifi.c@{wifi.c}!UDP\_SERVER\_PORT@{UDP\_SERVER\_PORT}}
+\index{UDP\_SERVER\_PORT@{UDP\_SERVER\_PORT}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_SERVER\_PORT}{UDP\_SERVER\_PORT}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+SERVER\+\_\+\+PORT~2390}
+
+Port for the UDP server \Hypertarget{wifi_8c_a088e41711b24a414a01df1c858098958}\label{wifi_8c_a088e41711b24a414a01df1c858098958} 
+\index{wifi.c@{wifi.c}!UDP\_TX\_TASK\_PRI@{UDP\_TX\_TASK\_PRI}}
+\index{UDP\_TX\_TASK\_PRI@{UDP\_TX\_TASK\_PRI}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_TX\_TASK\_PRI}{UDP\_TX\_TASK\_PRI}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+PRI~3}
+
+Task priority for transmission \Hypertarget{wifi_8c_a68c6c19eb1919f16206c81fbdb30c796}\label{wifi_8c_a68c6c19eb1919f16206c81fbdb30c796} 
+\index{wifi.c@{wifi.c}!UDP\_TX\_TASK\_STACKSIZE@{UDP\_TX\_TASK\_STACKSIZE}}
+\index{UDP\_TX\_TASK\_STACKSIZE@{UDP\_TX\_TASK\_STACKSIZE}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{UDP\_TX\_TASK\_STACKSIZE}{UDP\_TX\_TASK\_STACKSIZE}}
+{\footnotesize\ttfamily \#define UDP\+\_\+\+TX\+\_\+\+TASK\+\_\+\+STACKSIZE~2048}
+
+Task stack size for transmission \Hypertarget{wifi_8c_aeec977cc354300cacdfaa2c953546544}\label{wifi_8c_aeec977cc354300cacdfaa2c953546544} 
+\index{wifi.c@{wifi.c}!WIFI\_MAX\_STA\_CONN@{WIFI\_MAX\_STA\_CONN}}
+\index{WIFI\_MAX\_STA\_CONN@{WIFI\_MAX\_STA\_CONN}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{WIFI\_MAX\_STA\_CONN}{WIFI\_MAX\_STA\_CONN}}
+{\footnotesize\ttfamily \#define WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN~\mbox{\hyperlink{wifi_8c_ac12fb648a91c49754e31dd29d078cd6e}{CONFIG\+\_\+\+WIFI\+\_\+\+MAX\+\_\+\+STA\+\_\+\+CONN}}}
+
+Maximum number of stations allowed to connect to the ESP32 
+
 \doxysubsection{Function Documentation}
 \Hypertarget{wifi_8c_acb9eaaba1344fe979dd64403d928d4bc}\label{wifi_8c_acb9eaaba1344fe979dd64403d928d4bc} 
 \index{wifi.c@{wifi.c}!udp\_server\_create@{udp\_server\_create}}
@@ -116,6 +192,44 @@ Create the UDP server.
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 esp\+\_\+err\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{wifi_8c_ae034387a745420b9e0fb968e6e17b415}\label{wifi_8c_ae034387a745420b9e0fb968e6e17b415} 
+\index{wifi.c@{wifi.c}!wifi\_get\_instruction\_blocking@{wifi\_get\_instruction\_blocking}}
+\index{wifi\_get\_instruction\_blocking@{wifi\_get\_instruction\_blocking}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{wifi\_get\_instruction\_blocking()}{wifi\_get\_instruction\_blocking()}}
+{\footnotesize\ttfamily bool wifi\+\_\+get\+\_\+instruction\+\_\+blocking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{instruction }\end{DoxyParamCaption})}
+
+
+
+Get the instruction from the UDP server blocking until it receives data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em instruction} & Pointer to UDP packet to store the instruction \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the instruction was received 
+\end{DoxyReturn}
+\Hypertarget{wifi_8c_a4e957a2af77990095c5ca47c17d24cf1}\label{wifi_8c_a4e957a2af77990095c5ca47c17d24cf1} 
+\index{wifi.c@{wifi.c}!wifi\_send\_data@{wifi\_send\_data}}
+\index{wifi\_send\_data@{wifi\_send\_data}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{wifi\_send\_data()}{wifi\_send\_data()}}
+{\footnotesize\ttfamily bool wifi\+\_\+send\+\_\+data (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{data,  }\item[{uint8\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Send data to the UDP server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & char pointer to the data \\
+\hline
+{\em size} & size of the data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the data was sent 
 \end{DoxyReturn}
 \Hypertarget{wifi_8c_a268202254dfe5becc13bc90bbe7f4d7e}\label{wifi_8c_a268202254dfe5becc13bc90bbe7f4d7e} 
 \index{wifi.c@{wifi.c}!wifiGetDataBlocking@{wifiGetDataBlocking}}
@@ -137,23 +251,28 @@ true
 
 false 
 \end{DoxyReturn}
-\Hypertarget{wifi_8c_a577a89d39c39a1e75b554aad9ed0afe6}\label{wifi_8c_a577a89d39c39a1e75b554aad9ed0afe6} 
-\index{wifi.c@{wifi.c}!wifiSendData@{wifiSendData}}
-\index{wifiSendData@{wifiSendData}!wifi.c@{wifi.c}}
-\doxysubsubsection{\texorpdfstring{wifiSendData()}{wifiSendData()}}
-{\footnotesize\ttfamily bool wifi\+Send\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_u_d_p_packet}{UDPPacket}} \texorpdfstring{$\ast$}{*}}]{out }\end{DoxyParamCaption})}
+\Hypertarget{wifi_8c_a68256baf219f1b8d5cbb7e67a61917f2}\label{wifi_8c_a68256baf219f1b8d5cbb7e67a61917f2} 
+\index{wifi.c@{wifi.c}!wifiIsControllerConnected@{wifiIsControllerConnected}}
+\index{wifiIsControllerConnected@{wifiIsControllerConnected}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{wifiIsControllerConnected()}{wifiIsControllerConnected()}}
+{\footnotesize\ttfamily int wifi\+Is\+Controller\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Send data to the UDP server. 
+Returns if the controller is connected by udp channel. 
 
-
-\begin{DoxyParams}{Parameters}
-{\em out} & UDP packet to send \\
-\hline
-\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true 
 
 false 
 \end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{wifi_8c_a91aeff1220701b1ecdc74ab211de8243}\label{wifi_8c_a91aeff1220701b1ecdc74ab211de8243} 
+\index{wifi.c@{wifi.c}!ap\_netif@{ap\_netif}}
+\index{ap\_netif@{ap\_netif}!wifi.c@{wifi.c}}
+\doxysubsubsection{\texorpdfstring{ap\_netif}{ap\_netif}}
+{\footnotesize\ttfamily esp\+\_\+netif\+\_\+t\texorpdfstring{$\ast$}{*} ap\+\_\+netif}
+
+Access point netif 

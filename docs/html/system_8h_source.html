@@ -136,13 +136,18 @@ $(function(){initNavTree('system_8h_source.html',''); initResizable(); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define SYSTEM_H</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;fsm.h&quot;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keywordtype">void</span> system_task();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *<a class="code hl_function" href="system_8h.html#ab59561e8b51510af29eea869cccacdb8">system_fsm_create</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="astructfsm__t_html"><div class="ttname"><a href="structfsm__t.html">fsm_t</a></div><div class="ttdef"><b>Definition</b> fsm.h:35</div></div>
-<div class="ttc" id="asystem_8h_html_ab59561e8b51510af29eea869cccacdb8"><div class="ttname"><a href="system_8h.html#ab59561e8b51510af29eea869cccacdb8">system_fsm_create</a></div><div class="ttdeci">fsm_t * system_fsm_create()</div><div class="ttdoc">Create the system finite state machine.</div><div class="ttdef"><b>Definition</b> system_fsm.c:60</div></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;driver/gpio.h&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="system_8h.html#a8131714b6d25634105b1122f222dca26">   18</a></span><span class="preprocessor">#define GREEN_LED_PIN GPIO_NUM_2 </span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="system_8h.html#a5a8a44baec34d5355cbfdb6d16786f84">   19</a></span><span class="preprocessor">#define BLUE_LED_PIN GPIO_NUM_19 </span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="system_8h.html#ab16f55d54417647f44dca8b11d988f02">   20</a></span><span class="preprocessor">#define RED_LED_PIN GPIO_NUM_4   </span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> <a class="code hl_function" href="system_8h.html#a649b7bf4953ac740c7139c3b946b77e9">system_task</a>(<span class="keywordtype">void</span> *arg);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *<a class="code hl_function" href="system_8h.html#a83804034b02bb04ea9fa5b4adeccf91b">system_fsm_create</a>(<a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *green_led_fsm, <a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *blue_led_fsm, <a class="code hl_struct" href="structfsm__t.html">fsm_t</a> *red_led_fsm);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="astructfsm__t_html"><div class="ttname"><a href="structfsm__t.html">fsm_t</a></div><div class="ttdoc">Finite state machine structure.</div><div class="ttdef"><b>Definition</b> fsm.h:45</div></div>
+<div class="ttc" id="asystem_8h_html_a649b7bf4953ac740c7139c3b946b77e9"><div class="ttname"><a href="system_8h.html#a649b7bf4953ac740c7139c3b946b77e9">system_task</a></div><div class="ttdeci">void system_task(void *arg)</div><div class="ttdoc">Task for the system.</div><div class="ttdef"><b>Definition</b> system.c:34</div></div>
+<div class="ttc" id="asystem_8h_html_a83804034b02bb04ea9fa5b4adeccf91b"><div class="ttname"><a href="system_8h.html#a83804034b02bb04ea9fa5b4adeccf91b">system_fsm_create</a></div><div class="ttdeci">fsm_t * system_fsm_create(fsm_t *green_led_fsm, fsm_t *blue_led_fsm, fsm_t *red_led_fsm)</div><div class="ttdoc">Create the system finite state machine.</div><div class="ttdef"><b>Definition</b> system_fsm.c:91</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

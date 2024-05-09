@@ -1,5 +1,5 @@
-\doxysection{components/general/pid/pid.c File Reference}
-\hypertarget{pid_8c}{}\label{pid_8c}\index{components/general/pid/pid.c@{components/general/pid/pid.c}}
+\doxysection{components/general/pid\+\_\+control/pid.c File Reference}
+\hypertarget{pid_8c}{}\label{pid_8c}\index{components/general/pid\_control/pid.c@{components/general/pid\_control/pid.c}}
 
 
 Functionality of the PID controller.  
@@ -7,6 +7,12 @@ Functionality of the PID controller.
 
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include "{}pid.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pid_8c_a5313299a8d5ac80d698bd9f5a4f68e78}{MAX\+\_\+\+INTEGRAL\+\_\+\+VALUE}}~20
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,8 +20,12 @@ Functionality of the PID controller.
 \begin{DoxyCompactList}\small\item\em Create a PID object. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{pid_8c_a723976eff0898d5539fd6d39f4417902}{pid\+\_\+destroy}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid)
 \begin{DoxyCompactList}\small\item\em Destroy a PID object. \end{DoxyCompactList}\item 
-float \mbox{\hyperlink{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6}{pid\+\_\+update}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float error)
-\begin{DoxyCompactList}\small\item\em Update the PID controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+double \mbox{\hyperlink{pid_8c_afa2a97ac0e3c6989b0366dc31c712cc2}{pid\+\_\+update}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float error)
+\begin{DoxyCompactList}\small\item\em Update the PID controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8c_a35520a276b4d34eb4b9815c5e51d2018}{pid\+\_\+reset}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid)
+\begin{DoxyCompactList}\small\item\em Reset the PID controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{pid_8c_a41b8e8eafba31386dd9a60fbeb532971}{pid\+\_\+update\+\_\+constants}} (\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}pid, float kp, float ki, float kd)
+\begin{DoxyCompactList}\small\item\em Updates a pid\+\_\+t object with new constants. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -34,6 +44,15 @@ Jose Manuel Bravo
 Copyright (c) 2024 
 \end{DoxyCopyright}
 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{pid_8c_a5313299a8d5ac80d698bd9f5a4f68e78}\label{pid_8c_a5313299a8d5ac80d698bd9f5a4f68e78} 
+\index{pid.c@{pid.c}!MAX\_INTEGRAL\_VALUE@{MAX\_INTEGRAL\_VALUE}}
+\index{MAX\_INTEGRAL\_VALUE@{MAX\_INTEGRAL\_VALUE}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_INTEGRAL\_VALUE}{MAX\_INTEGRAL\_VALUE}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+INTEGRAL\+\_\+\+VALUE~20}
+
+Max value allowed for the integral 
 
 \doxysubsection{Function Documentation}
 \Hypertarget{pid_8c_a88a6f011498a7732b1a8f42ca891bda2}\label{pid_8c_a88a6f011498a7732b1a8f42ca891bda2} 
@@ -73,11 +92,26 @@ Destroy a PID object.
 {\em pid} & PID object \\
 \hline
 \end{DoxyParams}
-\Hypertarget{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6}\label{pid_8c_a87ec06db5dfcaa2cdb168c6a783d9ba6} 
+\Hypertarget{pid_8c_a35520a276b4d34eb4b9815c5e51d2018}\label{pid_8c_a35520a276b4d34eb4b9815c5e51d2018} 
+\index{pid.c@{pid.c}!pid\_reset@{pid\_reset}}
+\index{pid\_reset@{pid\_reset}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{pid\_reset()}{pid\_reset()}}
+{\footnotesize\ttfamily void pid\+\_\+reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid }\end{DoxyParamCaption})}
+
+
+
+Reset the PID controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & PID object \\
+\hline
+\end{DoxyParams}
+\Hypertarget{pid_8c_afa2a97ac0e3c6989b0366dc31c712cc2}\label{pid_8c_afa2a97ac0e3c6989b0366dc31c712cc2} 
 \index{pid.c@{pid.c}!pid\_update@{pid\_update}}
 \index{pid\_update@{pid\_update}!pid.c@{pid.c}}
 \doxysubsubsection{\texorpdfstring{pid\_update()}{pid\_update()}}
-{\footnotesize\ttfamily float pid\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{error }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily double pid\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{error }\end{DoxyParamCaption})}
 
 
 
@@ -91,5 +125,26 @@ Update the PID controller.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-float Value to be applied to the motors 
+uint16\+\_\+t Output of the PID controller. The value should be between a duty cycle. 
 \end{DoxyReturn}
+\Hypertarget{pid_8c_a41b8e8eafba31386dd9a60fbeb532971}\label{pid_8c_a41b8e8eafba31386dd9a60fbeb532971} 
+\index{pid.c@{pid.c}!pid\_update\_constants@{pid\_update\_constants}}
+\index{pid\_update\_constants@{pid\_update\_constants}!pid.c@{pid.c}}
+\doxysubsubsection{\texorpdfstring{pid\_update\_constants()}{pid\_update\_constants()}}
+{\footnotesize\ttfamily void pid\+\_\+update\+\_\+constants (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structpid__data__t}{pid\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{pid,  }\item[{float}]{kp,  }\item[{float}]{ki,  }\item[{float}]{kd }\end{DoxyParamCaption})}
+
+
+
+Updates a pid\+\_\+t object with new constants. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid} & \\
+\hline
+{\em kp} & \\
+\hline
+{\em ki} & \\
+\hline
+{\em kd} & \\
+\hline
+\end{DoxyParams}

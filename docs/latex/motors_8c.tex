@@ -5,44 +5,85 @@
 Contains the functionality for controlling the drone motors.  
 
 
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+timer.\+h"{}}\newline
+{\ttfamily \#include "{}driver/gpio.\+h"{}}\newline
+{\ttfamily \#include "{}driver/ledc.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
 {\ttfamily \#include "{}motors.\+h"{}}\newline
 {\ttfamily \#include "{}pid.\+h"{}}\newline
+{\ttfamily \#include "{}controller.\+h"{}}\newline
+{\ttfamily \#include "{}sensors.\+h"{}}\newline
+{\ttfamily \#include "{}wifi.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{motors_8c_afd3476572dee5126a8ee3b25d428f7be}\label{motors_8c_afd3476572dee5126a8ee3b25d428f7be} 
-\#define {\bfseries PITCH\+\_\+\+KP}~1
+\#define \mbox{\hyperlink{motors_8c_afd3476572dee5126a8ee3b25d428f7be}{PITCH\+\_\+\+KP}}~0.\+08
 \item 
-\Hypertarget{motors_8c_ad5f44db51ef15d5f040408d6fb530983}\label{motors_8c_ad5f44db51ef15d5f040408d6fb530983} 
-\#define {\bfseries PITCH\+\_\+\+KI}~0
+\#define \mbox{\hyperlink{motors_8c_ad5f44db51ef15d5f040408d6fb530983}{PITCH\+\_\+\+KI}}~0.\+04
 \item 
-\Hypertarget{motors_8c_a3244bae9859f42f7ecc38ada03846e5f}\label{motors_8c_a3244bae9859f42f7ecc38ada03846e5f} 
-\#define {\bfseries PITCH\+\_\+\+KD}~0
+\#define \mbox{\hyperlink{motors_8c_a3244bae9859f42f7ecc38ada03846e5f}{PITCH\+\_\+\+KD}}~0
 \item 
-\Hypertarget{motors_8c_aa525784ca76f13fcf3f5153ad3fac2cd}\label{motors_8c_aa525784ca76f13fcf3f5153ad3fac2cd} 
-\#define {\bfseries ROLL\+\_\+\+KP}~1
+\#define \mbox{\hyperlink{motors_8c_aa525784ca76f13fcf3f5153ad3fac2cd}{ROLL\+\_\+\+KP}}~0.\+1
 \item 
-\Hypertarget{motors_8c_ad652c0868411f27cf9db04bab3242ba2}\label{motors_8c_ad652c0868411f27cf9db04bab3242ba2} 
-\#define {\bfseries ROLL\+\_\+\+KI}~0
+\#define \mbox{\hyperlink{motors_8c_ad652c0868411f27cf9db04bab3242ba2}{ROLL\+\_\+\+KI}}~0.\+07
 \item 
-\Hypertarget{motors_8c_a9db8dab9e2d41a1dd5475662d84353d4}\label{motors_8c_a9db8dab9e2d41a1dd5475662d84353d4} 
-\#define {\bfseries ROLL\+\_\+\+KD}~0
+\#define \mbox{\hyperlink{motors_8c_a9db8dab9e2d41a1dd5475662d84353d4}{ROLL\+\_\+\+KD}}~0.\+005
 \item 
-\Hypertarget{motors_8c_ad8e8d21fecf19b9934ff9658bdd7673d}\label{motors_8c_ad8e8d21fecf19b9934ff9658bdd7673d} 
-\#define {\bfseries YAW\+\_\+\+KP}~1
+\#define \mbox{\hyperlink{motors_8c_ad8e8d21fecf19b9934ff9658bdd7673d}{YAW\+\_\+\+KP}}~0.\+01
 \item 
-\Hypertarget{motors_8c_ae8149ffd6246b8b2fd2b2ac985cbe299}\label{motors_8c_ae8149ffd6246b8b2fd2b2ac985cbe299} 
-\#define {\bfseries YAW\+\_\+\+KI}~0
+\#define \mbox{\hyperlink{motors_8c_ae8149ffd6246b8b2fd2b2ac985cbe299}{YAW\+\_\+\+KI}}~0
 \item 
-\Hypertarget{motors_8c_a65fdd35536f162217009ad1ff74cf1ae}\label{motors_8c_a65fdd35536f162217009ad1ff74cf1ae} 
-\#define {\bfseries YAW\+\_\+\+KD}~0
+\#define \mbox{\hyperlink{motors_8c_a65fdd35536f162217009ad1ff74cf1ae}{YAW\+\_\+\+KD}}~0
+\item 
+\#define \mbox{\hyperlink{motors_8c_a74d5fe7ba943c118658c452e82c6c3c5}{PWM\+\_\+\+PERIOD\+\_\+\+MS}}~3
+\item 
+\#define \mbox{\hyperlink{motors_8c_a56e165627f596c2f42f843ae6571de0e}{PWM\+\_\+\+FREQ\+\_\+\+HZ}}~1000 / \mbox{\hyperlink{motors_8c_a74d5fe7ba943c118658c452e82c6c3c5}{PWM\+\_\+\+PERIOD\+\_\+\+MS}}
+\item 
+\#define \mbox{\hyperlink{motors_8c_a409b508b0fb15e169dcb3d8efd4b52a6}{MOTOR\+\_\+\+MIN\+\_\+\+US}}~1000
+\item 
+\#define \mbox{\hyperlink{motors_8c_a688e33800b11985c143d26587f134b41}{MOTOR\+\_\+\+MAX\+\_\+\+US}}~2000
+\item 
+\#define \mbox{\hyperlink{motors_8c_a150f0a256648d7b97768a47534f62a01}{THROTTLE\+\_\+\+MAX}}~80
+\item 
+\#define \mbox{\hyperlink{motors_8c_a7e0eea1bd9e61520c1374fa3a986e706}{MOTOR1\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+18
+\item 
+\#define \mbox{\hyperlink{motors_8c_ace060db125055131dc1384dcf2684db6}{MOTOR2\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+5
+\item 
+\#define \mbox{\hyperlink{motors_8c_adbfe9e9e285db9135f7182c05afd56e3}{MOTOR3\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+17
+\item 
+\#define \mbox{\hyperlink{motors_8c_a91e74ae8fae3b623a8fba2f687b62942}{MOTOR4\+\_\+\+PIN}}~GPIO\+\_\+\+NUM\+\_\+16
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+\Hypertarget{motors_8c_a0b70d46a9014701e1836fb28651e908f}\label{motors_8c_a0b70d46a9014701e1836fb28651e908f} 
+void {\bfseries \+\_\+motors\+\_\+ledc\+\_\+init} ()
+\begin{DoxyCompactList}\small\item\em Inits the LEDC module (PWM signals) \end{DoxyCompactList}\item 
 \Hypertarget{motors_8c_ad522af7d5cf6fcbf8e873cb7a91df8f3}\label{motors_8c_ad522af7d5cf6fcbf8e873cb7a91df8f3} 
 void {\bfseries motors\+\_\+init} ()
-\begin{DoxyCompactList}\small\item\em Inits all the motors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Inits all the motors. \end{DoxyCompactList}\item 
+\Hypertarget{motors_8c_ac8ef5b4991907a39280c4a86518680bf}\label{motors_8c_ac8ef5b4991907a39280c4a86518680bf} 
+void {\bfseries motors\+\_\+deinit} ()
+\begin{DoxyCompactList}\small\item\em Deinits all the motors. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{motors_8c_aaf118ca4fcc6850b15b9e47c3c64d90d}{motors\+\_\+update\+\_\+pid\+\_\+constants}} (uint8\+\_\+t pid\+\_\+number, float kp, float ki, float kd)
+\begin{DoxyCompactList}\small\item\em Update the PID constants for a specific PID controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8c_af14211ac3a889c0f4292b0144d1434af}{normalize\+\_\+thrust\+\_\+value}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}thrust)
+\begin{DoxyCompactList}\small\item\em Normalize the thrust to make it a percentage between 0 and THROTTLE\+\_\+\+MAX. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8c_aa3186097c1de2202ef538432d0e9ebb8}{normalize\+\_\+motor\+\_\+duties}} (double \texorpdfstring{$\ast$}{*}motor\+\_\+duties)
+\begin{DoxyCompactList}\small\item\em Normalize the motor overall value to fit the range (MOTOR\+\_\+\+MIN\+\_\+\+DUTY, MOTOR\+\_\+\+MAX\+\_\+\+DUTY) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8c_a7408acf874e3ba752d70c626ad2555d7}{motors\+\_\+update\+\_\+duties}} (double \texorpdfstring{$\ast$}{*}motor\+\_\+speeds)
+\begin{DoxyCompactList}\small\item\em Change the duties of the motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8c_a438c7c164e625e480f6131478a59956a}{motors\+\_\+update}} (\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} command, \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} drone\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Update the motors. \end{DoxyCompactList}\item 
+\Hypertarget{motors_8c_aa710e3e7cc10641491e56644a6cf44a0}\label{motors_8c_aa710e3e7cc10641491e56644a6cf44a0} 
+void {\bfseries motors\+\_\+reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the motors. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -60,3 +101,212 @@ Jose Manuel Bravo
 \begin{DoxyCopyright}{Copyright}
 Copyright (c) 2024 
 \end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{motors_8c_a7e0eea1bd9e61520c1374fa3a986e706}\label{motors_8c_a7e0eea1bd9e61520c1374fa3a986e706} 
+\index{motors.c@{motors.c}!MOTOR1\_PIN@{MOTOR1\_PIN}}
+\index{MOTOR1\_PIN@{MOTOR1\_PIN}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR1\_PIN}{MOTOR1\_PIN}}
+{\footnotesize\ttfamily \#define MOTOR1\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+18}
+
+Pin for motor 1 \Hypertarget{motors_8c_ace060db125055131dc1384dcf2684db6}\label{motors_8c_ace060db125055131dc1384dcf2684db6} 
+\index{motors.c@{motors.c}!MOTOR2\_PIN@{MOTOR2\_PIN}}
+\index{MOTOR2\_PIN@{MOTOR2\_PIN}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR2\_PIN}{MOTOR2\_PIN}}
+{\footnotesize\ttfamily \#define MOTOR2\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+5}
+
+Pin for motor 2 \Hypertarget{motors_8c_adbfe9e9e285db9135f7182c05afd56e3}\label{motors_8c_adbfe9e9e285db9135f7182c05afd56e3} 
+\index{motors.c@{motors.c}!MOTOR3\_PIN@{MOTOR3\_PIN}}
+\index{MOTOR3\_PIN@{MOTOR3\_PIN}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR3\_PIN}{MOTOR3\_PIN}}
+{\footnotesize\ttfamily \#define MOTOR3\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+17}
+
+Pin for motor 3 \Hypertarget{motors_8c_a91e74ae8fae3b623a8fba2f687b62942}\label{motors_8c_a91e74ae8fae3b623a8fba2f687b62942} 
+\index{motors.c@{motors.c}!MOTOR4\_PIN@{MOTOR4\_PIN}}
+\index{MOTOR4\_PIN@{MOTOR4\_PIN}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR4\_PIN}{MOTOR4\_PIN}}
+{\footnotesize\ttfamily \#define MOTOR4\+\_\+\+PIN~GPIO\+\_\+\+NUM\+\_\+16}
+
+Pin for motor 4 \Hypertarget{motors_8c_a688e33800b11985c143d26587f134b41}\label{motors_8c_a688e33800b11985c143d26587f134b41} 
+\index{motors.c@{motors.c}!MOTOR\_MAX\_US@{MOTOR\_MAX\_US}}
+\index{MOTOR\_MAX\_US@{MOTOR\_MAX\_US}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_MAX\_US}{MOTOR\_MAX\_US}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+MAX\+\_\+\+US~2000}
+
+Maximum value for the motors \Hypertarget{motors_8c_a409b508b0fb15e169dcb3d8efd4b52a6}\label{motors_8c_a409b508b0fb15e169dcb3d8efd4b52a6} 
+\index{motors.c@{motors.c}!MOTOR\_MIN\_US@{MOTOR\_MIN\_US}}
+\index{MOTOR\_MIN\_US@{MOTOR\_MIN\_US}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_MIN\_US}{MOTOR\_MIN\_US}}
+{\footnotesize\ttfamily \#define MOTOR\+\_\+\+MIN\+\_\+\+US~1000}
+
+Minimum value for the motors \Hypertarget{motors_8c_a3244bae9859f42f7ecc38ada03846e5f}\label{motors_8c_a3244bae9859f42f7ecc38ada03846e5f} 
+\index{motors.c@{motors.c}!PITCH\_KD@{PITCH\_KD}}
+\index{PITCH\_KD@{PITCH\_KD}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{PITCH\_KD}{PITCH\_KD}}
+{\footnotesize\ttfamily \#define PITCH\+\_\+\+KD~0}
+
+Derivative constant for the pith PID controller \Hypertarget{motors_8c_ad5f44db51ef15d5f040408d6fb530983}\label{motors_8c_ad5f44db51ef15d5f040408d6fb530983} 
+\index{motors.c@{motors.c}!PITCH\_KI@{PITCH\_KI}}
+\index{PITCH\_KI@{PITCH\_KI}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{PITCH\_KI}{PITCH\_KI}}
+{\footnotesize\ttfamily \#define PITCH\+\_\+\+KI~0.\+04}
+
+Integral constant for the pith PID controller \Hypertarget{motors_8c_afd3476572dee5126a8ee3b25d428f7be}\label{motors_8c_afd3476572dee5126a8ee3b25d428f7be} 
+\index{motors.c@{motors.c}!PITCH\_KP@{PITCH\_KP}}
+\index{PITCH\_KP@{PITCH\_KP}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{PITCH\_KP}{PITCH\_KP}}
+{\footnotesize\ttfamily \#define PITCH\+\_\+\+KP~0.\+08}
+
+Proportional constant for the pith PID controller \Hypertarget{motors_8c_a56e165627f596c2f42f843ae6571de0e}\label{motors_8c_a56e165627f596c2f42f843ae6571de0e} 
+\index{motors.c@{motors.c}!PWM\_FREQ\_HZ@{PWM\_FREQ\_HZ}}
+\index{PWM\_FREQ\_HZ@{PWM\_FREQ\_HZ}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{PWM\_FREQ\_HZ}{PWM\_FREQ\_HZ}}
+{\footnotesize\ttfamily \#define PWM\+\_\+\+FREQ\+\_\+\+HZ~1000 / \mbox{\hyperlink{motors_8c_a74d5fe7ba943c118658c452e82c6c3c5}{PWM\+\_\+\+PERIOD\+\_\+\+MS}}}
+
+Frequency of the PWM signal \Hypertarget{motors_8c_a74d5fe7ba943c118658c452e82c6c3c5}\label{motors_8c_a74d5fe7ba943c118658c452e82c6c3c5} 
+\index{motors.c@{motors.c}!PWM\_PERIOD\_MS@{PWM\_PERIOD\_MS}}
+\index{PWM\_PERIOD\_MS@{PWM\_PERIOD\_MS}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{PWM\_PERIOD\_MS}{PWM\_PERIOD\_MS}}
+{\footnotesize\ttfamily \#define PWM\+\_\+\+PERIOD\+\_\+\+MS~3}
+
+Period of the PWM signal \Hypertarget{motors_8c_a9db8dab9e2d41a1dd5475662d84353d4}\label{motors_8c_a9db8dab9e2d41a1dd5475662d84353d4} 
+\index{motors.c@{motors.c}!ROLL\_KD@{ROLL\_KD}}
+\index{ROLL\_KD@{ROLL\_KD}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{ROLL\_KD}{ROLL\_KD}}
+{\footnotesize\ttfamily \#define ROLL\+\_\+\+KD~0.\+005}
+
+Due to the symmetry of the drone \Hypertarget{motors_8c_ad652c0868411f27cf9db04bab3242ba2}\label{motors_8c_ad652c0868411f27cf9db04bab3242ba2} 
+\index{motors.c@{motors.c}!ROLL\_KI@{ROLL\_KI}}
+\index{ROLL\_KI@{ROLL\_KI}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{ROLL\_KI}{ROLL\_KI}}
+{\footnotesize\ttfamily \#define ROLL\+\_\+\+KI~0.\+07}
+
+Due to the symmetry of the drone \Hypertarget{motors_8c_aa525784ca76f13fcf3f5153ad3fac2cd}\label{motors_8c_aa525784ca76f13fcf3f5153ad3fac2cd} 
+\index{motors.c@{motors.c}!ROLL\_KP@{ROLL\_KP}}
+\index{ROLL\_KP@{ROLL\_KP}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{ROLL\_KP}{ROLL\_KP}}
+{\footnotesize\ttfamily \#define ROLL\+\_\+\+KP~0.\+1}
+
+Due to the symmetry of the drone \Hypertarget{motors_8c_a150f0a256648d7b97768a47534f62a01}\label{motors_8c_a150f0a256648d7b97768a47534f62a01} 
+\index{motors.c@{motors.c}!THROTTLE\_MAX@{THROTTLE\_MAX}}
+\index{THROTTLE\_MAX@{THROTTLE\_MAX}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{THROTTLE\_MAX}{THROTTLE\_MAX}}
+{\footnotesize\ttfamily \#define THROTTLE\+\_\+\+MAX~80}
+
+Maximum value for the throttle. Should be lower than MOTOR\+\_\+\+MAX \Hypertarget{motors_8c_a65fdd35536f162217009ad1ff74cf1ae}\label{motors_8c_a65fdd35536f162217009ad1ff74cf1ae} 
+\index{motors.c@{motors.c}!YAW\_KD@{YAW\_KD}}
+\index{YAW\_KD@{YAW\_KD}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{YAW\_KD}{YAW\_KD}}
+{\footnotesize\ttfamily \#define YAW\+\_\+\+KD~0}
+
+Derivative constant for the yaw PID controller \Hypertarget{motors_8c_ae8149ffd6246b8b2fd2b2ac985cbe299}\label{motors_8c_ae8149ffd6246b8b2fd2b2ac985cbe299} 
+\index{motors.c@{motors.c}!YAW\_KI@{YAW\_KI}}
+\index{YAW\_KI@{YAW\_KI}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{YAW\_KI}{YAW\_KI}}
+{\footnotesize\ttfamily \#define YAW\+\_\+\+KI~0}
+
+Integral constant for the yaw PID controller \Hypertarget{motors_8c_ad8e8d21fecf19b9934ff9658bdd7673d}\label{motors_8c_ad8e8d21fecf19b9934ff9658bdd7673d} 
+\index{motors.c@{motors.c}!YAW\_KP@{YAW\_KP}}
+\index{YAW\_KP@{YAW\_KP}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{YAW\_KP}{YAW\_KP}}
+{\footnotesize\ttfamily \#define YAW\+\_\+\+KP~0.\+01}
+
+Proportional constant for the yaw PID controller ~\newline
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{motors_8c_a438c7c164e625e480f6131478a59956a}\label{motors_8c_a438c7c164e625e480f6131478a59956a} 
+\index{motors.c@{motors.c}!motors\_update@{motors\_update}}
+\index{motors\_update@{motors\_update}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors\_update()}{motors\_update()}}
+{\footnotesize\ttfamily void motors\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcommand__t}{command\+\_\+t}}}]{command,  }\item[{\mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}}}]{drone\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Update the motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command to be executed \\
+\hline
+{\em drone\+\_\+data} & Data from the drone\\
+\hline
+\end{DoxyParams}
+MOTORS CONFIGURATION \begin{DoxyVerb}   1   2
+    \ /
+     X
+    / \
+   4   3
+\end{DoxyVerb}
+ \Hypertarget{motors_8c_a7408acf874e3ba752d70c626ad2555d7}\label{motors_8c_a7408acf874e3ba752d70c626ad2555d7} 
+\index{motors.c@{motors.c}!motors\_update\_duties@{motors\_update\_duties}}
+\index{motors\_update\_duties@{motors\_update\_duties}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors\_update\_duties()}{motors\_update\_duties()}}
+{\footnotesize\ttfamily void motors\+\_\+update\+\_\+duties (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{motor\+\_\+speeds }\end{DoxyParamCaption})}
+
+
+
+Change the duties of the motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+\_\+speeds} & Motor speeds as a percentage \\
+\hline
+\end{DoxyParams}
+\Hypertarget{motors_8c_aaf118ca4fcc6850b15b9e47c3c64d90d}\label{motors_8c_aaf118ca4fcc6850b15b9e47c3c64d90d} 
+\index{motors.c@{motors.c}!motors\_update\_pid\_constants@{motors\_update\_pid\_constants}}
+\index{motors\_update\_pid\_constants@{motors\_update\_pid\_constants}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{motors\_update\_pid\_constants()}{motors\_update\_pid\_constants()}}
+{\footnotesize\ttfamily bool motors\+\_\+update\+\_\+pid\+\_\+constants (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{pid\+\_\+number,  }\item[{float}]{kp,  }\item[{float}]{ki,  }\item[{float}]{kd }\end{DoxyParamCaption})}
+
+
+
+Update the PID constants for a specific PID controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid\+\_\+number} & PID controller number (1\+: pitch, 2\+: roll, 3\+: yaw) \\
+\hline
+{\em kp} & Proportional constant \\
+\hline
+{\em ki} & Integral constant \\
+\hline
+{\em kd} & Derivative constant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\Hypertarget{motors_8c_aa3186097c1de2202ef538432d0e9ebb8}\label{motors_8c_aa3186097c1de2202ef538432d0e9ebb8} 
+\index{motors.c@{motors.c}!normalize\_motor\_duties@{normalize\_motor\_duties}}
+\index{normalize\_motor\_duties@{normalize\_motor\_duties}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{normalize\_motor\_duties()}{normalize\_motor\_duties()}}
+{\footnotesize\ttfamily void normalize\+\_\+motor\+\_\+duties (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{motor\+\_\+duties }\end{DoxyParamCaption})}
+
+
+
+Normalize the motor overall value to fit the range (MOTOR\+\_\+\+MIN\+\_\+\+DUTY, MOTOR\+\_\+\+MAX\+\_\+\+DUTY) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+\_\+duties} & Duties for the motors \\
+\hline
+\end{DoxyParams}
+\Hypertarget{motors_8c_af14211ac3a889c0f4292b0144d1434af}\label{motors_8c_af14211ac3a889c0f4292b0144d1434af} 
+\index{motors.c@{motors.c}!normalize\_thrust\_value@{normalize\_thrust\_value}}
+\index{normalize\_thrust\_value@{normalize\_thrust\_value}!motors.c@{motors.c}}
+\doxysubsubsection{\texorpdfstring{normalize\_thrust\_value()}{normalize\_thrust\_value()}}
+{\footnotesize\ttfamily void normalize\+\_\+thrust\+\_\+value (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{thrust }\end{DoxyParamCaption})}
+
+
+
+Normalize the thrust to make it a percentage between 0 and THROTTLE\+\_\+\+MAX. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em thrust} & Throttle value, expected to be between 0 and 1000 \\
+\hline
+\end{DoxyParams}

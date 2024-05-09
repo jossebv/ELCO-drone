@@ -7,47 +7,36 @@ Driver for the MPU6050 sensor.
 
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
 {\ttfamily \#include "{}mpu6050.\+h"{}}\newline
 {\ttfamily \#include "{}driver/i2c.\+h"{}}\newline
 {\ttfamily \#include "{}sdkconfig.\+h"{}}\newline
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508}\label{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508} 
-\#define {\bfseries MPU6050\+\_\+\+ADDR}~0x68
+\#define \mbox{\hyperlink{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508}{MPU6050\+\_\+\+ADDR}}~0x68
 \item 
-\Hypertarget{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1}\label{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1} 
-\#define {\bfseries MPU6050\+\_\+\+GYRO\+\_\+\+CONFIG\+\_\+\+REG}~0x1B
+\#define \mbox{\hyperlink{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1}{MPU6050\+\_\+\+GYRO\+\_\+\+CONFIG\+\_\+\+REG}}~0x1B
 \item 
-\Hypertarget{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372}\label{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372} 
-\#define {\bfseries MPU6050\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}~0x43
+\#define \mbox{\hyperlink{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372}{MPU6050\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}}~0x43
 \item 
-\Hypertarget{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600}\label{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600} 
-\#define {\bfseries MPU6050\+\_\+\+ACCEL\+\_\+\+CONFIG\+\_\+\+REG}~0x1C
+\#define \mbox{\hyperlink{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600}{MPU6050\+\_\+\+ACCEL\+\_\+\+CONFIG\+\_\+\+REG}}~0x1C
 \item 
-\Hypertarget{mpu6050_8c_aeab81c73034a21153b844f22a0014014}\label{mpu6050_8c_aeab81c73034a21153b844f22a0014014} 
-\#define {\bfseries MPU6050\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}~0x3B
+\#define \mbox{\hyperlink{mpu6050_8c_aeab81c73034a21153b844f22a0014014}{MPU6050\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG}}~0x3B
 \item 
-\Hypertarget{mpu6050_8c_ac8e6174d5a02ed531329494959e57304}\label{mpu6050_8c_ac8e6174d5a02ed531329494959e57304} 
-\#define {\bfseries MPU6050\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+REG}~0x6B
+\#define \mbox{\hyperlink{mpu6050_8c_ac8e6174d5a02ed531329494959e57304}{MPU6050\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+REG}}~0x6B
 \item 
-\Hypertarget{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315}\label{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315} 
-\#define {\bfseries MPU6050\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+\+REG}~0x19
+\#define \mbox{\hyperlink{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315}{MPU6050\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+\+REG}}~0x19
 \item 
-\Hypertarget{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65}\label{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65} 
-\#define {\bfseries MPU6050\+\_\+\+CONFIG\+\_\+\+REG}~0x1A
+\#define \mbox{\hyperlink{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65}{MPU6050\+\_\+\+CONFIG\+\_\+\+REG}}~0x1A
 \item 
-\Hypertarget{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3}\label{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3} 
-\#define {\bfseries PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+RESET\+\_\+\+MASK}~0\+X1 $<$$<$ 7
+\#define \mbox{\hyperlink{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3}{PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+RESET\+\_\+\+MASK}}~0\+X1 $<$$<$ 7
 \item 
-\Hypertarget{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac}\label{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac} 
-\#define {\bfseries PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+SLEEP\+\_\+\+MASK}~0\+X1 $<$$<$ 6
+\#define \mbox{\hyperlink{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac}{PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+SLEEP\+\_\+\+MASK}}~0\+X1 $<$$<$ 6
 \item 
-\Hypertarget{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f}\label{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f} 
-\#define {\bfseries GYRO\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2000}~0x18
+\#define \mbox{\hyperlink{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f}{GYRO\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2000}}~0x18
 \item 
-\Hypertarget{mpu6050_8c_a073a33d8d1006874168c2c87b599e208}\label{mpu6050_8c_a073a33d8d1006874168c2c87b599e208} 
-\#define {\bfseries ACCEL\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2G}~0x00
+\#define \mbox{\hyperlink{mpu6050_8c_a073a33d8d1006874168c2c87b599e208}{ACCEL\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2G}}~0x00
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -86,9 +75,8 @@ void {\bfseries mpu6050\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Reads the gyro data. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3}{mpu6050\+\_\+read\+\_\+accelerometer}} ()
 \begin{DoxyCompactList}\small\item\em Reads the accelerometer data. \end{DoxyCompactList}\item 
-\Hypertarget{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea} 
-void {\bfseries mpu6050\+\_\+calibrate} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea}{mpu6050\+\_\+calibrate}} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\begin{DoxyCompactList}\small\item\em Calibrates the sensor adding the offsets to the current values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -108,7 +96,101 @@ Copyright (c) 2024
 \end{DoxyCopyright}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{mpu6050_8c_a073a33d8d1006874168c2c87b599e208}\label{mpu6050_8c_a073a33d8d1006874168c2c87b599e208} 
+\index{mpu6050.c@{mpu6050.c}!ACCEL\_CONFIG\_NO\_TEST\_FS\_2G@{ACCEL\_CONFIG\_NO\_TEST\_FS\_2G}}
+\index{ACCEL\_CONFIG\_NO\_TEST\_FS\_2G@{ACCEL\_CONFIG\_NO\_TEST\_FS\_2G}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{ACCEL\_CONFIG\_NO\_TEST\_FS\_2G}{ACCEL\_CONFIG\_NO\_TEST\_FS\_2G}}
+{\footnotesize\ttfamily \#define ACCEL\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2G~0x00}
+
+Mask for full scale of 2G on accelerometers \Hypertarget{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f}\label{mpu6050_8c_aed6c5a7bd128a1b91715838ef1490c7f} 
+\index{mpu6050.c@{mpu6050.c}!GYRO\_CONFIG\_NO\_TEST\_FS\_2000@{GYRO\_CONFIG\_NO\_TEST\_FS\_2000}}
+\index{GYRO\_CONFIG\_NO\_TEST\_FS\_2000@{GYRO\_CONFIG\_NO\_TEST\_FS\_2000}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{GYRO\_CONFIG\_NO\_TEST\_FS\_2000}{GYRO\_CONFIG\_NO\_TEST\_FS\_2000}}
+{\footnotesize\ttfamily \#define GYRO\+\_\+\+CONFIG\+\_\+\+NO\+\_\+\+TEST\+\_\+\+FS\+\_\+2000~0x18}
+
+Mask for full scale of 2000 degrees per second on gyroscopes \Hypertarget{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600}\label{mpu6050_8c_a5554ecebfe3505952bcf8c08236b8600} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_ACCEL\_CONFIG\_REG@{MPU6050\_ACCEL\_CONFIG\_REG}}
+\index{MPU6050\_ACCEL\_CONFIG\_REG@{MPU6050\_ACCEL\_CONFIG\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_ACCEL\_CONFIG\_REG}{MPU6050\_ACCEL\_CONFIG\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+ACCEL\+\_\+\+CONFIG\+\_\+\+REG~0x1C}
+
+Address of ACCEL\+\_\+\+CONFIG register \Hypertarget{mpu6050_8c_aeab81c73034a21153b844f22a0014014}\label{mpu6050_8c_aeab81c73034a21153b844f22a0014014} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_ACCEL\_XOUT\_H\_REG@{MPU6050\_ACCEL\_XOUT\_H\_REG}}
+\index{MPU6050\_ACCEL\_XOUT\_H\_REG@{MPU6050\_ACCEL\_XOUT\_H\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_ACCEL\_XOUT\_H\_REG}{MPU6050\_ACCEL\_XOUT\_H\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+ACCEL\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG~0x3B}
+
+Address of ACCEL\+\_\+\+XOUT\+\_\+H register \Hypertarget{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508}\label{mpu6050_8c_ad4d6255d8f7e5dc770e773b787977508} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_ADDR@{MPU6050\_ADDR}}
+\index{MPU6050\_ADDR@{MPU6050\_ADDR}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_ADDR}{MPU6050\_ADDR}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+ADDR~0x68}
+
+Address of the MPU6050 sensor \Hypertarget{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65}\label{mpu6050_8c_a2ffd1f39961f1c9f2a97e60be4efce65} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_CONFIG\_REG@{MPU6050\_CONFIG\_REG}}
+\index{MPU6050\_CONFIG\_REG@{MPU6050\_CONFIG\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_CONFIG\_REG}{MPU6050\_CONFIG\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+CONFIG\+\_\+\+REG~0x1A}
+
+Address of CONFIG register \Hypertarget{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1}\label{mpu6050_8c_a6659bbde3b9ef9d139758a467fcb3ec1} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_GYRO\_CONFIG\_REG@{MPU6050\_GYRO\_CONFIG\_REG}}
+\index{MPU6050\_GYRO\_CONFIG\_REG@{MPU6050\_GYRO\_CONFIG\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_GYRO\_CONFIG\_REG}{MPU6050\_GYRO\_CONFIG\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+GYRO\+\_\+\+CONFIG\+\_\+\+REG~0x1B}
+
+Address of GYRO\+\_\+\+CONFIG register \Hypertarget{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372}\label{mpu6050_8c_aeae6c0fbc47aa2c613342fce2cc45372} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_GYRO\_XOUT\_H\_REG@{MPU6050\_GYRO\_XOUT\_H\_REG}}
+\index{MPU6050\_GYRO\_XOUT\_H\_REG@{MPU6050\_GYRO\_XOUT\_H\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_GYRO\_XOUT\_H\_REG}{MPU6050\_GYRO\_XOUT\_H\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+GYRO\+\_\+\+XOUT\+\_\+\+H\+\_\+\+REG~0x43}
+
+Address of GYRO\+\_\+\+XOUT\+\_\+H register \Hypertarget{mpu6050_8c_ac8e6174d5a02ed531329494959e57304}\label{mpu6050_8c_ac8e6174d5a02ed531329494959e57304} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_PWR\_MGMT\_1\_REG@{MPU6050\_PWR\_MGMT\_1\_REG}}
+\index{MPU6050\_PWR\_MGMT\_1\_REG@{MPU6050\_PWR\_MGMT\_1\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_PWR\_MGMT\_1\_REG}{MPU6050\_PWR\_MGMT\_1\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+REG~0x6B}
+
+Address of PWR\+\_\+\+MGMT\+\_\+1 register \Hypertarget{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315}\label{mpu6050_8c_a8264ea96144f5fa98bd1a22ceb590315} 
+\index{mpu6050.c@{mpu6050.c}!MPU6050\_SMPLRT\_DIV\_REG@{MPU6050\_SMPLRT\_DIV\_REG}}
+\index{MPU6050\_SMPLRT\_DIV\_REG@{MPU6050\_SMPLRT\_DIV\_REG}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{MPU6050\_SMPLRT\_DIV\_REG}{MPU6050\_SMPLRT\_DIV\_REG}}
+{\footnotesize\ttfamily \#define MPU6050\+\_\+\+SMPLRT\+\_\+\+DIV\+\_\+\+REG~0x19}
+
+Address of SMPLRT\+\_\+\+DIV register \Hypertarget{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3}\label{mpu6050_8c_ab0b695393aa19afdbac44b84c234eee3} 
+\index{mpu6050.c@{mpu6050.c}!PWR\_MGMT\_1\_DEVICE\_RESET\_MASK@{PWR\_MGMT\_1\_DEVICE\_RESET\_MASK}}
+\index{PWR\_MGMT\_1\_DEVICE\_RESET\_MASK@{PWR\_MGMT\_1\_DEVICE\_RESET\_MASK}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{PWR\_MGMT\_1\_DEVICE\_RESET\_MASK}{PWR\_MGMT\_1\_DEVICE\_RESET\_MASK}}
+{\footnotesize\ttfamily \#define PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+RESET\+\_\+\+MASK~0\+X1 $<$$<$ 7}
+
+Reset device \Hypertarget{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac}\label{mpu6050_8c_aa3c5775de768f57e28c543b2dd2c1eac} 
+\index{mpu6050.c@{mpu6050.c}!PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK@{PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK}}
+\index{PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK@{PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK}{PWR\_MGMT\_1\_DEVICE\_SLEEP\_MASK}}
+{\footnotesize\ttfamily \#define PWR\+\_\+\+MGMT\+\_\+1\+\_\+\+DEVICE\+\_\+\+SLEEP\+\_\+\+MASK~0\+X1 $<$$<$ 6}
+
+Sleep mode 
+
 \doxysubsection{Function Documentation}
+\Hypertarget{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8c_a3ec19abb8479cfffc714317ac03006ea} 
+\index{mpu6050.c@{mpu6050.c}!mpu6050\_calibrate@{mpu6050\_calibrate}}
+\index{mpu6050\_calibrate@{mpu6050\_calibrate}!mpu6050.c@{mpu6050.c}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_calibrate()}{mpu6050\_calibrate()}}
+{\footnotesize\ttfamily void mpu6050\+\_\+calibrate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}}}]{gyro\+\_\+offsets,  }\item[{\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}}}]{acc\+\_\+offsets }\end{DoxyParamCaption})}
+
+
+
+Calibrates the sensor adding the offsets to the current values. 
+
+Is divided by 2 to help the convergence of the calibration
+
+
+\begin{DoxyParams}{Parameters}
+{\em gyro\+\_\+offsets} & \\
+\hline
+{\em acc\+\_\+offsets} & \\
+\hline
+\end{DoxyParams}
 \Hypertarget{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3}\label{mpu6050_8c_aecebb10c83a97b7866abf09c9a5fa6b3} 
 \index{mpu6050.c@{mpu6050.c}!mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}}
 \index{mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}!mpu6050.c@{mpu6050.c}}

@@ -1,21 +1,84 @@
 \doxysection{fsm\+\_\+drone\+\_\+t Struct Reference}
 \hypertarget{structfsm__drone__t}{}\label{structfsm__drone__t}\index{fsm\_drone\_t@{fsm\_drone\_t}}
+
+
+FSM structure for the system.  
+
+
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{structfsm__drone__t_a6dc7e42eff7e860e67f7a3f2cdea4490}\label{structfsm__drone__t_a6dc7e42eff7e860e67f7a3f2cdea4490} 
-\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} {\bfseries fsm}
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \mbox{\hyperlink{structfsm__drone__t_ac8c37d04fe7e850772aa964ef6350951}{fsm}}
 \item 
-\Hypertarget{structfsm__drone__t_a7e16fa9033c0020a5b730ffac80288cb}\label{structfsm__drone__t_a7e16fa9033c0020a5b730ffac80288cb} 
-uint64\+\_\+t {\bfseries next}
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structfsm__drone__t_ade2d1e37c2612807004a17b4ea79bd6d}{green\+\_\+led\+\_\+fsm}}
 \item 
-\Hypertarget{structfsm__drone__t_a275b2a89df2c93c1508553edf72f5e7f}\label{structfsm__drone__t_a275b2a89df2c93c1508553edf72f5e7f} 
-\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} {\bfseries last\+\_\+gyros}
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structfsm__drone__t_a1a43df5bff96a1e8f5771b511baa59b5}{blue\+\_\+led\+\_\+fsm}}
 \item 
-\Hypertarget{structfsm__drone__t_af1c154dc527bcd77f179a6ff70c03ab9}\label{structfsm__drone__t_af1c154dc527bcd77f179a6ff70c03ab9} 
-\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} {\bfseries last\+\_\+acc}
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structfsm__drone__t_a5b2a3ff9cbbeddbbb5bdbf66d6c909b2}{red\+\_\+led\+\_\+fsm}}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{structfsm__drone__t_a7e16fa9033c0020a5b730ffac80288cb}{next}}
+\item 
+\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{structfsm__drone__t_a275b2a89df2c93c1508553edf72f5e7f}{last\+\_\+gyros}}
+\item 
+\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{structfsm__drone__t_af1c154dc527bcd77f179a6ff70c03ab9}{last\+\_\+acc}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structfsm__drone__t_ac68e7cf77b26ac585ba2e0fd970f1814}{battery}}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+FSM structure for the system. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structfsm__drone__t_ac68e7cf77b26ac585ba2e0fd970f1814}\label{structfsm__drone__t_ac68e7cf77b26ac585ba2e0fd970f1814} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!battery@{battery}}
+\index{battery@{battery}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{battery}{battery}}
+{\footnotesize\ttfamily uint32\+\_\+t fsm\+\_\+drone\+\_\+t\+::battery}
+
+Battery level \Hypertarget{structfsm__drone__t_a1a43df5bff96a1e8f5771b511baa59b5}\label{structfsm__drone__t_a1a43df5bff96a1e8f5771b511baa59b5} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!blue\_led\_fsm@{blue\_led\_fsm}}
+\index{blue\_led\_fsm@{blue\_led\_fsm}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{blue\_led\_fsm}{blue\_led\_fsm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}}\texorpdfstring{$\ast$}{*} fsm\+\_\+drone\+\_\+t\+::blue\+\_\+led\+\_\+fsm}
+
+Pointer to blue led finite state machine \Hypertarget{structfsm__drone__t_ac8c37d04fe7e850772aa964ef6350951}\label{structfsm__drone__t_ac8c37d04fe7e850772aa964ef6350951} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!fsm@{fsm}}
+\index{fsm@{fsm}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{fsm}{fsm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} fsm\+\_\+drone\+\_\+t\+::fsm}
+
+Finite state machine \Hypertarget{structfsm__drone__t_ade2d1e37c2612807004a17b4ea79bd6d}\label{structfsm__drone__t_ade2d1e37c2612807004a17b4ea79bd6d} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!green\_led\_fsm@{green\_led\_fsm}}
+\index{green\_led\_fsm@{green\_led\_fsm}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{green\_led\_fsm}{green\_led\_fsm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}}\texorpdfstring{$\ast$}{*} fsm\+\_\+drone\+\_\+t\+::green\+\_\+led\+\_\+fsm}
+
+Pointer to green led finite state machine \Hypertarget{structfsm__drone__t_af1c154dc527bcd77f179a6ff70c03ab9}\label{structfsm__drone__t_af1c154dc527bcd77f179a6ff70c03ab9} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!last\_acc@{last\_acc}}
+\index{last\_acc@{last\_acc}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{last\_acc}{last\_acc}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} fsm\+\_\+drone\+\_\+t\+::last\+\_\+acc}
+
+Last accelerometer data \Hypertarget{structfsm__drone__t_a275b2a89df2c93c1508553edf72f5e7f}\label{structfsm__drone__t_a275b2a89df2c93c1508553edf72f5e7f} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!last\_gyros@{last\_gyros}}
+\index{last\_gyros@{last\_gyros}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{last\_gyros}{last\_gyros}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} fsm\+\_\+drone\+\_\+t\+::last\+\_\+gyros}
+
+Last gyroscope data \Hypertarget{structfsm__drone__t_a7e16fa9033c0020a5b730ffac80288cb}\label{structfsm__drone__t_a7e16fa9033c0020a5b730ffac80288cb} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!next@{next}}
+\index{next@{next}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily uint64\+\_\+t fsm\+\_\+drone\+\_\+t\+::next}
+
+Next time to update the calibration \Hypertarget{structfsm__drone__t_a5b2a3ff9cbbeddbbb5bdbf66d6c909b2}\label{structfsm__drone__t_a5b2a3ff9cbbeddbbb5bdbf66d6c909b2} 
+\index{fsm\_drone\_t@{fsm\_drone\_t}!red\_led\_fsm@{red\_led\_fsm}}
+\index{red\_led\_fsm@{red\_led\_fsm}!fsm\_drone\_t@{fsm\_drone\_t}}
+\doxysubsubsection{\texorpdfstring{red\_led\_fsm}{red\_led\_fsm}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}}\texorpdfstring{$\ast$}{*} fsm\+\_\+drone\+\_\+t\+::red\+\_\+led\+\_\+fsm}
+
+Pointer to red led finite state machine 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

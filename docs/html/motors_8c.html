@@ -132,45 +132,94 @@ $(function(){initNavTree('motors_8c.html',''); initResizable(); });
 
 <p>Contains the functionality for controlling the drone motors.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="motors_8h_source.html">motors.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
+<code>#include &quot;freertos/task.h&quot;</code><br />
+<code>#include &quot;esp_timer.h&quot;</code><br />
+<code>#include &quot;driver/gpio.h&quot;</code><br />
+<code>#include &quot;driver/ledc.h&quot;</code><br />
+<code>#include &quot;esp_log.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="motors_8h_source.html">motors.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pid_8h_source.html">pid.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="controller_8h_source.html">controller.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sensors_8h_source.html">sensors.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="wifi_8h_source.html">wifi.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:afd3476572dee5126a8ee3b25d428f7be" id="r_afd3476572dee5126a8ee3b25d428f7be"><td class="memItemLeft" align="right" valign="top"><a id="afd3476572dee5126a8ee3b25d428f7be" name="afd3476572dee5126a8ee3b25d428f7be"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PITCH_KP</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:afd3476572dee5126a8ee3b25d428f7be" id="r_afd3476572dee5126a8ee3b25d428f7be"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd3476572dee5126a8ee3b25d428f7be">PITCH_KP</a>&#160;&#160;&#160;0.08</td></tr>
 <tr class="separator:afd3476572dee5126a8ee3b25d428f7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5f44db51ef15d5f040408d6fb530983" id="r_ad5f44db51ef15d5f040408d6fb530983"><td class="memItemLeft" align="right" valign="top"><a id="ad5f44db51ef15d5f040408d6fb530983" name="ad5f44db51ef15d5f040408d6fb530983"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PITCH_KI</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ad5f44db51ef15d5f040408d6fb530983" id="r_ad5f44db51ef15d5f040408d6fb530983"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5f44db51ef15d5f040408d6fb530983">PITCH_KI</a>&#160;&#160;&#160;0.04</td></tr>
 <tr class="separator:ad5f44db51ef15d5f040408d6fb530983"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3244bae9859f42f7ecc38ada03846e5f" id="r_a3244bae9859f42f7ecc38ada03846e5f"><td class="memItemLeft" align="right" valign="top"><a id="a3244bae9859f42f7ecc38ada03846e5f" name="a3244bae9859f42f7ecc38ada03846e5f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>PITCH_KD</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a3244bae9859f42f7ecc38ada03846e5f" id="r_a3244bae9859f42f7ecc38ada03846e5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3244bae9859f42f7ecc38ada03846e5f">PITCH_KD</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a3244bae9859f42f7ecc38ada03846e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa525784ca76f13fcf3f5153ad3fac2cd" id="r_aa525784ca76f13fcf3f5153ad3fac2cd"><td class="memItemLeft" align="right" valign="top"><a id="aa525784ca76f13fcf3f5153ad3fac2cd" name="aa525784ca76f13fcf3f5153ad3fac2cd"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ROLL_KP</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:aa525784ca76f13fcf3f5153ad3fac2cd" id="r_aa525784ca76f13fcf3f5153ad3fac2cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa525784ca76f13fcf3f5153ad3fac2cd">ROLL_KP</a>&#160;&#160;&#160;0.1</td></tr>
 <tr class="separator:aa525784ca76f13fcf3f5153ad3fac2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad652c0868411f27cf9db04bab3242ba2" id="r_ad652c0868411f27cf9db04bab3242ba2"><td class="memItemLeft" align="right" valign="top"><a id="ad652c0868411f27cf9db04bab3242ba2" name="ad652c0868411f27cf9db04bab3242ba2"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ROLL_KI</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ad652c0868411f27cf9db04bab3242ba2" id="r_ad652c0868411f27cf9db04bab3242ba2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad652c0868411f27cf9db04bab3242ba2">ROLL_KI</a>&#160;&#160;&#160;0.07</td></tr>
 <tr class="separator:ad652c0868411f27cf9db04bab3242ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9db8dab9e2d41a1dd5475662d84353d4" id="r_a9db8dab9e2d41a1dd5475662d84353d4"><td class="memItemLeft" align="right" valign="top"><a id="a9db8dab9e2d41a1dd5475662d84353d4" name="a9db8dab9e2d41a1dd5475662d84353d4"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>ROLL_KD</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a9db8dab9e2d41a1dd5475662d84353d4" id="r_a9db8dab9e2d41a1dd5475662d84353d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9db8dab9e2d41a1dd5475662d84353d4">ROLL_KD</a>&#160;&#160;&#160;0.005</td></tr>
 <tr class="separator:a9db8dab9e2d41a1dd5475662d84353d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8e8d21fecf19b9934ff9658bdd7673d" id="r_ad8e8d21fecf19b9934ff9658bdd7673d"><td class="memItemLeft" align="right" valign="top"><a id="ad8e8d21fecf19b9934ff9658bdd7673d" name="ad8e8d21fecf19b9934ff9658bdd7673d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>YAW_KP</b>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:ad8e8d21fecf19b9934ff9658bdd7673d" id="r_ad8e8d21fecf19b9934ff9658bdd7673d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8e8d21fecf19b9934ff9658bdd7673d">YAW_KP</a>&#160;&#160;&#160;0.01</td></tr>
 <tr class="separator:ad8e8d21fecf19b9934ff9658bdd7673d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8149ffd6246b8b2fd2b2ac985cbe299" id="r_ae8149ffd6246b8b2fd2b2ac985cbe299"><td class="memItemLeft" align="right" valign="top"><a id="ae8149ffd6246b8b2fd2b2ac985cbe299" name="ae8149ffd6246b8b2fd2b2ac985cbe299"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>YAW_KI</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ae8149ffd6246b8b2fd2b2ac985cbe299" id="r_ae8149ffd6246b8b2fd2b2ac985cbe299"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8149ffd6246b8b2fd2b2ac985cbe299">YAW_KI</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:ae8149ffd6246b8b2fd2b2ac985cbe299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65fdd35536f162217009ad1ff74cf1ae" id="r_a65fdd35536f162217009ad1ff74cf1ae"><td class="memItemLeft" align="right" valign="top"><a id="a65fdd35536f162217009ad1ff74cf1ae" name="a65fdd35536f162217009ad1ff74cf1ae"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>YAW_KD</b>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a65fdd35536f162217009ad1ff74cf1ae" id="r_a65fdd35536f162217009ad1ff74cf1ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65fdd35536f162217009ad1ff74cf1ae">YAW_KD</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a65fdd35536f162217009ad1ff74cf1ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74d5fe7ba943c118658c452e82c6c3c5" id="r_a74d5fe7ba943c118658c452e82c6c3c5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74d5fe7ba943c118658c452e82c6c3c5">PWM_PERIOD_MS</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a74d5fe7ba943c118658c452e82c6c3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e165627f596c2f42f843ae6571de0e" id="r_a56e165627f596c2f42f843ae6571de0e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56e165627f596c2f42f843ae6571de0e">PWM_FREQ_HZ</a>&#160;&#160;&#160;1000 / <a class="el" href="#a74d5fe7ba943c118658c452e82c6c3c5">PWM_PERIOD_MS</a></td></tr>
+<tr class="separator:a56e165627f596c2f42f843ae6571de0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409b508b0fb15e169dcb3d8efd4b52a6" id="r_a409b508b0fb15e169dcb3d8efd4b52a6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a409b508b0fb15e169dcb3d8efd4b52a6">MOTOR_MIN_US</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="separator:a409b508b0fb15e169dcb3d8efd4b52a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688e33800b11985c143d26587f134b41" id="r_a688e33800b11985c143d26587f134b41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a688e33800b11985c143d26587f134b41">MOTOR_MAX_US</a>&#160;&#160;&#160;2000</td></tr>
+<tr class="separator:a688e33800b11985c143d26587f134b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a150f0a256648d7b97768a47534f62a01" id="r_a150f0a256648d7b97768a47534f62a01"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a150f0a256648d7b97768a47534f62a01">THROTTLE_MAX</a>&#160;&#160;&#160;80</td></tr>
+<tr class="separator:a150f0a256648d7b97768a47534f62a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e0eea1bd9e61520c1374fa3a986e706" id="r_a7e0eea1bd9e61520c1374fa3a986e706"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e0eea1bd9e61520c1374fa3a986e706">MOTOR1_PIN</a>&#160;&#160;&#160;GPIO_NUM_18</td></tr>
+<tr class="separator:a7e0eea1bd9e61520c1374fa3a986e706"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace060db125055131dc1384dcf2684db6" id="r_ace060db125055131dc1384dcf2684db6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace060db125055131dc1384dcf2684db6">MOTOR2_PIN</a>&#160;&#160;&#160;GPIO_NUM_5</td></tr>
+<tr class="separator:ace060db125055131dc1384dcf2684db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbfe9e9e285db9135f7182c05afd56e3" id="r_adbfe9e9e285db9135f7182c05afd56e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbfe9e9e285db9135f7182c05afd56e3">MOTOR3_PIN</a>&#160;&#160;&#160;GPIO_NUM_17</td></tr>
+<tr class="separator:adbfe9e9e285db9135f7182c05afd56e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e74ae8fae3b623a8fba2f687b62942" id="r_a91e74ae8fae3b623a8fba2f687b62942"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91e74ae8fae3b623a8fba2f687b62942">MOTOR4_PIN</a>&#160;&#160;&#160;GPIO_NUM_16</td></tr>
+<tr class="separator:a91e74ae8fae3b623a8fba2f687b62942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a0b70d46a9014701e1836fb28651e908f" id="r_a0b70d46a9014701e1836fb28651e908f"><td class="memItemLeft" align="right" valign="top"><a id="a0b70d46a9014701e1836fb28651e908f" name="a0b70d46a9014701e1836fb28651e908f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>_motors_ledc_init</b> ()</td></tr>
+<tr class="memdesc:a0b70d46a9014701e1836fb28651e908f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inits the LEDC module (PWM signals) <br /></td></tr>
+<tr class="separator:a0b70d46a9014701e1836fb28651e908f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad522af7d5cf6fcbf8e873cb7a91df8f3" id="r_ad522af7d5cf6fcbf8e873cb7a91df8f3"><td class="memItemLeft" align="right" valign="top"><a id="ad522af7d5cf6fcbf8e873cb7a91df8f3" name="ad522af7d5cf6fcbf8e873cb7a91df8f3"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_init</b> ()</td></tr>
 <tr class="memdesc:ad522af7d5cf6fcbf8e873cb7a91df8f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inits all the motors. <br /></td></tr>
 <tr class="separator:ad522af7d5cf6fcbf8e873cb7a91df8f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ef5b4991907a39280c4a86518680bf" id="r_ac8ef5b4991907a39280c4a86518680bf"><td class="memItemLeft" align="right" valign="top"><a id="ac8ef5b4991907a39280c4a86518680bf" name="ac8ef5b4991907a39280c4a86518680bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_deinit</b> ()</td></tr>
+<tr class="memdesc:ac8ef5b4991907a39280c4a86518680bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deinits all the motors. <br /></td></tr>
+<tr class="separator:ac8ef5b4991907a39280c4a86518680bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf118ca4fcc6850b15b9e47c3c64d90d" id="r_aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf118ca4fcc6850b15b9e47c3c64d90d">motors_update_pid_constants</a> (uint8_t pid_number, float kp, float ki, float kd)</td></tr>
+<tr class="memdesc:aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the PID constants for a specific PID controller.  <br /></td></tr>
+<tr class="separator:aaf118ca4fcc6850b15b9e47c3c64d90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14211ac3a889c0f4292b0144d1434af" id="r_af14211ac3a889c0f4292b0144d1434af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af14211ac3a889c0f4292b0144d1434af">normalize_thrust_value</a> (uint16_t *thrust)</td></tr>
+<tr class="memdesc:af14211ac3a889c0f4292b0144d1434af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize the thrust to make it a percentage between 0 and THROTTLE_MAX.  <br /></td></tr>
+<tr class="separator:af14211ac3a889c0f4292b0144d1434af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3186097c1de2202ef538432d0e9ebb8" id="r_aa3186097c1de2202ef538432d0e9ebb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3186097c1de2202ef538432d0e9ebb8">normalize_motor_duties</a> (double *motor_duties)</td></tr>
+<tr class="memdesc:aa3186097c1de2202ef538432d0e9ebb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize the motor overall value to fit the range (MOTOR_MIN_DUTY, MOTOR_MAX_DUTY)  <br /></td></tr>
+<tr class="separator:aa3186097c1de2202ef538432d0e9ebb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7408acf874e3ba752d70c626ad2555d7" id="r_a7408acf874e3ba752d70c626ad2555d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7408acf874e3ba752d70c626ad2555d7">motors_update_duties</a> (double *motor_speeds)</td></tr>
+<tr class="memdesc:a7408acf874e3ba752d70c626ad2555d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the duties of the motors.  <br /></td></tr>
+<tr class="separator:a7408acf874e3ba752d70c626ad2555d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a438c7c164e625e480f6131478a59956a" id="r_a438c7c164e625e480f6131478a59956a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a438c7c164e625e480f6131478a59956a">motors_update</a> (<a class="el" href="structcommand__t.html">command_t</a> command, <a class="el" href="structdrone__data__t.html">drone_data_t</a> drone_data)</td></tr>
+<tr class="memdesc:a438c7c164e625e480f6131478a59956a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the motors.  <br /></td></tr>
+<tr class="separator:a438c7c164e625e480f6131478a59956a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa710e3e7cc10641491e56644a6cf44a0" id="r_aa710e3e7cc10641491e56644a6cf44a0"><td class="memItemLeft" align="right" valign="top"><a id="aa710e3e7cc10641491e56644a6cf44a0" name="aa710e3e7cc10641491e56644a6cf44a0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_reset</b> ()</td></tr>
+<tr class="memdesc:aa710e3e7cc10641491e56644a6cf44a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset the motors. <br /></td></tr>
+<tr class="separator:aa710e3e7cc10641491e56644a6cf44a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains the functionality for controlling the drone motors. </p>
@@ -178,7 +227,435 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>motors_init</b> ()</t
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-02-29</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a7e0eea1bd9e61520c1374fa3a986e706" name="a7e0eea1bd9e61520c1374fa3a986e706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0eea1bd9e61520c1374fa3a986e706">&#9670;&#160;</a></span>MOTOR1_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR1_PIN&#160;&#160;&#160;GPIO_NUM_18</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin for motor 1 </p>
+
+</div>
+</div>
+<a id="ace060db125055131dc1384dcf2684db6" name="ace060db125055131dc1384dcf2684db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace060db125055131dc1384dcf2684db6">&#9670;&#160;</a></span>MOTOR2_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR2_PIN&#160;&#160;&#160;GPIO_NUM_5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin for motor 2 </p>
+
+</div>
+</div>
+<a id="adbfe9e9e285db9135f7182c05afd56e3" name="adbfe9e9e285db9135f7182c05afd56e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbfe9e9e285db9135f7182c05afd56e3">&#9670;&#160;</a></span>MOTOR3_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR3_PIN&#160;&#160;&#160;GPIO_NUM_17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin for motor 3 </p>
+
+</div>
+</div>
+<a id="a91e74ae8fae3b623a8fba2f687b62942" name="a91e74ae8fae3b623a8fba2f687b62942"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e74ae8fae3b623a8fba2f687b62942">&#9670;&#160;</a></span>MOTOR4_PIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR4_PIN&#160;&#160;&#160;GPIO_NUM_16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pin for motor 4 </p>
+
+</div>
+</div>
+<a id="a688e33800b11985c143d26587f134b41" name="a688e33800b11985c143d26587f134b41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a688e33800b11985c143d26587f134b41">&#9670;&#160;</a></span>MOTOR_MAX_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR_MAX_US&#160;&#160;&#160;2000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Maximum value for the motors </p>
+
+</div>
+</div>
+<a id="a409b508b0fb15e169dcb3d8efd4b52a6" name="a409b508b0fb15e169dcb3d8efd4b52a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409b508b0fb15e169dcb3d8efd4b52a6">&#9670;&#160;</a></span>MOTOR_MIN_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MOTOR_MIN_US&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Minimum value for the motors </p>
+
+</div>
+</div>
+<a id="a3244bae9859f42f7ecc38ada03846e5f" name="a3244bae9859f42f7ecc38ada03846e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3244bae9859f42f7ecc38ada03846e5f">&#9670;&#160;</a></span>PITCH_KD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PITCH_KD&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Derivative constant for the pith PID controller </p>
+
+</div>
+</div>
+<a id="ad5f44db51ef15d5f040408d6fb530983" name="ad5f44db51ef15d5f040408d6fb530983"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5f44db51ef15d5f040408d6fb530983">&#9670;&#160;</a></span>PITCH_KI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PITCH_KI&#160;&#160;&#160;0.04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integral constant for the pith PID controller </p>
+
+</div>
+</div>
+<a id="afd3476572dee5126a8ee3b25d428f7be" name="afd3476572dee5126a8ee3b25d428f7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd3476572dee5126a8ee3b25d428f7be">&#9670;&#160;</a></span>PITCH_KP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PITCH_KP&#160;&#160;&#160;0.08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Proportional constant for the pith PID controller </p>
+
+</div>
+</div>
+<a id="a56e165627f596c2f42f843ae6571de0e" name="a56e165627f596c2f42f843ae6571de0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e165627f596c2f42f843ae6571de0e">&#9670;&#160;</a></span>PWM_FREQ_HZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PWM_FREQ_HZ&#160;&#160;&#160;1000 / <a class="el" href="#a74d5fe7ba943c118658c452e82c6c3c5">PWM_PERIOD_MS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Frequency of the PWM signal </p>
+
+</div>
+</div>
+<a id="a74d5fe7ba943c118658c452e82c6c3c5" name="a74d5fe7ba943c118658c452e82c6c3c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d5fe7ba943c118658c452e82c6c3c5">&#9670;&#160;</a></span>PWM_PERIOD_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PWM_PERIOD_MS&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Period of the PWM signal </p>
+
+</div>
+</div>
+<a id="a9db8dab9e2d41a1dd5475662d84353d4" name="a9db8dab9e2d41a1dd5475662d84353d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9db8dab9e2d41a1dd5475662d84353d4">&#9670;&#160;</a></span>ROLL_KD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ROLL_KD&#160;&#160;&#160;0.005</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Due to the symmetry of the drone </p>
+
+</div>
+</div>
+<a id="ad652c0868411f27cf9db04bab3242ba2" name="ad652c0868411f27cf9db04bab3242ba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad652c0868411f27cf9db04bab3242ba2">&#9670;&#160;</a></span>ROLL_KI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ROLL_KI&#160;&#160;&#160;0.07</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Due to the symmetry of the drone </p>
+
+</div>
+</div>
+<a id="aa525784ca76f13fcf3f5153ad3fac2cd" name="aa525784ca76f13fcf3f5153ad3fac2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa525784ca76f13fcf3f5153ad3fac2cd">&#9670;&#160;</a></span>ROLL_KP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ROLL_KP&#160;&#160;&#160;0.1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Due to the symmetry of the drone </p>
+
+</div>
+</div>
+<a id="a150f0a256648d7b97768a47534f62a01" name="a150f0a256648d7b97768a47534f62a01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a150f0a256648d7b97768a47534f62a01">&#9670;&#160;</a></span>THROTTLE_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define THROTTLE_MAX&#160;&#160;&#160;80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Maximum value for the throttle. Should be lower than MOTOR_MAX </p>
+
+</div>
+</div>
+<a id="a65fdd35536f162217009ad1ff74cf1ae" name="a65fdd35536f162217009ad1ff74cf1ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65fdd35536f162217009ad1ff74cf1ae">&#9670;&#160;</a></span>YAW_KD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define YAW_KD&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Derivative constant for the yaw PID controller </p>
+
+</div>
+</div>
+<a id="ae8149ffd6246b8b2fd2b2ac985cbe299" name="ae8149ffd6246b8b2fd2b2ac985cbe299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8149ffd6246b8b2fd2b2ac985cbe299">&#9670;&#160;</a></span>YAW_KI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define YAW_KI&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Integral constant for the yaw PID controller </p>
+
+</div>
+</div>
+<a id="ad8e8d21fecf19b9934ff9658bdd7673d" name="ad8e8d21fecf19b9934ff9658bdd7673d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e8d21fecf19b9934ff9658bdd7673d">&#9670;&#160;</a></span>YAW_KP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define YAW_KP&#160;&#160;&#160;0.01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Proportional constant for the yaw PID controller <br  />
+ </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a438c7c164e625e480f6131478a59956a" name="a438c7c164e625e480f6131478a59956a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a438c7c164e625e480f6131478a59956a">&#9670;&#160;</a></span>motors_update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motors_update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcommand__t.html">command_t</a></td>          <td class="paramname"><span class="paramname"><em>command</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdrone__data__t.html">drone_data_t</a></td>          <td class="paramname"><span class="paramname"><em>drone_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the motors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>Command to be executed </td></tr>
+    <tr><td class="paramname">drone_data</td><td>Data from the drone</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>MOTORS CONFIGURATION </p><pre class="fragment">   1   2
+    \ /
+     X
+    / \
+   4   3
+</pre> 
+</div>
+</div>
+<a id="a7408acf874e3ba752d70c626ad2555d7" name="a7408acf874e3ba752d70c626ad2555d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7408acf874e3ba752d70c626ad2555d7">&#9670;&#160;</a></span>motors_update_duties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void motors_update_duties </td>
+          <td>(</td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>motor_speeds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change the duties of the motors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">motor_speeds</td><td>Motor speeds as a percentage </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aaf118ca4fcc6850b15b9e47c3c64d90d" name="aaf118ca4fcc6850b15b9e47c3c64d90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf118ca4fcc6850b15b9e47c3c64d90d">&#9670;&#160;</a></span>motors_update_pid_constants()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool motors_update_pid_constants </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>pid_number</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kp</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>ki</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>kd</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update the PID constants for a specific PID controller. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pid_number</td><td>PID controller number (1: pitch, 2: roll, 3: yaw) </td></tr>
+    <tr><td class="paramname">kp</td><td>Proportional constant </td></tr>
+    <tr><td class="paramname">ki</td><td>Integral constant </td></tr>
+    <tr><td class="paramname">kd</td><td>Derivative constant </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false </dd></dl>
+
+</div>
+</div>
+<a id="aa3186097c1de2202ef538432d0e9ebb8" name="aa3186097c1de2202ef538432d0e9ebb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3186097c1de2202ef538432d0e9ebb8">&#9670;&#160;</a></span>normalize_motor_duties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void normalize_motor_duties </td>
+          <td>(</td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>motor_duties</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Normalize the motor overall value to fit the range (MOTOR_MIN_DUTY, MOTOR_MAX_DUTY) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">motor_duties</td><td>Duties for the motors </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af14211ac3a889c0f4292b0144d1434af" name="af14211ac3a889c0f4292b0144d1434af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14211ac3a889c0f4292b0144d1434af">&#9670;&#160;</a></span>normalize_thrust_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void normalize_thrust_value </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t *</td>          <td class="paramname"><span class="paramname"><em>thrust</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Normalize the thrust to make it a percentage between 0 and THROTTLE_MAX. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">thrust</td><td>Throttle value, expected to be between 0 and 1000 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -27,9 +27,8 @@ typedef struct acc\+\_\+vector\+\_\+t {\bfseries acc\+\_\+vector\+\_\+t}
 \Hypertarget{mpu6050_8h_a6f122b1d346421c8419f39a995d34494}\label{mpu6050_8h_a6f122b1d346421c8419f39a995d34494} 
 void {\bfseries mpu6050\+\_\+init} ()
 \begin{DoxyCompactList}\small\item\em Inits the MPU6050 sensor. \end{DoxyCompactList}\item 
-\Hypertarget{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea} 
-void {\bfseries mpu6050\+\_\+calibrate} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
-\item 
+void \mbox{\hyperlink{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea}{mpu6050\+\_\+calibrate}} (\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} gyro\+\_\+offsets, \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} acc\+\_\+offsets)
+\begin{DoxyCompactList}\small\item\em Calibrates the sensor adding the offsets to the current values. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8h_a2a87105cd2a54f0cf7287ece123aafe8}{mpu6050\+\_\+read\+\_\+gyro}} ()
 \begin{DoxyCompactList}\small\item\em Reads the gyro data. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}} \mbox{\hyperlink{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3}{mpu6050\+\_\+read\+\_\+accelerometer}} ()
@@ -54,6 +53,25 @@ Copyright (c) 2024
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea}\label{mpu6050_8h_a3ec19abb8479cfffc714317ac03006ea} 
+\index{mpu6050.h@{mpu6050.h}!mpu6050\_calibrate@{mpu6050\_calibrate}}
+\index{mpu6050\_calibrate@{mpu6050\_calibrate}!mpu6050.h@{mpu6050.h}}
+\doxysubsubsection{\texorpdfstring{mpu6050\_calibrate()}{mpu6050\_calibrate()}}
+{\footnotesize\ttfamily void mpu6050\+\_\+calibrate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgyro__vector__t}{gyro\+\_\+vector\+\_\+t}}}]{gyro\+\_\+offsets,  }\item[{\mbox{\hyperlink{structacc__vector__t}{acc\+\_\+vector\+\_\+t}}}]{acc\+\_\+offsets }\end{DoxyParamCaption})}
+
+
+
+Calibrates the sensor adding the offsets to the current values. 
+
+Is divided by 2 to help the convergence of the calibration
+
+
+\begin{DoxyParams}{Parameters}
+{\em gyro\+\_\+offsets} & \\
+\hline
+{\em acc\+\_\+offsets} & \\
+\hline
+\end{DoxyParams}
 \Hypertarget{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3}\label{mpu6050_8h_aecebb10c83a97b7866abf09c9a5fa6b3} 
 \index{mpu6050.h@{mpu6050.h}!mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}}
 \index{mpu6050\_read\_accelerometer@{mpu6050\_read\_accelerometer}!mpu6050.h@{mpu6050.h}}

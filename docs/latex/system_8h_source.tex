@@ -7,10 +7,14 @@
 \DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SYSTEM\_H}}
 \DoxyCodeLine{00014\ }
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}fsm.h"{}}}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ system\_task();}
-\DoxyCodeLine{00018\ \mbox{\hyperlink{structfsm__t}{fsm\_t}}\ *\mbox{\hyperlink{system_8h_ab59561e8b51510af29eea869cccacdb8}{system\_fsm\_create}}();}
-\DoxyCodeLine{00019\ }
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}driver/gpio.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ GREEN\_LED\_PIN\ GPIO\_NUM\_2\ }}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ BLUE\_LED\_PIN\ GPIO\_NUM\_19\ }}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ RED\_LED\_PIN\ GPIO\_NUM\_4\ \ \ }}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{system_8h_a649b7bf4953ac740c7139c3b946b77e9}{system\_task}}(\textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00023\ \mbox{\hyperlink{structfsm__t}{fsm\_t}}\ *\mbox{\hyperlink{system_8h_a83804034b02bb04ea9fa5b4adeccf91b}{system\_fsm\_create}}(\mbox{\hyperlink{structfsm__t}{fsm\_t}}\ *green\_led\_fsm,\ \mbox{\hyperlink{structfsm__t}{fsm\_t}}\ *blue\_led\_fsm,\ \mbox{\hyperlink{structfsm__t}{fsm\_t}}\ *red\_led\_fsm);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

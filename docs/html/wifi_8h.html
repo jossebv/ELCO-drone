@@ -141,12 +141,12 @@ $(function(){initNavTree('wifi_8h.html',''); initResizable(); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_d_p_packet.html">UDPPacket</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packet structure for UDP communication.  <a href="struct_u_d_p_packet.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:ae9094d44a93df5ed4eab2eb4eba685da" id="r_ae9094d44a93df5ed4eab2eb4eba685da"><td class="memItemLeft" align="right" valign="top"><a id="ae9094d44a93df5ed4eab2eb4eba685da" name="ae9094d44a93df5ed4eab2eb4eba685da"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>WIFI_RX_TX_PACKET_SIZE</b>&#160;&#160;&#160;(64)</td></tr>
+<tr class="memitem:ae9094d44a93df5ed4eab2eb4eba685da" id="r_ae9094d44a93df5ed4eab2eb4eba685da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9094d44a93df5ed4eab2eb4eba685da">WIFI_RX_TX_PACKET_SIZE</a>&#160;&#160;&#160;(64)</td></tr>
 <tr class="separator:ae9094d44a93df5ed4eab2eb4eba685da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -158,9 +158,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wifi_init</b> ()</td>
 <tr class="memitem:a268202254dfe5becc13bc90bbe7f4d7e" id="r_a268202254dfe5becc13bc90bbe7f4d7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a268202254dfe5becc13bc90bbe7f4d7e">wifiGetDataBlocking</a> (<a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *in)</td></tr>
 <tr class="memdesc:a268202254dfe5becc13bc90bbe7f4d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data from the UDP server blocking until it receives data.  <br /></td></tr>
 <tr class="separator:a268202254dfe5becc13bc90bbe7f4d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a577a89d39c39a1e75b554aad9ed0afe6" id="r_a577a89d39c39a1e75b554aad9ed0afe6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a577a89d39c39a1e75b554aad9ed0afe6">wifiSendData</a> (<a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *out)</td></tr>
-<tr class="memdesc:a577a89d39c39a1e75b554aad9ed0afe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to the UDP server.  <br /></td></tr>
-<tr class="separator:a577a89d39c39a1e75b554aad9ed0afe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae034387a745420b9e0fb968e6e17b415" id="r_ae034387a745420b9e0fb968e6e17b415"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae034387a745420b9e0fb968e6e17b415">wifi_get_instruction_blocking</a> (<a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *instruction)</td></tr>
+<tr class="memdesc:ae034387a745420b9e0fb968e6e17b415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the instruction from the UDP server blocking until it receives data.  <br /></td></tr>
+<tr class="separator:ae034387a745420b9e0fb968e6e17b415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e957a2af77990095c5ca47c17d24cf1" id="r_a4e957a2af77990095c5ca47c17d24cf1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e957a2af77990095c5ca47c17d24cf1">wifi_send_data</a> (char *data, uint8_t size)</td></tr>
+<tr class="memdesc:a4e957a2af77990095c5ca47c17d24cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send data to the UDP server.  <br /></td></tr>
+<tr class="separator:a4e957a2af77990095c5ca47c17d24cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68256baf219f1b8d5cbb7e67a61917f2" id="r_a68256baf219f1b8d5cbb7e67a61917f2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68256baf219f1b8d5cbb7e67a61917f2">wifiIsControllerConnected</a> ()</td></tr>
+<tr class="memdesc:a68256baf219f1b8d5cbb7e67a61917f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the controller is connected by udp channel.  <br /></td></tr>
+<tr class="separator:a68256baf219f1b8d5cbb7e67a61917f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file for the wifi driver. </p>
@@ -168,7 +174,80 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>wifi_init</b> ()</td>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2024-03-05</dd></dl>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ae9094d44a93df5ed4eab2eb4eba685da" name="ae9094d44a93df5ed4eab2eb4eba685da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9094d44a93df5ed4eab2eb4eba685da">&#9670;&#160;</a></span>WIFI_RX_TX_PACKET_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WIFI_RX_TX_PACKET_SIZE&#160;&#160;&#160;(64)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Size of the packet for the wifi communication </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae034387a745420b9e0fb968e6e17b415" name="ae034387a745420b9e0fb968e6e17b415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae034387a745420b9e0fb968e6e17b415">&#9670;&#160;</a></span>wifi_get_instruction_blocking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wifi_get_instruction_blocking </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *</td>          <td class="paramname"><span class="paramname"><em>instruction</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the instruction from the UDP server blocking until it receives data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instruction</td><td>Pointer to UDP packet to store the instruction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the instruction was received </dd></dl>
+
+</div>
+</div>
+<a id="a4e957a2af77990095c5ca47c17d24cf1" name="a4e957a2af77990095c5ca47c17d24cf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e957a2af77990095c5ca47c17d24cf1">&#9670;&#160;</a></span>wifi_send_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wifi_send_data </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>data</em>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send data to the UDP server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>char pointer to the data </td></tr>
+    <tr><td class="paramname">size</td><td>size of the data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the data was sent </dd></dl>
+
+</div>
+</div>
 <a id="a268202254dfe5becc13bc90bbe7f4d7e" name="a268202254dfe5becc13bc90bbe7f4d7e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a268202254dfe5becc13bc90bbe7f4d7e">&#9670;&#160;</a></span>wifiGetDataBlocking()</h2>
 
@@ -197,28 +276,22 @@ false </dd></dl>
 
 </div>
 </div>
-<a id="a577a89d39c39a1e75b554aad9ed0afe6" name="a577a89d39c39a1e75b554aad9ed0afe6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a577a89d39c39a1e75b554aad9ed0afe6">&#9670;&#160;</a></span>wifiSendData()</h2>
+<a id="a68256baf219f1b8d5cbb7e67a61917f2" name="a68256baf219f1b8d5cbb7e67a61917f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68256baf219f1b8d5cbb7e67a61917f2">&#9670;&#160;</a></span>wifiIsControllerConnected()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool wifiSendData </td>
+          <td class="memname">int wifiIsControllerConnected </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_u_d_p_packet.html">UDPPacket</a> *</td>          <td class="paramname"><span class="paramname"><em>out</em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Send data to the UDP server. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">out</td><td>UDP packet to send </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns if the controller is connected by udp channel. </p>
 <dl class="section return"><dt>Returns</dt><dd>true </dd>
 <dd>
 false </dd></dl>

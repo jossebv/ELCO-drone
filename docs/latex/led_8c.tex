@@ -1,0 +1,43 @@
+\doxysection{components/general/leds/led.c File Reference}
+\hypertarget{led_8c}{}\label{led_8c}\index{components/general/leds/led.c@{components/general/leds/led.c}}
+
+
+Led driver.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}led.\+h"{}}\newline
+{\ttfamily \#include "{}driver/gpio.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{led_8c_aca94129245ecb4120c79a52f983a560e}\label{led_8c_aca94129245ecb4120c79a52f983a560e} 
+void {\bfseries led\+\_\+init} (uint8\+\_\+t led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Inits the gpio for the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8c_a168d2437a0f73695e81706300056f61a}\label{led_8c_a168d2437a0f73695e81706300056f61a} 
+void {\bfseries led\+\_\+on} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Turns on the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8c_a1facbf3e189417e8cb94efdbefdfabb1}\label{led_8c_a1facbf3e189417e8cb94efdbefdfabb1} 
+void {\bfseries led\+\_\+off} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Turns off the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8c_ad795fcf83550438ae00b25f0e6532bcc}\label{led_8c_ad795fcf83550438ae00b25f0e6532bcc} 
+void {\bfseries led\+\_\+toggle} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Alternates the led status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Led driver. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/19
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}

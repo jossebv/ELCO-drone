@@ -1,0 +1,109 @@
+\doxysection{components/general/leds/led.h File Reference}
+\hypertarget{led_8h}{}\label{led_8h}\index{components/general/leds/led.h@{components/general/leds/led.h}}
+
+
+Header file for the LED component.  
+
+
+{\ttfamily \#include "{}fsm.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{led_8h_a0115bd417fae4054dc386f374210ef8e}{led\+\_\+fsm\+\_\+create}} (uint8\+\_\+t led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Creates the led fsm. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led_8h_ac67c4a820300892ef87c330b048acda1}{led\+\_\+fsm\+\_\+set\+\_\+blinking}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to blink. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led_8h_a7358d96e36a7a13e961370b7ad53b54f}{led\+\_\+fsm\+\_\+set\+\_\+on}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{led_8h_a6f8e738b02439d24fbdb8578badc22c1}{led\+\_\+fsm\+\_\+set\+\_\+off}} (\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}fsm)
+\begin{DoxyCompactList}\small\item\em Sets the fsm to off. \end{DoxyCompactList}\item 
+\Hypertarget{led_8h_aca94129245ecb4120c79a52f983a560e}\label{led_8h_aca94129245ecb4120c79a52f983a560e} 
+void {\bfseries led\+\_\+init} (uint8\+\_\+t led\+\_\+pin)
+\begin{DoxyCompactList}\small\item\em Inits the gpio for the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8h_a168d2437a0f73695e81706300056f61a}\label{led_8h_a168d2437a0f73695e81706300056f61a} 
+void {\bfseries led\+\_\+on} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Turns on the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8h_a1facbf3e189417e8cb94efdbefdfabb1}\label{led_8h_a1facbf3e189417e8cb94efdbefdfabb1} 
+void {\bfseries led\+\_\+off} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Turns off the led. \end{DoxyCompactList}\item 
+\Hypertarget{led_8h_ad795fcf83550438ae00b25f0e6532bcc}\label{led_8h_ad795fcf83550438ae00b25f0e6532bcc} 
+void {\bfseries led\+\_\+toggle} (uint8\+\_\+t led\+\_\+pin, uint8\+\_\+t \texorpdfstring{$\ast$}{*}led\+\_\+status)
+\begin{DoxyCompactList}\small\item\em Alternates the led status. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file for the LED component. 
+
+\begin{DoxyAuthor}{Author}
+Jose Manuel Bravo 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2024-\/03-\/19
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2024 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{led_8h_a0115bd417fae4054dc386f374210ef8e}\label{led_8h_a0115bd417fae4054dc386f374210ef8e} 
+\index{led.h@{led.h}!led\_fsm\_create@{led\_fsm\_create}}
+\index{led\_fsm\_create@{led\_fsm\_create}!led.h@{led.h}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_create()}{led\_fsm\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*} led\+\_\+fsm\+\_\+create (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{led\+\_\+pin }\end{DoxyParamCaption})}
+
+
+
+Creates the led fsm. 
+
+\begin{DoxyReturn}{Returns}
+fsm\+\_\+t\texorpdfstring{$\ast$}{*} 
+\end{DoxyReturn}
+\Hypertarget{led_8h_ac67c4a820300892ef87c330b048acda1}\label{led_8h_ac67c4a820300892ef87c330b048acda1} 
+\index{led.h@{led.h}!led\_fsm\_set\_blinking@{led\_fsm\_set\_blinking}}
+\index{led\_fsm\_set\_blinking@{led\_fsm\_set\_blinking}!led.h@{led.h}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_blinking()}{led\_fsm\_set\_blinking()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+blinking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to blink. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led_8h_a6f8e738b02439d24fbdb8578badc22c1}\label{led_8h_a6f8e738b02439d24fbdb8578badc22c1} 
+\index{led.h@{led.h}!led\_fsm\_set\_off@{led\_fsm\_set\_off}}
+\index{led\_fsm\_set\_off@{led\_fsm\_set\_off}!led.h@{led.h}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_off()}{led\_fsm\_set\_off()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+off (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to off. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}
+\Hypertarget{led_8h_a7358d96e36a7a13e961370b7ad53b54f}\label{led_8h_a7358d96e36a7a13e961370b7ad53b54f} 
+\index{led.h@{led.h}!led\_fsm\_set\_on@{led\_fsm\_set\_on}}
+\index{led\_fsm\_set\_on@{led\_fsm\_set\_on}!led.h@{led.h}}
+\doxysubsubsection{\texorpdfstring{led\_fsm\_set\_on()}{led\_fsm\_set\_on()}}
+{\footnotesize\ttfamily void led\+\_\+fsm\+\_\+set\+\_\+on (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structfsm__t}{fsm\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{fsm }\end{DoxyParamCaption})}
+
+
+
+Sets the fsm to on. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fsm} & Pointer to the fsm \\
+\hline
+\end{DoxyParams}

@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['wait_5ffor_5freset_0',['wait_for_reset',['../mpu6050_8c.html#a643c04e74a3125e5fa6ce0bdae6846a4',1,'mpu6050.c']]],
-  ['wifi_2ec_1',['wifi.c',['../wifi_8c.html',1,'']]],
-  ['wifi_2eh_2',['wifi.h',['../wifi_8h.html',1,'']]],
-  ['wifi_5finit_3',['wifi_init',['../wifi_8c.html#af67410a15ecc24ecef0e5abce0c5b30c',1,'wifi_init():&#160;wifi.c'],['../wifi_8h.html#af67410a15ecc24ecef0e5abce0c5b30c',1,'wifi_init():&#160;wifi.c']]],
-  ['wifigetdatablocking_4',['wifiGetDataBlocking',['../wifi_8c.html#a268202254dfe5becc13bc90bbe7f4d7e',1,'wifiGetDataBlocking(UDPPacket *in):&#160;wifi.c'],['../wifi_8h.html#a268202254dfe5becc13bc90bbe7f4d7e',1,'wifiGetDataBlocking(UDPPacket *in):&#160;wifi.c']]],
-  ['wifisenddata_5',['wifiSendData',['../wifi_8c.html#a577a89d39c39a1e75b554aad9ed0afe6',1,'wifiSendData(UDPPacket *out):&#160;wifi.c'],['../wifi_8h.html#a577a89d39c39a1e75b554aad9ed0afe6',1,'wifiSendData(UDPPacket *out):&#160;wifi.c']]]
+  ['next_0',['next',['../structfsm__led__t.html#a641ffdebfd6fff51f5cd677365bae6eb',1,'fsm_led_t::next'],['../structfsm__drone__t.html#a7e16fa9033c0020a5b730ffac80288cb',1,'fsm_drone_t::next']]],
+  ['no_5fof_5fsamples_1',['NO_OF_SAMPLES',['../adc_8c.html#ad4189ffd3a90a1d83afbc51359211d55',1,'adc.c']]],
+  ['normalize_5fmotor_5fduties_2',['normalize_motor_duties',['../motors_8c.html#aa3186097c1de2202ef538432d0e9ebb8',1,'motors.c']]],
+  ['normalize_5fthrust_5fvalue_3',['normalize_thrust_value',['../motors_8c.html#af14211ac3a889c0f4292b0144d1434af',1,'motors.c']]]
 ];

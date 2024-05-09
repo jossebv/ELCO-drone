@@ -6,12 +6,21 @@ Header file for the motors component.
 
 
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}controller.\+h"{}}\newline
+{\ttfamily \#include "{}sensors.\+h"{}}\newline
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{motors_8h_ad522af7d5cf6fcbf8e873cb7a91df8f3}\label{motors_8h_ad522af7d5cf6fcbf8e873cb7a91df8f3} 
 void {\bfseries motors\+\_\+init} ()
-\begin{DoxyCompactList}\small\item\em Inits all the motors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Inits all the motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motors_8h_a438c7c164e625e480f6131478a59956a}{motors\+\_\+update}} (\mbox{\hyperlink{structcommand__t}{command\+\_\+t}} command, \mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}} drone\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Update the motors. \end{DoxyCompactList}\item 
+\Hypertarget{motors_8h_aa710e3e7cc10641491e56644a6cf44a0}\label{motors_8h_aa710e3e7cc10641491e56644a6cf44a0} 
+void {\bfseries motors\+\_\+reset} ()
+\begin{DoxyCompactList}\small\item\em Reset the motors. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{motors_8h_aaf118ca4fcc6850b15b9e47c3c64d90d}{motors\+\_\+update\+\_\+pid\+\_\+constants}} (uint8\+\_\+t pid\+\_\+number, float kp, float ki, float kd)
+\begin{DoxyCompactList}\small\item\em Update the PID constants for a specific PID controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -29,3 +38,55 @@ Jose Manuel Bravo
 \begin{DoxyCopyright}{Copyright}
 Copyright (c) 2024 
 \end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{motors_8h_a438c7c164e625e480f6131478a59956a}\label{motors_8h_a438c7c164e625e480f6131478a59956a} 
+\index{motors.h@{motors.h}!motors\_update@{motors\_update}}
+\index{motors\_update@{motors\_update}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motors\_update()}{motors\_update()}}
+{\footnotesize\ttfamily void motors\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcommand__t}{command\+\_\+t}}}]{command,  }\item[{\mbox{\hyperlink{structdrone__data__t}{drone\+\_\+data\+\_\+t}}}]{drone\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Update the motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command to be executed \\
+\hline
+{\em drone\+\_\+data} & Data from the drone\\
+\hline
+\end{DoxyParams}
+MOTORS CONFIGURATION \begin{DoxyVerb}   1   2
+    \ /
+     X
+    / \
+   4   3
+\end{DoxyVerb}
+ \Hypertarget{motors_8h_aaf118ca4fcc6850b15b9e47c3c64d90d}\label{motors_8h_aaf118ca4fcc6850b15b9e47c3c64d90d} 
+\index{motors.h@{motors.h}!motors\_update\_pid\_constants@{motors\_update\_pid\_constants}}
+\index{motors\_update\_pid\_constants@{motors\_update\_pid\_constants}!motors.h@{motors.h}}
+\doxysubsubsection{\texorpdfstring{motors\_update\_pid\_constants()}{motors\_update\_pid\_constants()}}
+{\footnotesize\ttfamily bool motors\+\_\+update\+\_\+pid\+\_\+constants (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{pid\+\_\+number,  }\item[{float}]{kp,  }\item[{float}]{ki,  }\item[{float}]{kd }\end{DoxyParamCaption})}
+
+
+
+Update the PID constants for a specific PID controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pid\+\_\+number} & PID controller number (1\+: pitch, 2\+: roll, 3\+: yaw) \\
+\hline
+{\em kp} & Proportional constant \\
+\hline
+{\em ki} & Integral constant \\
+\hline
+{\em kd} & Derivative constant \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
