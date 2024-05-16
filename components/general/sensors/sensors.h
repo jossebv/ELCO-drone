@@ -19,10 +19,12 @@
  */
 typedef struct drone_data_t
 {
-    double altitude;  /**< Altitude data of the drone */
-    double pitch;     /**< Pitch data of the drone */
-    double roll;      /**< Roll data of the drone */
-    double yaw_speed; /**< Yaw speed data of the drone */
+    double altitude;   /**< Altitude data of the drone */
+    double pitch;      /**< Pitch data of the drone */
+    double pitch_rate; /**< Pitch rate data of the drone */
+    double roll;       /**< Roll data of the drone */
+    double roll_rate;  /**< Roll rate data of the drone */
+    double yaw_speed;  /**< Yaw speed data of the drone */
 } drone_data_t;
 
 void sensors_init();

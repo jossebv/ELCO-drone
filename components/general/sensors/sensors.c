@@ -97,7 +97,9 @@ drone_data_t sensors_update_drone_data()
 
     drone_angles_t drone_angles = comb_filter_get_angles(gyros_delta_angles, acc_angles);
     drone_data.pitch = drone_angles.pitch;
+    drone_data.pitch_rate = gyros_speeds.pitch;
     drone_data.roll = drone_angles.roll;
+    drone_data.roll_rate = gyros_speeds.roll;
 
     // Update the yaw speed
     drone_data.yaw_speed = gyros_speeds.yaw;
@@ -106,7 +108,7 @@ drone_data_t sensors_update_drone_data()
     drone_data.altitude = get_altitude_data();
 
 #if DEBUG_SENSORS
-    printf("Drone data: time: %lld, pitch: %f, roll: %f, yaw: %f, altitude: %f\n", esp_timer_get_time(), drone_data.pitch, drone_data.roll, drone_data.yaw_speed, drone_data.altitude);
+    printf("Drone data: time: %lld, pitch: %f, pitch_rate: %f, roll: %f, roll_rate: %f, yaw: %f, altitude: %f\n", esp_timer_get_time(), drone_data.pitch, drone_data.pitch_rate, drone_data.roll, drone_data.roll_rate, drone_data.yaw_speed, drone_data.altitude);
 #if DEBUG_WIFI
     static char packet[sizeof(drone_data_t) + 1];
     packet[0] = 0x60;
