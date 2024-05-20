@@ -146,7 +146,7 @@ bool wifiGetDataBlocking(UDPPacket *in)
     if (xQueueReceive(udp_data_rx, in, pdMS_TO_TICKS(2)) != pdTRUE)
     {
         return false;
-    }; // Don't return until we get some data on the UDP
+    };
 
     return true;
 };
@@ -315,7 +315,7 @@ static void udp_server_rx_task(void *pvParameters)
                     // ESP_LOGI(TAG, "Checksum OK");
                     if (xQueueSend(udp_data_rx, &in_packet, 2) != pdTRUE)
                     {
-                        ESP_LOGE(TAG, "Error sending data to queue");
+                        ESP_LOGE(TAG, "Error sending command to queue");
                     }
                 }
                 else

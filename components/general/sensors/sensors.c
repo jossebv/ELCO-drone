@@ -30,7 +30,7 @@
 /* DEFINES */
 #define DEBUG_WIFI 0 /**< Debug the data via wifi */
 
-#define DEBUG_SENSORS 0         /**< Debug the sensors data */
+#define DEBUG_SENSORS 1         /**< Debug the sensors data */
 #define DEBUG_ACCEL 0           /**< Debug the accelerometer data */
 #define DEBUG_GYRO 0            /**< Debug the gyroscope data */
 #define DEBUG_ACCEL_TO_ANGLES 0 /**< Debug the acc to angles function */
@@ -41,6 +41,7 @@
 
 /* FUNCTIONS DECLARATIONS */
 double get_altitude_data();
+void sensors_read_sensors_data(gyro_vector_t *gyro_data, acc_vector_t *acc_data);
 gyro_vector_t get_gyroscope_data();
 drone_angles_t gyros_speeds_to_delta_angles(gyro_vector_t gyros_speed, double delta_time_ms);
 acc_vector_t get_accelerometer_data();
@@ -121,6 +122,11 @@ drone_data_t sensors_update_drone_data()
     return drone_data;
 }
 
+drone_data_t sensors_get_drone_data()
+{
+    return drone_data;
+}
+
 /**
  * @brief Reads the gyroscope data from the IMU
  *
@@ -158,16 +164,6 @@ void sensors_calibrate_imu(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets)
     mpu6050_calibrate(gyro_offsets, acc_offsets);
 }
 
-/**
- * @brief Get the drone data object containing the pitch, roll, yaw speed and altitude
- *
- * @return drone_data_t Drone data object
- */
-drone_data_t sensors_get_drone_data()
-{
-    return drone_data;
-}
-
 /* PRIVATE FUNTIONS */
 /**
  * @brief Get the altitude data object
@@ -178,7 +174,7 @@ double get_altitude_data()
 {
     // TODO: Connect the ultrasonic sensor
     return 0;
-    return ultrasonic_get_distance();
+    // return ultrasonic_get_distance();
 }
 
 /**

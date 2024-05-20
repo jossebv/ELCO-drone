@@ -81,12 +81,7 @@ class DroneConsole(cmd.Cmd):
             return False
 
         print(f"Updating PID {pid_num} with values P={p}, I={i}, D={d}")
-
-        if pid_num == 4:
-            self.driver.pid_update(1, p, i, d)
-            self.driver.pid_update(2, p, i, d)
-        else:
-            self.driver.pid_update(pid_num, p, i, d)
+        self.driver.pid_update(pid_num, p, i, d)
 
     def do_exit(self, line):
         "Exit the console"

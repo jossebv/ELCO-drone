@@ -36,6 +36,16 @@ typedef struct acc_vector_t
     double z; /**< z is the acceleration in the z-axis */
 } acc_vector_t;
 
+typedef struct
+{
+    double gyro_pitch;
+    double gyro_roll;
+    double gyro_yaw;
+    double acc_x;
+    double acc_y;
+    double acc_z;
+} mpu6050_data_t;
+
 /* PUBLIC FUNCTIONS */
 void mpu6050_init();
 void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets);

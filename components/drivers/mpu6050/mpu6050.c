@@ -35,6 +35,10 @@
 
 /* VARIABLES */
 static bool is_init = false;
+
+static gyro_vector_t gyro_mem;
+static acc_vector_t acc_mem;
+
 static double gyro_offset_pitch, gyro_offset_roll, gyro_offset_yaw;
 static double accel_offset_x, accel_offset_y, accel_offset_z = 0;
 
@@ -79,6 +83,29 @@ void mpu6050_init()
     is_init = true;
 }
 
+mpu6050_data_t mpu6050_read_data()
+{
+    mpu6050_data_t data;
+    uint8_t buffer[14]; // 2 bytes for each axis
+    uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
+    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), buffer, sizeof(buffer), pdMS_TO_TICKS(10));
+    data.acc_x = ((((int16_t)buffer[0]) << 8) | buffer[1]) / 16384.0;
+    data.acc_y = ((((int16_t)buffer[2]) << 8) | buffer[3]) / 16384.0;
+    data.acc_z = ((((int16_t)buffer[4]) << 8) | buffer[5]) / 16384.0;
+    data.gyro_pitch = ((((int16_t)buffer[8]) << 8) | buffer[9]) / 16.4;
+    data.gyro_roll = ((((int16_t)buffer[10]) << 8) | buffer[11]) / 16.4;
+    data.gyro_yaw = ((((int16_t)buffer[12]) << 8) | buffer[13]) / 16.4;
+
+    data.acc_x -= accel_offset_x;
+    data.acc_y -= accel_offset_y;
+    data.acc_z -= accel_offset_z;
+    data.gyro_pitch -= gyro_offset_pitch;
+    data.gyro_roll -= gyro_offset_roll;
+    data.gyro_yaw -= gyro_offset_yaw;
+
+    return data;
+}
+
 /**
  * @brief Reads the gyro data
  *
@@ -90,7 +117,12 @@ gyro_vector_t mpu6050_read_gyro()
     gyro_vector_t gyro;
     uint8_t read_buffer[6]; // 2 bytes for each axis
     uint8_t write_reg = MPU6050_GYRO_XOUT_H_REG;
-    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(1000));
+    esp_err_t err = i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(10));
+
+    if (err != ESP_OK)
+    {
+        return gyro_mem;
+    }
 
     int16_t gyro_x = (int16_t)((uint8_t)read_buffer[0] << 8 | (uint8_t)read_buffer[1]);
     int16_t gyro_y = (int16_t)((uint8_t)read_buffer[2] << 8 | (uint8_t)read_buffer[3]);
@@ -103,6 +135,8 @@ gyro_vector_t mpu6050_read_gyro()
     gyro.pitch -= gyro_offset_pitch;
     gyro.roll -= gyro_offset_roll;
     gyro.yaw -= gyro_offset_yaw;
+
+    gyro_mem = gyro;
 
     return gyro;
 }
@@ -117,7 +151,12 @@ acc_vector_t mpu6050_read_accelerometer()
     acc_vector_t acc;
     uint8_t read_buffer[6]; // 2 bytes for each axis
     uint8_t write_reg = MPU6050_ACCEL_XOUT_H_REG;
-    i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(10));
+    esp_err_t err = i2c_master_write_read_device(I2C_NUM_0, MPU6050_ADDR, &write_reg, sizeof(write_reg), read_buffer, sizeof(read_buffer), pdMS_TO_TICKS(10));
+
+    if (err != ESP_OK)
+    {
+        return acc_mem;
+    }
 
     int16_t acc_x = (int16_t)((uint8_t)read_buffer[0] << 8 | (uint8_t)read_buffer[1]);
     int16_t acc_y = (int16_t)((uint8_t)read_buffer[2] << 8 | (uint8_t)read_buffer[3]);
@@ -130,6 +169,8 @@ acc_vector_t mpu6050_read_accelerometer()
     acc.x -= accel_offset_x;
     acc.y -= accel_offset_y;
     acc.z -= accel_offset_z;
+
+    acc_mem = acc;
 
     return acc;
 }

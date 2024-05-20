@@ -30,25 +30,25 @@
 #include "wifi.h"
 
 /* DEFINES */
-#define PITCH_KP 1.5 /**< Proportional constant for the pith PID controller */
-#define PITCH_KI 2   /**< Integral constant for the pith PID controller */
-#define PITCH_KD 0.1 /**< Derivative constant for the pith PID controller */
+#define PITCH_KP 0   /**< Proportional constant for the pith PID controller */
+#define PITCH_KI 0   /**< Integral constant for the pith PID controller */
+#define PITCH_KD 0.0 /**< Derivative constant for the pith PID controller */
 
-#define PITCH_RATE_KP 0.2 /**< Proportional constant for the pitch rate PID controller */
+#define PITCH_RATE_KP 0.0 /**< Proportional constant for the pitch rate PID controller */
 #define PITCH_RATE_KI 0   /**< Integral constant for the pitch rate PID controller */
 #define PITCH_RATE_KD 0.0 /**< Derivative constant for the pitch rate PID controller */
 
-#define ROLL_KP 1.5 /**< Proportional constant for the roll PID controller */
-#define ROLL_KI 2   /**< Integral constant for the roll PID controller */
-#define ROLL_KD 0.1 /**< Derivative constant for the PID controller */
+#define ROLL_KP 0.0 /**< Proportional constant for the roll PID controller */
+#define ROLL_KI 0   /**< Integral constant for the roll PID controller */
+#define ROLL_KD 0.0 /**< Derivative constant for the PID controller */
 
-#define ROLL_RATE_KP 0.3 /**< Proportional constant for the roll rate PID controller */
+#define ROLL_RATE_KP 0.2 /**< Proportional constant for the roll rate PID controller */
 #define ROLL_RATE_KI 0   /**< Integral constant for the roll rate PID controller */
 #define ROLL_RATE_KD 0   /**< Derivative constant for the roll rate PID controller */
 
-#define YAW_KP 0.01 /**< Proportional constant for the yaw PID controller  */
-#define YAW_KI 0    /**< Integral constant for the yaw PID controller */
-#define YAW_KD 0    /**< Derivative constant for the yaw PID controller */
+#define YAW_KP 0.0 /**< Proportional constant for the yaw PID controller  */
+#define YAW_KI 0   /**< Integral constant for the yaw PID controller */
+#define YAW_KD 0   /**< Derivative constant for the yaw PID controller */
 
 #define PWM_PERIOD_MS 3                  /**< Period of the PWM signal */
 #define PWM_FREQ_HZ 1000 / PWM_PERIOD_MS /**< Frequency of the PWM signal */
@@ -175,15 +175,22 @@ bool motors_update_pid_constants(uint8_t pid_number, float kp, float ki, float k
         pid_update_constants(pid_pitch, kp, ki, kd);
         break;
     case 2:
-        pid_update_constants(pid_roll, kp, ki, kd);
+        pid_update_constants(pid_pitch_rate, kp, ki, kd);
         break;
     case 3:
+        pid_update_constants(pid_roll, kp, ki, kd);
+        break;
+    case 4:
+        pid_update_constants(pid_roll_rate, kp, ki, kd);
+        break;
+    case 5:
         pid_update_constants(pid_yaw, kp, ki, kd);
         break;
     default:
         return false;
         break;
     }
+    printf("Pid number %d updated with kp: %f, ki %f, kd %f\n", pid_number, kp, ki, kd);
     return true;
 }
 
@@ -260,17 +267,16 @@ void motors_update(command_t command, drone_data_t drone_data)
     double pid_roll_value = 0;
     double pid_yaw_value = 0;
 
-    if (command.thrust > 10 || 1)
+    if (command.thrust > 10)
     {
-        double pid_pitch_rate_value = pid_update(pid_pitch, command.pitch - drone_data.pitch);
-        double pid_roll_rate_value = pid_update(pid_roll, command.roll - drone_data.roll);
+        double pid_pitch_rate_value = -command.pitch; // pid_update(pid_pitch, command.pitch - drone_data.pitch);
+        double pid_roll_rate_value = -command.roll;   // pid_update(pid_roll, command.roll - drone_data.roll);
 
         pid_pitch_value = pid_update(pid_pitch_rate, pid_pitch_rate_value - drone_data.pitch_rate);
         pid_roll_value = pid_update(pid_roll_rate, pid_roll_rate_value - drone_data.roll_rate);
 
         pid_yaw_value = pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
         // printf("PID values: pitch_rate: %f, roll_rate: %f, pitch: %f, roll: %f, yaw: %f\n", pid_pitch_rate_value, pid_roll_rate_value, pid_pitch_value, pid_roll_value, pid_yaw_value);
-        printf("Roll sensor: %f, PID roll: %f\n", drone_data.roll, pid_roll_value);
     }
     else if (command.thrust < 5)
     {
@@ -282,10 +288,10 @@ void motors_update(command_t command, drone_data_t drone_data)
     normalize_thrust_value(&command.thrust);
 
     // TODO: Check if the pid_yaw_value are correct respect to the motors configuration (It depends on the direction they move).
-    double motor1_speed = 0; // (double)(command.thrust) + pid_pitch_value + pid_roll_value + pid_yaw_value;
-    double motor2_speed = 0; // (double)(command.thrust) + pid_pitch_value - pid_roll_value - pid_yaw_value;
-    double motor3_speed = 0; // (double)(command.thrust) - pid_pitch_value - pid_roll_value + pid_yaw_value;
-    double motor4_speed = 0; // (double)(command.thrust) - pid_pitch_value + pid_roll_value - pid_yaw_value;
+    double motor1_speed = (double)(command.thrust) - pid_pitch_value - pid_roll_value + pid_yaw_value;
+    double motor2_speed = (double)(command.thrust) - pid_pitch_value + pid_roll_value - pid_yaw_value;
+    double motor3_speed = (double)(command.thrust) + pid_pitch_value + pid_roll_value + pid_yaw_value;
+    double motor4_speed = (double)(command.thrust) + pid_pitch_value - pid_roll_value - pid_yaw_value;
 
     double motors_speeds[4] = {motor1_speed, motor2_speed, motor3_speed, motor4_speed};
 

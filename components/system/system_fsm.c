@@ -301,13 +301,13 @@ void do_controller_connected(fsm_t *fsm)
  */
 void do_update_drone_motors(fsm_t *fsm)
 {
-    drone_data_t sensors_data = sensors_update_drone_data();
-
-    command_t command;
     // uint64_t t1 = esp_timer_get_time();
-    controller_get_command(&command);
+    drone_data_t sensors_data = sensors_update_drone_data();
     // uint64_t t2 = esp_timer_get_time();
     // printf("Sensors update time: %.2f\n", (t2 - t1) / 1000.0);
+
+    command_t command;
+    controller_get_command(&command);
     motors_update(command, sensors_data);
 
     // Send battery data to the monitor
