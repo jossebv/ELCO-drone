@@ -30,7 +30,7 @@
 /* DEFINES */
 #define DEBUG_WIFI 0 /**< Debug the data via wifi */
 
-#define DEBUG_SENSORS 1         /**< Debug the sensors data */
+#define DEBUG_SENSORS 0         /**< Debug the sensors data */
 #define DEBUG_ACCEL 0           /**< Debug the accelerometer data */
 #define DEBUG_GYRO 0            /**< Debug the gyroscope data */
 #define DEBUG_ACCEL_TO_ANGLES 0 /**< Debug the acc to angles function */
@@ -86,6 +86,7 @@ drone_data_t sensors_update_drone_data()
 {
 
     // Update the pitch and roll data
+    sensors_read_data();
     gyro_vector_t gyros_speeds = get_gyroscope_data();
     acc_vector_t accelerations = get_accelerometer_data();
 
@@ -125,6 +126,11 @@ drone_data_t sensors_update_drone_data()
 drone_data_t sensors_get_drone_data()
 {
     return drone_data;
+}
+
+void sensors_read_data()
+{
+    mpu6050_read_data();
 }
 
 /**

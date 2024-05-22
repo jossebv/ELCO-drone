@@ -22,7 +22,9 @@
         "esp_timer.h": "c",
         "system.h": "c",
         "i2c_drv.h": "c",
-        "comms.h": "c"
+        "comms.h": "c",
+        "comb_filter.h": "c",
+        "mpu6050.h": "c"
     },
     "idf.port": "/dev/cu.usbserial-0001",
     "idf.flashType": "UART"

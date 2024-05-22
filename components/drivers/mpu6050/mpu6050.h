@@ -49,6 +49,7 @@ typedef struct
 /* PUBLIC FUNCTIONS */
 void mpu6050_init();
 void mpu6050_calibrate(gyro_vector_t gyro_offsets, acc_vector_t acc_offsets);
+void mpu6050_read_data();
 gyro_vector_t mpu6050_read_gyro();
 acc_vector_t mpu6050_read_accelerometer();
 

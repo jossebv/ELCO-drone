@@ -249,6 +249,7 @@ void do_update_calibration_progress(fsm_t *fsm)
     fsm_drone_t *fsm_drone = (fsm_drone_t *)fsm;
     sensors_calibrate_imu(fsm_drone->last_gyros, fsm_drone->last_acc);
 
+    sensors_read_data();
     fsm_drone->last_acc = get_accelerometer_data();
     fsm_drone->last_gyros = get_gyroscope_data();
 }
@@ -264,6 +265,7 @@ void do_reset_calibration_progress(fsm_t *fsm)
     sensors_calibrate_imu(fsm_drone->last_gyros, fsm_drone->last_acc);
     fsm_drone->next = esp_timer_get_time() + CALIBRATION_TIME_US;
 
+    sensors_read_data();
     fsm_drone->last_acc = get_accelerometer_data();
     fsm_drone->last_gyros = get_gyroscope_data();
 

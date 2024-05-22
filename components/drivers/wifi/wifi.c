@@ -350,7 +350,7 @@ static void udp_server_tx_task(void *pvParameters)
             {
                 err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&app_addr, sizeof(app_addr));
             }
-            else if (is_udp_console_connected)
+            if (is_udp_console_connected)
             {
                 err = sendto(sock, tx_buffer, out_packet.size + 1, 0, (struct sockaddr *)&console_addr, sizeof(console_addr));
             }

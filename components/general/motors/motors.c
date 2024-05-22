@@ -34,17 +34,17 @@
 #define PITCH_KI 0   /**< Integral constant for the pith PID controller */
 #define PITCH_KD 0.0 /**< Derivative constant for the pith PID controller */
 
-#define PITCH_RATE_KP 0.0 /**< Proportional constant for the pitch rate PID controller */
-#define PITCH_RATE_KI 0   /**< Integral constant for the pitch rate PID controller */
-#define PITCH_RATE_KD 0.0 /**< Derivative constant for the pitch rate PID controller */
+#define PITCH_RATE_KP 0.075 /**< Proportional constant for the pitch rate PID controller */
+#define PITCH_RATE_KI 0.5   /**< Integral constant for the pitch rate PID controller */
+#define PITCH_RATE_KD 0.002 /**< Derivative constant for the pitch rate PID controller */
 
 #define ROLL_KP 0.0 /**< Proportional constant for the roll PID controller */
 #define ROLL_KI 0   /**< Integral constant for the roll PID controller */
 #define ROLL_KD 0.0 /**< Derivative constant for the PID controller */
 
-#define ROLL_RATE_KP 0.2 /**< Proportional constant for the roll rate PID controller */
-#define ROLL_RATE_KI 0   /**< Integral constant for the roll rate PID controller */
-#define ROLL_RATE_KD 0   /**< Derivative constant for the roll rate PID controller */
+#define ROLL_RATE_KP 0.055 /**< Proportional constant for the roll rate PID controller */
+#define ROLL_RATE_KI 0.45  /**< Integral constant for the roll rate PID controller */
+#define ROLL_RATE_KD 0.002 /**< Derivative constant for the roll rate PID controller */
 
 #define YAW_KP 0.0 /**< Proportional constant for the yaw PID controller  */
 #define YAW_KI 0   /**< Integral constant for the yaw PID controller */
@@ -259,29 +259,28 @@ void motors_update_duties(double *motor_speeds)
  */
 void motors_update(command_t command, drone_data_t drone_data)
 {
-    command.pitch = 0;
-    command.roll = 0;
-    command.yaw_speed = 0;
-
     double pid_pitch_value = 0;
     double pid_roll_value = 0;
     double pid_yaw_value = 0;
 
     if (command.thrust > 10)
     {
-        double pid_pitch_rate_value = -command.pitch; // pid_update(pid_pitch, command.pitch - drone_data.pitch);
-        double pid_roll_rate_value = -command.roll;   // pid_update(pid_roll, command.roll - drone_data.roll);
+        double pid_pitch_rate_value = -(command.pitch / 2); // pid_update(pid_pitch, command.pitch - drone_data.pitch);
+        double pid_roll_rate_value = -(command.roll / 2);   // pid_update(pid_roll, command.roll - drone_data.roll);
 
         pid_pitch_value = pid_update(pid_pitch_rate, pid_pitch_rate_value - drone_data.pitch_rate);
         pid_roll_value = pid_update(pid_roll_rate, pid_roll_rate_value - drone_data.roll_rate);
 
         pid_yaw_value = pid_update(pid_yaw, command.yaw_speed - drone_data.yaw_speed);
+
         // printf("PID values: pitch_rate: %f, roll_rate: %f, pitch: %f, roll: %f, yaw: %f\n", pid_pitch_rate_value, pid_roll_rate_value, pid_pitch_value, pid_roll_value, pid_yaw_value);
     }
     else if (command.thrust < 5)
     {
         pid_reset(pid_pitch);
+        pid_reset(pid_pitch_rate);
         pid_reset(pid_roll);
+        pid_reset(pid_roll_rate);
         pid_reset(pid_yaw);
     }
 

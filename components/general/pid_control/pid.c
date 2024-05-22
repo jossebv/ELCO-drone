@@ -59,16 +59,20 @@ double pid_update(pid_data_t *pid, float error)
     double delta_time = (current_time - pid->last_time) / 1000000.0;
     pid->last_time = current_time;
 
-    pid->integral += error;
-    if (pid->integral >= MAX_INTEGRAL_VALUE)
+    pid->integral += error * delta_time;
+    if (pid->integral >= (MAX_INTEGRAL_VALUE / pid->ki))
     {
-        pid->integral = MAX_INTEGRAL_VALUE;
+        pid->integral = MAX_INTEGRAL_VALUE / pid->ki;
+    }
+    else if (pid->integral <= -(MAX_INTEGRAL_VALUE / pid->ki))
+    {
+        pid->integral = -(MAX_INTEGRAL_VALUE / pid->ki);
     }
 
     float derivative = (error - pid->last_error) / delta_time;
     pid->last_error = error;
 
-    return (double)(pid->kp * error + pid->ki * pid->integral * delta_time + pid->kd * derivative);
+    return (double)(pid->kp * error + pid->ki * pid->integral + pid->kd * derivative);
 }
 
 /**
@@ -81,6 +85,7 @@ void pid_reset(pid_data_t *pid)
     pid->last_time = esp_timer_get_time();
     pid->integral = 0;
     pid->last_error = 0;
+    pid->last_time = esp_timer_get_time();
 }
 
 /**
